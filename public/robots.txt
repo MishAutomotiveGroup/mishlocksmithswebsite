@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://westlondonautolocksmith.co.uk/sitemap.xml
