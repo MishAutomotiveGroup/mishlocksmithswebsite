@@ -69,7 +69,7 @@ function App() {
   return (
     <TooltipProvider>
       <StructuredData />
-      <WouterRouter>
+      <WouterRouter ssrPath="/">
         <Router />
         <CookieConsent />
       </WouterRouter>
