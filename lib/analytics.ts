@@ -85,19 +85,6 @@ export function reportWhatsAppConversion() {
   }
 }
 
-// Fires the Google Ads quote form submission conversion. Called on a successful spare key quote form submit.
-export function reportQuoteFormConversion() {
-  if (typeof window === "undefined") return;
-  const label = siteContent.analytics.gadsQuoteFormConversionLabel;
-  if (siteContent.analytics.enabled && label && (window as any).gtag) {
-    (window as any).gtag("event", "conversion", {
-      send_to: label,
-      value: 1.0,
-      currency: "GBP",
-    });
-  }
-}
-
 export function trackWhatsAppClick(source: string) {
   trackEvent("whatsapp_click", { source });
   reportWhatsAppConversion();

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Phone, CheckCircle, ChevronRight, MessageCircle } from "lucide-react";
 import PageLayout from "@/components/layout/PageLayout";
-import JobGallery from "@/components/sections/JobGallery";
 import AvailabilityIndicator from "@/components/sections/AvailabilityIndicator";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
@@ -72,49 +71,14 @@ export default function VehicleLockoutPage() {
         ogDescription:
           "Locked out of your car in Surrey? Mobile vehicle entry across Guildford and surrounding areas. Call for a clear quote before dispatch.",
       }}
-      hideReviewCarousel
     >
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[#171C22] text-white" data-testid="section-hero">
 
-        {/* Photo — top-right on mobile (55% wide), full-height right panel on desktop */}
-        <div
-          className="absolute top-0 right-0 w-[70%] h-[400px] md:bottom-0 md:h-full md:w-[60%] pointer-events-none"
-          aria-hidden="true"
-          style={{
-            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 25%, black 55%)',
-            maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 25%, black 55%)',
-            background: 'black',
-          }}
-        >
-          <img
-            src="/images/technician-hero.png"
-            alt=""
-            className="w-full h-full object-contain object-right-top md:object-cover md:object-[center_20%]"
-            loading="eager"
-            fetchPriority="high"
-            decoding="sync"
-          />
-        </div>
-
-        {/* Mobile: subtle scrim so text stays readable in the fade zone */}
-        <div
-          className="block md:hidden absolute top-0 inset-x-0 h-[400px] pointer-events-none"
-          aria-hidden="true"
-          style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 70%)' }}
-        />
-
-        {/* Desktop gradient: solid dark on left, fades to transparent over the photo */}
-        <div
-          className="hidden md:block absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{ background: "linear-gradient(to right, #171C22 30%, rgba(23,28,34,0.8) 50%, rgba(23,28,34,0.5) 62%, transparent 80%)" }}
-        />
-
-        {/* Content — sits above photo and gradient */}
+        {/* Content */}
         <div className="relative z-10 max-w-[1150px] mx-auto px-4 md:px-6">
-          <div className="pt-7 md:pt-10 pb-4 md:max-w-[55%]">
+          <div className="pt-7 md:pt-10 pb-8 max-w-2xl mx-auto">
 
             <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-3 text-white">
               Locked Out of Your Car?
@@ -143,30 +107,6 @@ export default function VehicleLockoutPage() {
                 ))}
               </div>
             </div>
-
-            {/* ── Google trust badge ─────────────────────────────────────────── */}
-            <a
-              href={siteContent.reviews.googleReviewsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Read Mish Auto Locksmiths reviews on Google"
-              data-testid="google-trust-box"
-              className="inline-flex items-center gap-2 border border-white/20 rounded-xl bg-[#171C22] px-[11px] py-[9px] mb-5 hover:border-[#1677FF] hover:bg-[#0D63DA] transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50"
-            >
-              <img
-                src="/images/google-g.png"
-                alt=""
-                className="object-contain w-[25px] h-[25px] shrink-0"
-                style={{ mixBlendMode: 'screen' }}
-              />
-              <div className="w-px h-[20px] bg-white/25 shrink-0" />
-              <span className="flex items-center gap-1 text-white font-semibold text-[10px] leading-tight whitespace-nowrap">
-                <svg className="w-[8px] h-[8px] shrink-0 text-[#1677FF]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                Rated 5 Stars on Google
-              </span>
-            </a>
 
             {/* Pricing */}
             <div className="bg-[#171C22]/90 border border-white/10 rounded-xl p-4 mb-4 backdrop-blur-sm">
@@ -214,28 +154,6 @@ export default function VehicleLockoutPage() {
 
           </div>
 
-        </div>
-      </section>
-
-      {/* ── PHOTO COLLAGE ─────────────────────────────────────────────────── */}
-      <section className="bg-[#171C22] px-4 pb-8" data-testid="section-photo-collage">
-        <div className="flex flex-col gap-2 md:gap-3">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
-            <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
-              <img src="/images/job-lockout-top.png" alt="Technician unlocking a car door" className="w-full h-full object-cover" loading="lazy" />
-            </div>
-            <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
-              <img src="/images/job6.png" alt="Mish Auto Locksmiths technician by van" className="w-full h-full object-cover object-top" loading="lazy" />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2 md:gap-3">
-            <div className="aspect-square overflow-hidden rounded-lg">
-              <img src="/images/job3.png" alt="Mish Auto Locksmiths technician" className="w-full h-full object-cover object-top" loading="lazy" />
-            </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
-              <img src="/images/job5.png" alt="Technician working on a vehicle door" className="w-full h-full object-cover object-top" loading="lazy" />
-            </div>
-          </div>
         </div>
       </section>
 
@@ -354,9 +272,6 @@ export default function VehicleLockoutPage() {
         </div>
       </section>
 
-      {/* Recent jobs (hidden if empty) */}
-      <JobGallery />
-
       {/* ── WHY CHOOSE US ─────────────────────────────────────────────────── */}
       <section className="py-12 px-4 bg-[#F4F6F8]" data-testid="section-why-choose-us">
         <div className="max-w-3xl mx-auto">
@@ -365,7 +280,7 @@ export default function VehicleLockoutPage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
-              "5-Star Google Reviews",
+              "Clear pricing before dispatch",
               "Mobile across Surrey",
               "Non-destructive entry methods",
               "No Call-Out Fee",

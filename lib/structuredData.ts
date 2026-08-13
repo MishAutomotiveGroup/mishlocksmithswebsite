@@ -13,10 +13,10 @@ function toE164UK(raw: string): string {
 
 // LocalBusiness (Locksmith) structured data for the whole site.
 // Uses only accurate, known business data. Deliberately omits:
-//  - aggregateRating/review (Google advises against self-serving review markup)
+//  - ratings or testimonials (none are currently published)
 //  - image (no approved, siteContent-controlled schema image exists yet)
 export function getLocalBusinessSchema() {
-  const { business, seo, reviews } = siteContent;
+  const { business, seo } = siteContent;
   const hasPhone = business.phone !== "PHONE_NUMBER_PLACEHOLDER";
   const telephone = hasPhone ? toE164UK(business.phone) : undefined;
 
@@ -28,7 +28,6 @@ export function getLocalBusinessSchema() {
       "Vehicle lockout specialist covering Guildford and surrounding areas in Surrey. Vehicle entry only — no key programming or house locksmithing.",
     url: seo.siteUrl,
     ...(telephone ? { telephone } : {}),
-    ...(business.email ? { email: business.email } : {}),
     areaServed: business.coverageAreas.map((name) => ({ "@type": "Place", name })),
     address: {
       "@type": "PostalAddress",
@@ -36,6 +35,5 @@ export function getLocalBusinessSchema() {
       addressRegion: "Surrey",
       addressCountry: "GB",
     },
-    ...(reviews.googleReviewsUrl ? { sameAs: [reviews.googleReviewsUrl] } : {}),
   };
 }

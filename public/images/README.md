@@ -2,18 +2,18 @@
 
 ## /images/jobs/
 Upload real vehicle entry job photos here. File names should be descriptive
-(e.g. ford-focus-entry-hayes.jpg).
+(e.g. ford-focus-entry-guildford.jpg).
 
 After uploading, add each photo to `siteContent.recentJobs.photos` in
 `src/content/siteContent.ts`. Example entry:
 
 ```ts
 {
-  src: "/images/jobs/ford-focus-entry-hayes.jpg",
+  src: "/images/jobs/ford-focus-entry-guildford.jpg",
   caption: "Ford Focus — door entry",
-  area: "Hayes",
+  area: "Guildford",
   jobDescription: "Keys locked inside, vehicle entry carried out.",
-  alt: "Vehicle entry job on a Ford Focus in Hayes",
+  alt: "Vehicle entry job on a Ford Focus in Guildford",
 }
 ```
 

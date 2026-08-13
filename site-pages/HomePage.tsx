@@ -3,7 +3,6 @@ import { Link } from "wouter";
 import { Phone, ChevronRight, CheckCircle } from "lucide-react";
 import PageLayout from "@/components/layout/PageLayout";
 import AvailabilityIndicator from "@/components/sections/AvailabilityIndicator";
-import ReviewsList from "@/components/sections/ReviewsList";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackEvent } from "@/lib/analytics";
 
@@ -119,58 +118,7 @@ export default function HomePage() {
             <AvailabilityIndicator />
           </div>
 
-          {/* Google trust badge */}
-          <a
-            href={siteContent.reviews.googleReviewsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Read Mish Auto Locksmiths reviews on Google"
-            className="inline-flex items-center gap-2 border border-white/20 rounded-xl bg-[#171C22] px-[11px] py-[9px] hover:border-[#1677FF] hover:bg-[#0D63DA] transition-colors duration-150"
-          >
-            <img
-              src="/images/google-g.png"
-              alt=""
-              className="object-contain w-[25px] h-[25px] shrink-0"
-              style={{ mixBlendMode: "screen" }}
-            />
-            <div className="w-px h-[20px] bg-white/25 shrink-0" />
-            <span className="flex items-center gap-1 text-white font-semibold text-[10px] leading-tight whitespace-nowrap">
-              <svg className="w-[8px] h-[8px] shrink-0 text-[#1677FF]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              Rated 5 Stars on Google
-            </span>
-          </a>
         </div>
-
-        {/* ── PHOTO COLLAGE ──────────────────────────────────────────────── */}
-        <div className="-mx-4 mt-8" data-testid="section-photo-collage">
-          <div className="flex flex-col gap-2 md:gap-3 px-4">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
-              <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
-                <img src="/images/job4.png" alt="Mish Auto Locksmiths technician beside branded vehicle in Guildford" className="w-full h-full object-cover" loading="eager" />
-              </div>
-              <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
-                <img src="/images/job6.png" alt="Mish Auto Locksmiths technician by van" className="w-full h-full object-cover object-top" loading="lazy" />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-              <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/job1.png" alt="Mish Auto Locksmiths branded vehicle" className="w-full h-full object-cover" loading="lazy" />
-              </div>
-              <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/job7.png" alt="Technician working on a vehicle door lock" className="w-full h-full object-cover object-top" loading="lazy" />
-              </div>
-              <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/job8.png" alt="Mish Auto Locksmiths technician beside branded vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
-              </div>
-              <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/job5.png" alt="Technician working on a vehicle door" className="w-full h-full object-cover object-top" loading="lazy" />
-              </div>
-            </div>
-          </div>
-        </div>
-
       </section>
 
       {/* ── CHOOSE YOUR SERVICE ───────────────────────────────────────────── */}
@@ -230,8 +178,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ReviewsList heading="What Our Customers Say" showGoogleLink={true} />
-
       {/* ── WHY CHOOSE US ─────────────────────────────────────────────────── */}
       <section className="bg-[#EAF3FF] py-12 px-4" data-testid="section-why-us">
         <div className="max-w-4xl mx-auto">
@@ -240,7 +186,7 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4">
             {[
-              "5-Star Google Reviews",
+              "Clear pricing before travel",
               "Mobile across Surrey",
               "No hidden call-out fee",
               "Live ETA before we travel",

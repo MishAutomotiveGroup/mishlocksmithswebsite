@@ -16,8 +16,6 @@ interface PageLayoutProps {
   };
   /** Optional override for the mobile sticky action bar. Defaults to the call bar. */
   stickyBar?: React.ReactNode;
-  /** @deprecated — carousel removed */
-  hideReviewCarousel?: boolean;
 }
 
 export default function PageLayout({ children, meta, stickyBar }: PageLayoutProps) {

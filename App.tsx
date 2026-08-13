@@ -13,7 +13,6 @@ import ServicesPage from "@/site-pages/ServicesPage";
 import SpareCarKeyPage from "@/site-pages/SpareCarKeyPage";
 import AreasPage from "@/site-pages/AreasPage";
 import PricingPage from "@/site-pages/PricingPage";
-import ReviewsPage from "@/site-pages/ReviewsPage";
 import FAQsPage from "@/site-pages/FAQsPage";
 import AboutPage from "@/site-pages/AboutPage";
 import ContactPage from "@/site-pages/ContactPage";
@@ -53,7 +52,6 @@ function Router() {
         <Route path="/spare-car-key" component={SpareCarKeyPage} />
         <Route path="/areas-we-cover" component={AreasPage} />
         <Route path="/pricing" component={PricingPage} />
-        <Route path="/reviews" component={ReviewsPage} />
         <Route path="/faqs" component={FAQsPage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/contact" component={ContactPage} />

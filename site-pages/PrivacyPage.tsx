@@ -31,13 +31,12 @@ export default function PrivacyPage() {
 
           <h2>What Data We Collect</h2>
           <p>
-            When you use the quote request form or the WhatsApp quote buttons on this site, you may
+            When you use the WhatsApp quote buttons on this site, you may
             provide some or all of the following information:
           </p>
           <ul>
             <li>Your name</li>
             <li>Phone number</li>
-            <li>Email address</li>
             <li>Vehicle make, model, and year</li>
             <li>Your postcode or location</li>
             <li>Details of your enquiry</li>
@@ -59,14 +58,6 @@ export default function PrivacyPage() {
             marketing purposes.
           </p>
 
-          <h2>Contact Forms and Email</h2>
-          <p>
-            Enquiries submitted through the quote form on this site are routed to us by a
-            third-party form or email provider. The submission and its contents may be accessible
-            to that provider as part of the message delivery process. We use these submissions
-            solely to respond to your enquiry.
-          </p>
-
           <h2>WhatsApp</h2>
           <p>
             Some pages on this site include buttons that open a pre-filled WhatsApp message. When
@@ -80,30 +71,9 @@ export default function PrivacyPage() {
             details) in WhatsApp messages unnecessarily.
           </p>
 
-          <h2>Analytics Cookies</h2>
+          <h2>Analytics and Advertising</h2>
           <p>
-            This site uses Google Analytics to understand how visitors find us and which pages are
-            most useful. Analytics is only enabled if you accept cookies via the cookie consent
-            notice shown on your first visit. If you decline, no analytics data is collected and no
-            analytics cookies are set.
-          </p>
-          <p>
-            Google Analytics collects data in aggregate, such as page views, session duration,
-            device type, and approximate location (city level). This data does not identify you
-            personally and is used only to improve the site.
-          </p>
-
-          <h2>Advertising and Call Tracking</h2>
-          <p>
-            We may use Google Ads to promote our services. If you have accepted cookies, Google Ads
-            conversion tracking may record when you click a call button or complete another
-            measurable action on this site. This helps us understand which advertising is effective.
-          </p>
-          <p>
-            Call-button clicks may also be recorded for conversion reporting purposes. If a
-            call-tracking number is displayed on this site, calls to that number may be logged
-            (date, time, duration) to help us measure enquiry volumes. No call recordings are made
-            or stored via this site.
+            This website does not currently use analytics or advertising tracking cookies.
           </p>
 
           <h2>Legal Basis for Using Your Data</h2>
@@ -114,8 +84,7 @@ export default function PrivacyPage() {
               quote, and carrying out the service you have requested.
             </li>
             <li>
-              <strong>Consent:</strong> Placing analytics and advertising cookies on your device.
-              You can withdraw this consent at any time by adjusting your cookie preferences.
+              <strong>Consent:</strong> Sending information to us through WhatsApp.
             </li>
           </ul>
 
@@ -149,10 +118,6 @@ export default function PrivacyPage() {
               <strong>Hosting:</strong> Our website is hosted by a third-party web hosting provider.
             </li>
             <li>
-              <strong>Email / form provider:</strong> Enquiry form submissions are delivered via a
-              third-party email or form service.
-            </li>
-            <li>
               <strong>WhatsApp / Meta:</strong> Pre-filled message buttons link to WhatsApp,
               operated by Meta Platforms, Inc. See the{" "}
               <a
@@ -163,37 +128,6 @@ export default function PrivacyPage() {
                 WhatsApp Privacy Policy
               </a>
               .
-            </li>
-            <li>
-              <strong>Google Analytics:</strong> Web analytics provided by Google LLC. See the{" "}
-              <a
-                href="https://policies.google.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Google Privacy Policy
-              </a>
-              .
-            </li>
-            <li>
-              <strong>Google Ads:</strong> Advertising and conversion tracking provided by Google
-              LLC. See the{" "}
-              <a
-                href="https://policies.google.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Google Privacy Policy
-              </a>
-              .
-            </li>
-            <li>
-              <strong>Google Business Profile:</strong> Our business listing on Google Maps and
-              Search is managed via Google Business Profile, operated by Google LLC.
-            </li>
-            <li>
-              <strong>Cookie consent provider:</strong> The cookie consent notice on this site is
-              powered by a third-party cookie management tool.
             </li>
           </ul>
 

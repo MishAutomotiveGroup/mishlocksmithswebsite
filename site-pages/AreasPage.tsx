@@ -62,7 +62,6 @@ export default function AreasPage() {
         ogDescription:
           "Mobile vehicle lockout help across Surrey. Call with your location and we'll confirm availability and price before dispatch.",
       }}
-      hideReviewCarousel
     >
       {/* Hero */}
       <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-areas-hero">

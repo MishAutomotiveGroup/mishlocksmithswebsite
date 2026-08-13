@@ -11,7 +11,6 @@ const navLinks = [
   { label: "Spare Car Key", href: "/spare-car-key" },
   { label: "Areas We Cover", href: "/areas-we-cover" },
   { label: "Prices", href: "/pricing" },
-  { label: "Reviews", href: "/reviews" },
   { label: "FAQs", href: "/faqs" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },

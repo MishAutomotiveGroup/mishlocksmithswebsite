@@ -82,7 +82,6 @@ export default function FAQsPage() {
         ogDescription:
           "Common questions about vehicle lockout pricing, coverage, and how the service works.",
       }}
-      hideReviewCarousel
     >
       <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-faqs-hero">
         <div className="max-w-3xl mx-auto">

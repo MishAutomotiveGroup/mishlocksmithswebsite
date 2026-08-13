@@ -1,6 +1,6 @@
 import PageLayout from "@/components/layout/PageLayout";
 import { siteContent } from "@/content/siteContent";
-import { Phone, Mail } from "lucide-react";
+import { Phone } from "lucide-react";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
 
 const hasPhone = siteContent.business.phone !== "PHONE_NUMBER_PLACEHOLDER";
@@ -22,7 +22,6 @@ export default function ContactPage() {
         ogDescription:
           "Locked out of your vehicle? Call Mish Auto Locksmiths. We cover Guildford and surrounding areas.",
       }}
-      hideReviewCarousel
     >
       <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-contact-hero">
         <div className="max-w-3xl mx-auto">
@@ -62,22 +61,6 @@ export default function ContactPage() {
               </div>
             )}
           </div>
-
-          {/* Email */}
-          {siteContent.business.email && (
-            <div data-testid="contact-email-block">
-              <h2 className="text-xl font-bold text-[#171C22] mb-3">Email Us</h2>
-              <a
-                href={`mailto:${siteContent.business.email}`}
-                className="inline-flex items-center gap-2 text-[#171C22] font-semibold text-base hover:text-[#1677FF] transition-colors"
-                data-testid="link-email-contact"
-              >
-                <Mail size={18} />
-                {siteContent.business.email}
-              </a>
-              <p className="text-xs text-[#171C22]/50 mt-2">For non-urgent enquiries. For lockouts, calling is fastest.</p>
-            </div>
-          )}
 
           {/* What to have ready */}
           <div data-testid="contact-prep-block">

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mish Car Keys",
+  title: "Mish Auto Locksmiths",
   description:
-    "Mobile vehicle locksmith services, copied from the existing business site ready for rebranding.",
+    "Mobile vehicle locksmith services across Guildford and Surrey.",
   other: {
     "codex-preview": "development",
   },

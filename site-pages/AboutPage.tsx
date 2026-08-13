@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import {
   Phone, MessageCircle, CheckCircle, ChevronRight,
-  BadgeCheck, MapPin, Shield, User, Star,
+  BadgeCheck, MapPin, Shield, User,
 } from "lucide-react";
 import PageLayout from "@/components/layout/PageLayout";
 import AvailabilityIndicator from "@/components/sections/AvailabilityIndicator";
@@ -18,24 +18,6 @@ const aboutMsg = encodeURIComponent(
   "Hi, I have a question about your services.\n\nVehicle make:\nVehicle model:\nYear:\nLocation:\n\nMy query:\n\nMy name:\nBest contact number:"
 );
 const whatsappHref = `${waBase}?text=${aboutMsg}`;
-
-// ── Team data — fill in role and bio; leave blank to hide ─────────────────────
-const teamMembers = [
-  {
-    src: "/images/team-member-1.png",
-    name: "Gabriel",
-    role: "", // e.g. "Vehicle Locksmith"
-    bio:  "", // 1–2 sentences — hidden if empty
-    imgClass: "scale-[1.15] -translate-y-[2%]",
-  },
-  {
-    src: "/images/team-member-2.png",
-    name: "Mishkah",
-    role: "", // e.g. "Locksmith and Customer Enquiries"
-    bio:  "", // 1–2 sentences — hidden if empty
-    imgClass: "",
-  },
-];
 
 // ── FAQ ───────────────────────────────────────────────────────────────────────
 
@@ -98,7 +80,6 @@ export default function AboutPage() {
         ogDescription:
           "A local mobile auto locksmith based in Guildford. Clear pricing, honest service, compatibility confirmed before travel.",
       }}
-      hideReviewCarousel
     >
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
@@ -110,35 +91,9 @@ export default function AboutPage() {
           <p className="text-[#1677FF] font-semibold text-sm mb-3">
             A local mobile auto locksmith based in Guildford.
           </p>
-          <p className="text-white/55 text-sm leading-relaxed mb-8 max-w-lg">
+          <p className="text-white/55 text-sm leading-relaxed max-w-lg">
             We provide vehicle lockout and spare key services across Surrey, with clear pricing and direct communication before we travel.
           </p>
-
-          {/* Team cards */}
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-white/30 mb-4">
-            The People Behind the Business
-          </p>
-          <div className="grid grid-cols-2 gap-4 max-w-md">
-            {teamMembers.map((member) => (
-              <div key={member.src} className="flex flex-col">
-                <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
-                  <img
-                    src={member.src}
-                    alt={`${member.name} — Mish Auto Locksmiths`}
-                    className={`w-full h-full object-cover object-top ${member.imgClass}`}
-                    loading="eager"
-                  />
-                </div>
-                <div className="bg-[#171C22] border border-white/10 border-t-0 rounded-b-xl px-3 py-2.5 text-center">
-                  <p className="text-white font-semibold text-sm">{member.name}</p>
-                  {member.role && (
-                    <p className="text-[#1677FF] text-[10px] mt-0.5">{member.role}</p>
-                  )}
-                  <p className="text-white/30 text-[9px] mt-0.5">Based in Guildford</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -155,17 +110,6 @@ export default function AboutPage() {
             <p className="text-sm text-[#171C22]/70 leading-relaxed">
               We aim to be straightforward about pricing and vehicle compatibility. Before travelling, we confirm the service required, whether we can help with your vehicle and the agreed price. If a job is not suitable for us, we will tell you rather than waste your time.
             </p>
-            {/* Personal bios — shown only when real text is supplied in teamMembers above */}
-            {teamMembers.some(m => m.bio) && (
-              <div className="mt-6 pt-6 border-t border-[#171C22]/15 flex flex-col gap-5">
-                {teamMembers.filter(m => m.bio).map(m => (
-                  <div key={m.name}>
-                    <p className="font-semibold text-sm text-[#171C22] mb-1">{m.name}</p>
-                    <p className="text-sm text-[#171C22]/65 leading-relaxed">{m.bio}</p>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </section>
@@ -363,41 +307,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── TRUST / PHOTOS ────────────────────────────────────────────────── */}
+      {/* ── TRUST ─────────────────────────────────────────────────────────── */}
       <section className="bg-[#171C22] py-12 px-4" data-testid="section-about-trust">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-white mb-7">Real People. Real Vehicles. Local Service.</h2>
-          <div className="grid grid-cols-3 gap-2 md:gap-3 mb-7">
-            <div className="aspect-[3/4] overflow-hidden rounded-lg">
-              <img
-                src="/images/team-member-1.png"
-                alt="Mish Auto Locksmiths — Gabriel"
-                className="w-full h-full object-cover object-top scale-[1.15] -translate-y-[2%]"
-                loading="lazy"
-              />
-            </div>
-            <div className="aspect-[3/4] overflow-hidden rounded-lg">
-              <img
-                src="/images/job-lockout-top.png"
-                alt="Technician carrying out a vehicle lockout"
-                className="w-full h-full object-cover object-top"
-                loading="lazy"
-              />
-            </div>
-            <div className="aspect-[3/4] overflow-hidden rounded-lg">
-              <img
-                src="/images/technician-with-car.png"
-                alt="Mish Auto Locksmiths technician beside vehicle"
-                className="w-full h-full object-cover object-top"
-                loading="lazy"
-              />
-            </div>
-          </div>
+          <h2 className="text-xl font-bold text-white mb-7">Straightforward Local Service</h2>
           <div className="flex flex-wrap gap-x-6 gap-y-2 mb-6">
             {[
               "Based in Guildford",
-              "Real technicians",
-              "Real customer vehicles",
+              "Clear price before travel",
+              "Compatibility checked first",
               "Mobile service",
             ].map(point => (
               <div key={point} className="flex items-center gap-2">
@@ -405,16 +323,6 @@ export default function AboutPage() {
                 <span className="text-sm text-white/60">{point}</span>
               </div>
             ))}
-          </div>
-          {/* Google rating badge */}
-          <div className="inline-flex items-center gap-2.5 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5">
-            <img src="/images/google-g.png" alt="Google" className="w-4 h-4 object-contain" />
-            <div className="flex items-center gap-1">
-              {[1,2,3,4,5].map(i => (
-                <Star key={i} size={12} className="text-[#1677FF] fill-[#1677FF]" />
-              ))}
-            </div>
-            <span className="text-white/60 text-xs">Rated 5 Stars on Google</span>
           </div>
         </div>
       </section>

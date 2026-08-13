@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Phone, Mail, MessageCircle } from "lucide-react";
+import { Phone, MessageCircle } from "lucide-react";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
 
@@ -9,7 +9,6 @@ const navLinks = [
   { label: "Spare Car Key", href: "/spare-car-key", external: false },
   { label: "Areas We Cover", href: "/areas-we-cover", external: false },
   { label: "Pricing", href: "/pricing", external: false },
-  { label: "Reviews", href: "/reviews", external: false },
   { label: "About", href: "/about", external: false },
   { label: "FAQ", href: "/faqs", external: false },
   { label: "Contact", href: "/contact", external: false },
@@ -48,16 +47,6 @@ export default function SiteFooter() {
               >
                 <Phone size={16} />
                 {siteContent.business.phone}
-              </a>
-            )}
-            {siteContent.business.email && (
-              <a
-                href={`mailto:${siteContent.business.email}`}
-                className="flex items-center gap-2 text-white/60 text-sm hover:text-[#1677FF] transition-colors mt-2"
-                data-testid="link-email-footer"
-              >
-                <Mail size={14} />
-                {siteContent.business.email}
               </a>
             )}
             {siteContent.business.whatsappEnabled && siteContent.business.whatsappNumber && (

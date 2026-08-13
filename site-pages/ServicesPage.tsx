@@ -28,7 +28,7 @@ const spareKeyTicks = [
 ];
 
 const trustPoints = [
-  "5-Star Google rated",
+  "Clear pricing before travel",
   "Clear quote before travel",
   "Mobile service across Surrey",
   "Vehicle details checked before dispatch",
@@ -46,7 +46,6 @@ export default function ServicesPage() {
         ogDescription:
           "Vehicle lockouts and spare car keys across Surrey. Call to confirm availability, price and ETA before we attend.",
       }}
-      hideReviewCarousel
     >
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}

@@ -77,7 +77,6 @@ export default function PricingPage() {
         ogDescription:
           "Know the likely cost before we travel. Exact quote confirmed before attendance. No hidden call-out fees.",
       }}
-      hideReviewCarousel
     >
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
