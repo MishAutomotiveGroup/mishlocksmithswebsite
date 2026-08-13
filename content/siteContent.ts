@@ -8,7 +8,7 @@ export const siteContent = {
     phoneE164: "+448002461851",
     email: "info@westlondonautolocksmith.co.uk",
     whatsappEnabled: true,
-    whatsappNumber: "447723191544",
+    whatsappNumber: "447404349837",
     baseArea: "Uxbridge",
     coverageRadius: "12 miles",
     coverageAreas: [
