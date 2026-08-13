@@ -3,9 +3,9 @@ export const siteContent = {
   business: {
     name: "West London Auto Locksmith",
     tagline: "Mobile Car Locksmith",
-    phone: "020 3488 0390",
-    phoneDisplay: "020 3488 0390",
-    phoneE164: "+442034880390",
+    phone: "0800 246 1851",
+    phoneDisplay: "0800 246 1851",
+    phoneE164: "+448002461851",
     email: "info@westlondonautolocksmith.co.uk",
     whatsappEnabled: true,
     whatsappNumber: "447723191544",

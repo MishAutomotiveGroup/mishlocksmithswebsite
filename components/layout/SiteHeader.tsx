@@ -57,14 +57,14 @@ export default function SiteHeader() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center h-[77px] w-[55%] md:w-auto shrink-0 overflow-hidden"
+            className="flex flex-1 md:flex-none items-center h-[77px] min-w-0 md:w-auto shrink overflow-hidden"
             aria-label="Mish Auto Locksmiths — home"
             data-testid="header-logo"
           >
             <img
-              src="/logo-mark.svg"
-              alt="Mish"
-              className="h-11 w-auto object-contain object-left md:hidden"
+              src="/logo-on-dark.svg"
+              alt="Mish Auto Locksmiths"
+              className="block md:hidden w-full max-w-[210px] h-auto object-contain object-left"
             />
             <img
               src="/logo-on-dark.svg"
@@ -74,7 +74,7 @@ export default function SiteHeader() {
           </Link>
 
           {/* Spacer */}
-          <div className="flex-1" />
+          <div className="hidden md:block flex-1" />
 
           {/* Call — mobile: icon only */}
           <a
