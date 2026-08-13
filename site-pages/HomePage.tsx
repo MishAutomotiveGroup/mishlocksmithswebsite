@@ -119,6 +119,33 @@ export default function HomePage() {
           </div>
 
         </div>
+
+        <div className="-mx-4 mt-8" data-testid="section-photo-collage">
+          <div className="flex flex-col gap-2 md:gap-3 px-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
+              <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
+                <img src="/images/job4.png" alt="Auto locksmith technician beside a service vehicle" className="w-full h-full object-cover" loading="eager" />
+              </div>
+              <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
+                <img src="/images/job6.png" alt="Auto locksmith technician by a service vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+              <div className="aspect-square overflow-hidden rounded-lg">
+                <img src="/images/job1.png" alt="Auto locksmith service vehicle" className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="aspect-square overflow-hidden rounded-lg">
+                <img src="/images/job7.png" alt="Technician working on a vehicle door lock" className="w-full h-full object-cover object-top" loading="lazy" />
+              </div>
+              <div className="aspect-square overflow-hidden rounded-lg">
+                <img src="/images/job8.png" alt="Auto locksmith technician beside a service vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
+              </div>
+              <div className="aspect-square overflow-hidden rounded-lg">
+                <img src="/images/job5.png" alt="Technician working on a vehicle door" className="w-full h-full object-cover object-top" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ── CHOOSE YOUR SERVICE ───────────────────────────────────────────── */}

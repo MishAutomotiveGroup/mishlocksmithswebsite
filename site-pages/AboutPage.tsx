@@ -19,6 +19,11 @@ const aboutMsg = encodeURIComponent(
 );
 const whatsappHref = `${waBase}?text=${aboutMsg}`;
 
+const teamMembers = [
+  { src: "/images/team-member-1.png", name: "Gabriel", imgClass: "scale-[1.15] -translate-y-[2%]" },
+  { src: "/images/team-member-2.png", name: "Mishkah", imgClass: "" },
+];
+
 // ── FAQ ───────────────────────────────────────────────────────────────────────
 
 const aboutFaqs = [
@@ -91,9 +96,25 @@ export default function AboutPage() {
           <p className="text-[#1677FF] font-semibold text-sm mb-3">
             A local mobile auto locksmith based in Guildford.
           </p>
-          <p className="text-white/55 text-sm leading-relaxed max-w-lg">
+          <p className="text-white/55 text-sm leading-relaxed mb-8 max-w-lg">
             We provide vehicle lockout and spare key services across Surrey, with clear pricing and direct communication before we travel.
           </p>
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-white/30 mb-4">
+            The People Behind the Business
+          </p>
+          <div className="grid grid-cols-2 gap-4 max-w-md">
+            {teamMembers.map((member) => (
+              <div key={member.src} className="flex flex-col">
+                <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
+                  <img src={member.src} alt={`${member.name} — auto locksmith`} className={`w-full h-full object-cover object-top ${member.imgClass}`} loading="eager" />
+                </div>
+                <div className="bg-[#171C22] border border-white/10 border-t-0 rounded-b-xl px-3 py-2.5 text-center">
+                  <p className="text-white font-semibold text-sm">{member.name}</p>
+                  <p className="text-white/30 text-[9px] mt-0.5">Based in Guildford</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -307,10 +328,21 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── TRUST ─────────────────────────────────────────────────────────── */}
+      {/* ── TRUST / PHOTOS ────────────────────────────────────────────────── */}
       <section className="bg-[#171C22] py-12 px-4" data-testid="section-about-trust">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-xl font-bold text-white mb-7">Straightforward Local Service</h2>
+          <div className="grid grid-cols-3 gap-2 md:gap-3 mb-7">
+            <div className="aspect-[3/4] overflow-hidden rounded-lg">
+              <img src="/images/team-member-1.png" alt="Auto locksmith technician" className="w-full h-full object-cover object-top scale-[1.15] -translate-y-[2%]" loading="lazy" />
+            </div>
+            <div className="aspect-[3/4] overflow-hidden rounded-lg">
+              <img src="/images/job-lockout-top.png" alt="Technician carrying out a vehicle lockout" className="w-full h-full object-cover object-top" loading="lazy" />
+            </div>
+            <div className="aspect-[3/4] overflow-hidden rounded-lg">
+              <img src="/images/technician-with-car.png" alt="Auto locksmith technician beside a vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
+            </div>
+          </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 mb-6">
             {[
               "Based in Guildford",

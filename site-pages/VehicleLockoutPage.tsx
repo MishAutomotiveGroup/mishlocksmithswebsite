@@ -76,9 +76,23 @@ export default function VehicleLockoutPage() {
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[#171C22] text-white" data-testid="section-hero">
 
+        <div
+          className="absolute top-0 right-0 w-[70%] h-[400px] md:bottom-0 md:h-full md:w-[60%] pointer-events-none"
+          aria-hidden="true"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 25%, black 55%)',
+            maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 25%, black 55%)',
+            background: 'black',
+          }}
+        >
+          <img src="/images/technician-hero.png" alt="" className="w-full h-full object-contain object-right-top md:object-cover md:object-[center_20%]" loading="eager" fetchPriority="high" decoding="sync" />
+        </div>
+        <div className="block md:hidden absolute top-0 inset-x-0 h-[400px] pointer-events-none" aria-hidden="true" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 70%)' }} />
+        <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true" style={{ background: "linear-gradient(to right, #171C22 30%, rgba(23,28,34,0.8) 50%, rgba(23,28,34,0.5) 62%, transparent 80%)" }} />
+
         {/* Content */}
         <div className="relative z-10 max-w-[1150px] mx-auto px-4 md:px-6">
-          <div className="pt-7 md:pt-10 pb-8 max-w-2xl mx-auto">
+          <div className="pt-7 md:pt-10 pb-4 md:max-w-[55%]">
 
             <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-3 text-white">
               Locked Out of Your Car?
@@ -154,6 +168,27 @@ export default function VehicleLockoutPage() {
 
           </div>
 
+        </div>
+      </section>
+
+      <section className="bg-[#171C22] px-4 pb-8" data-testid="section-photo-collage">
+        <div className="flex flex-col gap-2 md:gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
+            <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
+              <img src="/images/job-lockout-top.png" alt="Technician unlocking a car door" className="w-full h-full object-cover" loading="lazy" />
+            </div>
+            <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
+              <img src="/images/job6.png" alt="Auto locksmith technician by a service vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2 md:gap-3">
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/job3.png" alt="Auto locksmith technician" className="w-full h-full object-cover object-top" loading="lazy" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/job5.png" alt="Technician working on a vehicle door" className="w-full h-full object-cover object-top" loading="lazy" />
+            </div>
+          </div>
         </div>
       </section>
 
