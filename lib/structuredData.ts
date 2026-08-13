@@ -25,7 +25,7 @@ export function getLocalBusinessSchema() {
     "@type": "Locksmith",
     name: business.name,
     description:
-      "Vehicle lockout specialist covering Uxbridge and surrounding areas in West London. Vehicle entry only — no key programming or house locksmithing.",
+      "Vehicle lockout specialist covering Guildford and surrounding areas in Surrey. Vehicle entry only — no key programming or house locksmithing.",
     url: seo.siteUrl,
     ...(telephone ? { telephone } : {}),
     ...(business.email ? { email: business.email } : {}),
@@ -33,7 +33,7 @@ export function getLocalBusinessSchema() {
     address: {
       "@type": "PostalAddress",
       addressLocality: business.baseArea,
-      addressRegion: "Greater London",
+      addressRegion: "Surrey",
       addressCountry: "GB",
     },
     ...(reviews.googleReviewsUrl ? { sameAs: [reviews.googleReviewsUrl] } : {}),

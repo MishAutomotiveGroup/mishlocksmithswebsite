@@ -5,13 +5,13 @@ export default function CarKeysPage() {
   return (
     <PageLayout
       meta={{
-        title: "Car Key Services | West London Auto Locksmith",
+        title: "Car Key Services | Mish Auto Locksmiths",
         description:
-          "Spare keys, replacement keys and key programming for supported vehicles across West London. Call for availability and a clear price.",
+          "Spare keys, replacement keys and key programming for supported vehicles across Surrey. Call for availability and a clear price.",
         canonical: `${siteContent.seo.siteUrl}/car-keys`,
-        ogTitle: "Car Key Services | West London Auto Locksmith",
+        ogTitle: "Car Key Services | Mish Auto Locksmiths",
         ogDescription:
-          "Spare keys, replacement keys and key programming for supported vehicles across West London.",
+          "Spare keys, replacement keys and key programming for supported vehicles across Surrey.",
       }}
     >
       <section className="min-h-[60vh] flex items-center justify-center px-4 bg-white">

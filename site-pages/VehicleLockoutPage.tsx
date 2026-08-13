@@ -64,13 +64,13 @@ export default function VehicleLockoutPage() {
   return (
     <PageLayout
       meta={{
-        title: "Car Lockout West London | Mobile Vehicle Entry Uxbridge",
+        title: "Car Lockout Surrey | Mobile Vehicle Entry Guildford",
         description:
-          "Locked out of your car in West London? West London Auto Locksmith provides mobile vehicle entry across Uxbridge and surrounding areas. Call for an immediate quote and live ETA.",
+          "Locked out of your car in Surrey? Mish Auto Locksmiths provides mobile vehicle entry across Guildford and surrounding areas. Call for an immediate quote and live ETA.",
         canonical: `${siteContent.seo.siteUrl}/vehicle-lockout`,
-        ogTitle: "Car Lockout West London — West London Auto Locksmith",
+        ogTitle: "Car Lockout Surrey — Mish Auto Locksmiths",
         ogDescription:
-          "Locked out of your car in West London? Mobile vehicle entry across Uxbridge and surrounding areas. Call for a clear quote before dispatch.",
+          "Locked out of your car in Surrey? Mobile vehicle entry across Guildford and surrounding areas. Call for a clear quote before dispatch.",
       }}
       hideReviewCarousel
     >
@@ -126,7 +126,7 @@ export default function VehicleLockoutPage() {
               </p>
 
               <p className="text-white/60 text-xs md:text-sm leading-relaxed mb-3">
-                Fast, professional vehicle entry across West London.
+                Fast, professional vehicle entry across Surrey.
               </p>
 
               {/* Reassurance ticks */}
@@ -149,7 +149,7 @@ export default function VehicleLockoutPage() {
               href={siteContent.reviews.googleReviewsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Read West London Auto Locksmith reviews on Google"
+              aria-label="Read Mish Auto Locksmiths reviews on Google"
               data-testid="google-trust-box"
               className="inline-flex items-center gap-2 border border-white/20 rounded-xl bg-[#171C22] px-[11px] py-[9px] mb-5 hover:border-[#1677FF] hover:bg-[#0D63DA] transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50"
             >
@@ -225,12 +225,12 @@ export default function VehicleLockoutPage() {
               <img src="/images/job-lockout-top.png" alt="Technician unlocking a car door" className="w-full h-full object-cover" loading="lazy" />
             </div>
             <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
-              <img src="/images/job6.png" alt="West London Auto Locksmith technician by van" className="w-full h-full object-cover object-top" loading="lazy" />
+              <img src="/images/job6.png" alt="Mish Auto Locksmiths technician by van" className="w-full h-full object-cover object-top" loading="lazy" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 md:gap-3">
             <div className="aspect-square overflow-hidden rounded-lg">
-              <img src="/images/job3.png" alt="West London Auto Locksmith technician" className="w-full h-full object-cover object-top" loading="lazy" />
+              <img src="/images/job3.png" alt="Mish Auto Locksmiths technician" className="w-full h-full object-cover object-top" loading="lazy" />
             </div>
             <div className="aspect-square overflow-hidden rounded-lg">
               <img src="/images/job5.png" alt="Technician working on a vehicle door" className="w-full h-full object-cover object-top" loading="lazy" />
@@ -326,10 +326,10 @@ export default function VehicleLockoutPage() {
       <section className="py-12 px-4 bg-white" data-testid="section-coverage">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-3">
-            Mobile Vehicle Entry Across West London
+            Mobile Vehicle Entry Across Surrey
           </h2>
           <p className="text-[#171C22]/65 mb-6 text-sm leading-relaxed max-w-xl">
-            Based in Uxbridge, we provide mobile vehicle lockout help to car owners across West London and nearby areas. Call with your location and we'll confirm availability and ETA before we set off.
+            Based in Guildford, we provide mobile vehicle lockout help to car owners across Surrey and nearby areas. Call with your location and we'll confirm availability and ETA before we set off.
           </p>
           <p className="text-xs font-semibold uppercase tracking-wider text-[#171C22]/40 mb-3">Some of the areas we cover</p>
           <div className="flex flex-wrap gap-2 mb-4">
@@ -361,12 +361,12 @@ export default function VehicleLockoutPage() {
       <section className="py-12 px-4 bg-[#F4F6F8]" data-testid="section-why-choose-us">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-6">
-            Why Choose West London Auto Locksmith?
+            Why Choose Mish Auto Locksmiths?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               "5-Star Google Reviews",
-              "Mobile across West London",
+              "Mobile across Surrey",
               "Non-destructive entry methods",
               "No Call-Out Fee",
             ].map(pt => (
@@ -404,7 +404,7 @@ export default function VehicleLockoutPage() {
           <div className="bg-[#171C22] rounded-xl p-7 sm:p-9 text-center">
             <h2 className="text-2xl font-bold text-white mb-3">Locked Out Now?</h2>
             <p className="text-white/65 text-sm leading-relaxed mb-7 max-w-md mx-auto">
-              Call West London Auto Locksmith for an immediate quote and live ETA. Mobile vehicle entry across West London.
+              Call Mish Auto Locksmiths for an immediate quote and live ETA. Mobile vehicle entry across Surrey.
             </p>
             <a
               href={phoneHref}

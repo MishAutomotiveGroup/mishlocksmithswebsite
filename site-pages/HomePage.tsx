@@ -39,7 +39,7 @@ const homeFaqs = [
   },
   {
     q: "Which areas do you cover?",
-    a: "We cover Uxbridge and the wider West London area. Call with your location and postcode and we will confirm immediately.",
+    a: "We cover Guildford and the wider Surrey area. Call with your location and postcode and we will confirm immediately.",
   },
 ];
 
@@ -71,13 +71,13 @@ export default function HomePage() {
   return (
     <PageLayout
       meta={{
-        title: "Car Locksmith in Uxbridge & West London | West London Auto Locksmith",
+        title: "Car Locksmith in Guildford & Surrey | Mish Auto Locksmiths",
         description:
-          "Locked out, need a spare car key or lost all your keys? Mobile car locksmith services across Uxbridge and surrounding West London. Call for availability, a clear price and a live ETA.",
+          "Locked out, need a spare car key or lost all your keys? Mobile car locksmith services across Guildford and surrounding Surrey. Call for availability, a clear price and a live ETA.",
         canonical: `${siteContent.seo.siteUrl}/`,
-        ogTitle: "Car Locksmith in Uxbridge & West London | West London Auto Locksmith",
+        ogTitle: "Car Locksmith in Guildford & Surrey | Mish Auto Locksmiths",
         ogDescription:
-          "Locked out, need a spare car key or lost all your keys? Mobile car locksmith services across Uxbridge and West London.",
+          "Locked out, need a spare car key or lost all your keys? Mobile car locksmith services across Guildford and Surrey.",
       }}
     >
 
@@ -86,7 +86,7 @@ export default function HomePage() {
         <div className="max-w-2xl mx-auto text-center">
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-3 text-white">
-            Mobile Auto Locksmith<br className="hidden sm:block" /> Across West London
+            Mobile Auto Locksmith<br className="hidden sm:block" /> Across Surrey
           </h1>
           <p className="text-white/75 text-base sm:text-lg leading-snug mb-2 max-w-lg mx-auto">
             Locked out or need a spare car key? Call now for a clear quote and live ETA.
@@ -124,7 +124,7 @@ export default function HomePage() {
             href={siteContent.reviews.googleReviewsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Read West London Auto Locksmith reviews on Google"
+            aria-label="Read Mish Auto Locksmiths reviews on Google"
             className="inline-flex items-center gap-2 border border-white/20 rounded-xl bg-[#171C22] px-[11px] py-[9px] hover:border-[#1677FF] hover:bg-[#0D63DA] transition-colors duration-150"
           >
             <img
@@ -148,21 +148,21 @@ export default function HomePage() {
           <div className="flex flex-col gap-2 md:gap-3 px-4">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
               <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
-                <img src="/images/job4.png" alt="West London Auto Locksmith technician beside branded vehicle in Uxbridge" className="w-full h-full object-cover" loading="eager" />
+                <img src="/images/job4.png" alt="Mish Auto Locksmiths technician beside branded vehicle in Guildford" className="w-full h-full object-cover" loading="eager" />
               </div>
               <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
-                <img src="/images/job6.png" alt="West London Auto Locksmith technician by van" className="w-full h-full object-cover object-top" loading="lazy" />
+                <img src="/images/job6.png" alt="Mish Auto Locksmiths technician by van" className="w-full h-full object-cover object-top" loading="lazy" />
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
               <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/job1.png" alt="West London Auto Locksmith branded vehicle" className="w-full h-full object-cover" loading="lazy" />
+                <img src="/images/job1.png" alt="Mish Auto Locksmiths branded vehicle" className="w-full h-full object-cover" loading="lazy" />
               </div>
               <div className="aspect-square overflow-hidden rounded-lg">
                 <img src="/images/job7.png" alt="Technician working on a vehicle door lock" className="w-full h-full object-cover object-top" loading="lazy" />
               </div>
               <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/job8.png" alt="West London Auto Locksmith technician beside branded vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
+                <img src="/images/job8.png" alt="Mish Auto Locksmiths technician beside branded vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
               </div>
               <div className="aspect-square overflow-hidden rounded-lg">
                 <img src="/images/job5.png" alt="Technician working on a vehicle door" className="w-full h-full object-cover object-top" loading="lazy" />
@@ -192,7 +192,7 @@ export default function HomePage() {
               <h3 className="font-bold text-[#171C22] text-lg mb-1">Vehicle Lockout</h3>
               <p className="text-2xl font-bold text-[#171C22] mb-1">£90–£110</p>
               <p className="text-sm text-[#171C22]/60 leading-relaxed mb-6 flex-1">
-                Fast, non-destructive vehicle entry across West London.
+                Fast, non-destructive vehicle entry across Surrey.
               </p>
               <Link
                 href="/vehicle-lockout"
@@ -241,7 +241,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4">
             {[
               "5-Star Google Reviews",
-              "Mobile across West London",
+              "Mobile across Surrey",
               "No hidden call-out fee",
               "Live ETA before we travel",
               "Damage-free vehicle entry",
@@ -296,10 +296,10 @@ export default function HomePage() {
       <section className="bg-[#F4F6F8] py-14 px-4" data-testid="section-coverage">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-3">
-            Based in Uxbridge, Serving West London
+            Based in Guildford, Serving Surrey
           </h2>
           <p className="text-[#171C22]/70 text-base leading-relaxed mb-3 max-w-xl">
-            We provide mobile car locksmith help across our West London service area, including Uxbridge, Hillingdon, Hayes, Ruislip, West Drayton, Slough and nearby locations.
+            We provide mobile car locksmith help throughout Surrey, including Guildford, Woking, Godalming, Farnham, Camberley, Epsom and nearby locations.
           </p>
           <p className="text-[#171C22]/60 text-sm leading-relaxed mb-7 max-w-xl">
             Don't see your area listed? Call with your postcode and we'll confirm availability and a live ETA before we set off.

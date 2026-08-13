@@ -28,7 +28,7 @@ const pageFaqs = [
   },
   {
     q: "Do you cover my area?",
-    a: "We operate from Uxbridge and cover many areas across West London and nearby locations. Send your location and we'll confirm availability.",
+    a: "We operate from Guildford and cover many areas across Surrey and nearby locations. Send your location and we'll confirm availability.",
   },
 ];
 
@@ -158,13 +158,13 @@ export default function SpareCarKeyPage() {
   return (
     <PageLayout
       meta={{
-        title: "Spare Car Key West London | Mobile Auto Locksmith",
+        title: "Spare Car Key Surrey | Mobile Auto Locksmith",
         description:
-          "Need a spare car key in West London? Mobile spare car key service from Uxbridge. Send your vehicle details to get a quote before we attend.",
+          "Need a spare car key in Surrey? Mobile spare car key service from Guildford. Send your vehicle details to get a quote before we attend.",
         canonical: `${siteContent.seo.siteUrl}/spare-car-key`,
-        ogTitle: "Spare Car Key West London | West London Auto Locksmith",
+        ogTitle: "Spare Car Key Surrey | Mish Auto Locksmiths",
         ogDescription:
-          "Mobile spare car key service across West London. Send your vehicle details for a quote before dispatch.",
+          "Mobile spare car key service across Surrey. Send your vehicle details for a quote before dispatch.",
       }}
       stickyBar={<StickyWhatsAppBar whatsappHref={whatsappUrl} />}
       hideReviewCarousel
@@ -217,13 +217,13 @@ export default function SpareCarKeyPage() {
 
             <div className="max-w-[60%] md:max-w-none">
               <p className="text-[#1677FF] font-semibold text-sm mb-5 leading-snug">
-                Mobile spare key service across West London.
+                Mobile spare key service across Surrey.
               </p>
 
               {/* Bullets */}
               <div className="flex flex-col gap-2.5 mb-6">
                 {([
-                  "Mobile service across West London",
+                  "Mobile service across Surrey",
                   "Compatibility checked before travel",
                   "Key cutting and programming where supported",
                 ] as string[]).map(label => (
@@ -240,7 +240,7 @@ export default function SpareCarKeyPage() {
               href={siteContent.reviews.googleReviewsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Read West London Auto Locksmith reviews on Google"
+              aria-label="Read Mish Auto Locksmiths reviews on Google"
               className="inline-flex items-center gap-2 border border-white/20 rounded-xl bg-[#171C22] px-[11px] py-[9px] mb-8 hover:border-[#1677FF] hover:bg-[#0D63DA] transition-colors duration-150"
             >
               <img
@@ -327,12 +327,12 @@ export default function SpareCarKeyPage() {
               <img src="/images/job-lockout-top.png" alt="Technician unlocking a car door" className="w-full h-full object-cover" loading="lazy" />
             </div>
             <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
-              <img src="/images/job6.png" alt="West London Auto Locksmith technician by van" className="w-full h-full object-cover object-top" loading="lazy" />
+              <img src="/images/job6.png" alt="Mish Auto Locksmiths technician by van" className="w-full h-full object-cover object-top" loading="lazy" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 md:gap-3">
             <div className="aspect-square overflow-hidden rounded-lg">
-              <img src="/images/job3.png" alt="West London Auto Locksmith technician" className="w-full h-full object-cover object-top" loading="lazy" />
+              <img src="/images/job3.png" alt="Mish Auto Locksmiths technician" className="w-full h-full object-cover object-top" loading="lazy" />
             </div>
             <div className="aspect-square overflow-hidden rounded-lg">
               <img src="/images/job5.png" alt="Technician working on a vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
@@ -360,7 +360,7 @@ export default function SpareCarKeyPage() {
           <div className="bg-[#171C22] rounded-xl p-7 sm:p-9 text-center">
             <h2 className="text-2xl font-bold text-white mb-3">Locked Out Instead?</h2>
             <p className="text-white/65 text-sm leading-relaxed mb-7 max-w-md mx-auto">
-              Need immediate vehicle entry? Visit our Vehicle Lockout page for fast non-destructive entry across West London.
+              Need immediate vehicle entry? Visit our Vehicle Lockout page for fast non-destructive entry across Surrey.
             </p>
             <Link
               href="/vehicle-lockout"
@@ -584,10 +584,10 @@ export default function SpareCarKeyPage() {
       <section className="py-12 px-4 bg-white" data-testid="section-coverage">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-3">
-            Mobile Spare Key Service Across West London
+            Mobile Spare Key Service Across Surrey
           </h2>
           <p className="text-[#171C22]/65 mb-6 text-sm leading-relaxed max-w-xl">
-            Based in Uxbridge, we provide mobile spare car key services across West London and nearby areas. Send your location and vehicle details and we'll confirm availability.
+            Based in Guildford, we provide mobile spare car key services across Surrey and nearby areas. Send your location and vehicle details and we'll confirm availability.
           </p>
           <p className="text-xs font-semibold uppercase tracking-wider text-[#171C22]/40 mb-3">Some of the areas we cover</p>
           <div className="flex flex-wrap gap-2 mb-4">
@@ -611,12 +611,12 @@ export default function SpareCarKeyPage() {
       <section className="py-12 px-4 bg-[#F4F6F8]" data-testid="section-why-choose-us">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-6">
-            Why Choose West London Auto Locksmith?
+            Why Choose Mish Auto Locksmiths?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               "Compatibility checked before booking",
-              "Mobile across West London",
+              "Mobile across Surrey",
               "Quality replacement keys",
               "Programming included where supported",
               "5-Star Google Reviews",
@@ -704,7 +704,7 @@ export default function SpareCarKeyPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
-              {["Compatibility checked", "Quote before booking", "Mobile service across West London"].map(pt => (
+              {["Compatibility checked", "Quote before booking", "Mobile service across Surrey"].map(pt => (
                 <span key={pt} className="inline-flex items-center gap-1.5 text-xs text-white/55">
                   <CheckCircle size={13} className="text-[#1677FF] shrink-0" />
                   {pt}

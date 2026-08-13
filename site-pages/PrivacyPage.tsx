@@ -6,8 +6,8 @@ export default function PrivacyPage() {
   return (
     <PageLayout
       meta={{
-        title: "Privacy Policy | West London Auto Locksmith",
-        description: "Privacy policy for West London Auto Locksmith.",
+        title: "Privacy Policy | Mish Auto Locksmiths",
+        description: "Privacy policy for Mish Auto Locksmiths.",
         canonical: `${siteContent.seo.siteUrl}/privacy`,
       }}
     >
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
           <h2>Who We Are</h2>
           <p>
             {siteContent.trust.legalName || siteContent.business.name} operates the website at{" "}
-            {siteContent.seo.siteUrl}. We provide vehicle lockout services in West London. For any
+            {siteContent.seo.siteUrl}. We provide vehicle lockout services in Surrey. For any
             data-related enquiries, please use the contact details shown in the footer of this site.
           </p>
 

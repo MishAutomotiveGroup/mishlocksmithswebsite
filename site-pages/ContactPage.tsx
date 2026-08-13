@@ -14,20 +14,20 @@ export default function ContactPage() {
   return (
     <PageLayout
       meta={{
-        title: "Contact | West London Auto Locksmith",
+        title: "Contact | Mish Auto Locksmiths",
         description:
-          "Contact West London Auto Locksmith for vehicle lockout help in Uxbridge and West London. Clear price confirmed before we travel.",
+          "Contact Mish Auto Locksmiths for vehicle lockout help in Guildford and Surrey. Clear price confirmed before we travel.",
         canonical: `${siteContent.seo.siteUrl}/contact`,
-        ogTitle: "Contact West London Auto Locksmith",
+        ogTitle: "Contact Mish Auto Locksmiths",
         ogDescription:
-          "Locked out of your vehicle? Call West London Auto Locksmith. We cover Uxbridge and surrounding areas.",
+          "Locked out of your vehicle? Call Mish Auto Locksmiths. We cover Guildford and surrounding areas.",
       }}
       hideReviewCarousel
     >
       <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-contact-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4 text-white">
-            Contact West London Auto Locksmith
+            Contact Mish Auto Locksmiths
           </h1>
           <p className="text-base text-white/75 max-w-xl">
             Call to check availability and get a confirmed price before we travel.
@@ -105,9 +105,9 @@ export default function ContactPage() {
           <div className="bg-[#F4F6F8] border border-[#171C22]/15 rounded-lg p-5" data-testid="contact-coverage-block">
             <p className="text-sm font-semibold text-[#171C22] mb-1">Coverage area</p>
             <p className="text-sm text-[#171C22]/65 leading-relaxed">
-              We cover vehicle lockouts within approximately {siteContent.business.coverageRadius} of{" "}
-              {siteContent.business.baseArea}, including {siteContent.business.coverageAreas.slice(0, 5).join(", ")} and
-              surrounding areas. Call to confirm we can reach your location.
+              Based in {siteContent.business.baseArea}, we provide mobile vehicle-lockout help throughout Surrey,
+              including {siteContent.business.coverageAreas.slice(1, 6).join(", ")} and surrounding areas. Call to
+              confirm availability for your location.
             </p>
           </div>
 

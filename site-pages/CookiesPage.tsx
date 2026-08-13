@@ -11,8 +11,8 @@ export default function CookiesPage() {
   return (
     <PageLayout
       meta={{
-        title: "Cookie Policy | West London Auto Locksmith",
-        description: "Cookie policy for West London Auto Locksmith.",
+        title: "Cookie Policy | Mish Auto Locksmiths",
+        description: "Cookie policy for Mish Auto Locksmiths.",
         canonical: `${siteContent.seo.siteUrl}/cookies`,
       }}
     >

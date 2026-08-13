@@ -37,7 +37,7 @@ export default function SiteFooter() {
               />
             </Link>
             <p className="text-sm text-white/60 mb-4">
-              Mobile vehicle locksmith service across all areas within West London zone.
+              Mobile vehicle locksmith service throughout Surrey.
             </p>
             {hasPhone && (
               <a
@@ -137,7 +137,7 @@ export default function SiteFooter() {
           <p>
             &copy; {new Date().getFullYear()} {siteContent.business.name}. All rights reserved.
           </p>
-          <p>Mobile car locksmith services in West London.</p>
+          <p>Mobile car locksmith services in Surrey.</p>
         </div>
       </div>
     </footer>

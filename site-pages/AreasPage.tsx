@@ -9,15 +9,15 @@ const hasPhone = siteContent.business.phone !== "PHONE_NUMBER_PLACEHOLDER";
 const phoneHref = `tel:${siteContent.business.phoneE164}`;
 
 const coverageAreas = [
-  "Uxbridge", "Hayes", "Hillingdon", "Southall", "Ruislip", "Northolt",
-  "Greenford", "Ealing", "Slough", "West Drayton", "Yiewsley", "Harlington",
-  "Ickenham", "Denham", "Acton", "Hanwell",
+  "Guildford", "Woking", "Godalming", "Farnham", "Camberley", "Epsom",
+  "Leatherhead", "Dorking", "Reigate", "Redhill", "Weybridge", "Esher",
+  "Chertsey", "Staines-upon-Thames", "Horley", "Caterham",
 ];
 
 const areaFaqs = [
   {
     q: "Do you cover my area?",
-    a: "We cover many areas across West London and nearby locations from our Uxbridge dispatch point. Call with your exact location and we'll confirm availability before you book.",
+    a: "We cover many areas across Surrey and nearby locations from our Guildford dispatch point. Call with your exact location and we'll confirm availability before you book.",
   },
   {
     q: "How quickly can you get to me?",
@@ -54,13 +54,13 @@ export default function AreasPage() {
   return (
     <PageLayout
       meta={{
-        title: "Areas We Cover Across West London | West London Auto Locksmith",
+        title: "Areas We Cover Across Surrey | Mish Auto Locksmiths",
         description:
-          "Mobile vehicle lockout service across West London and nearby areas, dispatching from Uxbridge. Call to confirm availability, price and ETA for your location.",
+          "Mobile vehicle lockout service across Surrey and nearby areas, dispatching from Guildford. Call to confirm availability, price and ETA for your location.",
         canonical: `${siteContent.seo.siteUrl}/areas-we-cover`,
-        ogTitle: "Areas We Cover Across West London — West London Auto Locksmith",
+        ogTitle: "Areas We Cover Across Surrey — Mish Auto Locksmiths",
         ogDescription:
-          "Mobile vehicle lockout help across West London. Call with your location and we'll confirm availability and price before dispatch.",
+          "Mobile vehicle lockout help across Surrey. Call with your location and we'll confirm availability and price before dispatch.",
       }}
       hideReviewCarousel
     >
@@ -68,10 +68,10 @@ export default function AreasPage() {
       <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-areas-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4 text-white">
-            Vehicle Lockout Help Across West London
+            Vehicle Lockout Help Across Surrey
           </h1>
           <p className="text-base text-white/75 max-w-xl leading-relaxed mb-7">
-            We dispatch from Uxbridge and cover vehicle lockouts across West London and nearby areas.
+            We dispatch from Guildford and cover vehicle lockouts across Surrey and nearby areas.
           </p>
           <a
             href={hasPhone ? phoneHref : "/contact"}
@@ -88,14 +88,14 @@ export default function AreasPage() {
       {/* Main coverage section */}
       <section className="py-12 px-4 bg-white" data-testid="section-areas-main">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#171C22] mb-4">West London Vehicle Lockout Coverage</h2>
+          <h2 className="text-2xl font-bold text-[#171C22] mb-4">Surrey Vehicle Lockout Coverage</h2>
           <p className="text-[#171C22]/70 text-base leading-relaxed mb-8 max-w-2xl">
-            Based in Uxbridge, we regularly help drivers in West London and surrounding areas. If you are locked out of your car, call with your location and vehicle details and we'll confirm whether we can reach you, the price, and the estimated arrival time.
+            Based in Guildford, we regularly help drivers in Surrey and surrounding areas. If you are locked out of your car, call with your location and vehicle details and we'll confirm whether we can reach you, the price, and the estimated arrival time.
           </p>
 
           {/* Reassurance card — replaces old radius graphic */}
           <div className="mb-10 bg-[#171C22] text-white rounded-xl p-6 max-w-sm">
-            <p className="font-bold text-base mb-2">Based in Uxbridge — Mobile Across West London</p>
+            <p className="font-bold text-base mb-2">Based in Guildford — Mobile Across Surrey</p>
             <p className="text-sm text-white/65 leading-relaxed">
               Call with your location and we'll confirm availability before dispatch.
             </p>
@@ -126,7 +126,7 @@ export default function AreasPage() {
       <section className="bg-[#171C22] py-16 px-4" data-testid="section-areas-final-cta">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            Locked Out in West London?
+            Locked Out in Surrey?
           </h2>
           <p className="text-white/70 text-base mb-8 max-w-lg mx-auto leading-relaxed">
             Call with your location and vehicle details. We'll confirm availability, price, and ETA before dispatch.

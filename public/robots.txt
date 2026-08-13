@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://westlondonautolocksmith.co.uk/sitemap.xml
+Sitemap: https://mish-car-keys.bigmishkah.chatgpt.site/sitemap.xml

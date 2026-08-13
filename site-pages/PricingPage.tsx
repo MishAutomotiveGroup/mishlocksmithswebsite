@@ -69,11 +69,11 @@ export default function PricingPage() {
   return (
     <PageLayout
       meta={{
-        title: "Pricing | West London Auto Locksmith",
+        title: "Pricing | Mish Auto Locksmiths",
         description:
-          "Clear auto locksmith prices for vehicle lockouts and spare car keys across West London. Exact quote confirmed before travel. No hidden call-out fees.",
+          "Clear auto locksmith prices for vehicle lockouts and spare car keys across Surrey. Exact quote confirmed before travel. No hidden call-out fees.",
         canonical: `${siteContent.seo.siteUrl}/pricing`,
-        ogTitle: "Pricing — West London Auto Locksmith",
+        ogTitle: "Pricing — Mish Auto Locksmiths",
         ogDescription:
           "Know the likely cost before we travel. Exact quote confirmed before attendance. No hidden call-out fees.",
       }}
@@ -123,7 +123,7 @@ export default function PricingPage() {
               <p className="text-[10px] font-semibold uppercase tracking-wider text-[#1677FF] mb-2">Vehicle Lockout</p>
               <p className="text-3xl font-bold text-white mb-1">£90–£110</p>
               <p className="text-sm text-white/55 leading-relaxed mb-1 flex-1">
-                Mobile non-destructive vehicle entry across West London.
+                Mobile non-destructive vehicle entry across Surrey.
               </p>
               <p className="text-[10px] text-white/30 leading-relaxed mb-5">
                 Exact price confirmed before travel. Never more than £110 for the standard lockout service.

@@ -30,7 +30,7 @@ const spareKeyTicks = [
 const trustPoints = [
   "5-Star Google rated",
   "Clear quote before travel",
-  "Mobile service across West London",
+  "Mobile service across Surrey",
   "Vehicle details checked before dispatch",
 ];
 
@@ -38,13 +38,13 @@ export default function ServicesPage() {
   return (
     <PageLayout
       meta={{
-        title: "Services | West London Auto Locksmith",
+        title: "Services | Mish Auto Locksmiths",
         description:
-          "Vehicle lockouts and spare car keys across West London. Call with your location and vehicle details. We confirm availability, price and ETA before dispatch.",
+          "Vehicle lockouts and spare car keys across Surrey. Call with your location and vehicle details. We confirm availability, price and ETA before dispatch.",
         canonical: `${siteContent.seo.siteUrl}/services`,
-        ogTitle: "Services | West London Auto Locksmith",
+        ogTitle: "Services | Mish Auto Locksmiths",
         ogDescription:
-          "Vehicle lockouts and spare car keys across West London. Call to confirm availability, price and ETA before we attend.",
+          "Vehicle lockouts and spare car keys across Surrey. Call to confirm availability, price and ETA before we attend.",
       }}
       hideReviewCarousel
     >
@@ -78,7 +78,7 @@ export default function ServicesPage() {
               <h2 className="font-bold text-white text-xl mb-2 leading-snug">Locked Your Keys in the Car?</h2>
               <p className="text-3xl font-bold text-white mb-3">£90–£110</p>
               <p className="text-sm text-white/55 leading-relaxed mb-5 flex-1">
-                Fast mobile vehicle entry across West London using non-destructive methods where possible.
+                Fast mobile vehicle entry across Surrey using non-destructive methods where possible.
               </p>
               <div className="flex flex-col gap-2 mb-6">
                 {lockoutTicks.map(point => (
@@ -120,7 +120,7 @@ export default function ServicesPage() {
                 <span className="text-3xl font-bold text-white">£160–£220</span>
               </div>
               <p className="text-sm text-white/55 leading-relaxed mb-5 flex-1">
-                Mobile spare-key supply, cutting and programming for compatible vehicles across West London.
+                Mobile spare-key supply, cutting and programming for compatible vehicles across Surrey.
               </p>
               <div className="flex flex-col gap-2 mb-6">
                 {spareKeyTicks.map(point => (
@@ -201,7 +201,7 @@ export default function ServicesPage() {
       <section className="bg-white py-12 px-4 pb-28 md:pb-14" data-testid="section-trust">
         <div className="max-w-xl mx-auto">
           <h2 className="text-lg font-bold text-[#171C22] mb-6 text-center">
-            Why Choose West London Auto Locksmith?
+            Why Choose Mish Auto Locksmiths?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {trustPoints.map(point => (

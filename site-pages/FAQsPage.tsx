@@ -74,11 +74,11 @@ export default function FAQsPage() {
   return (
     <PageLayout
       meta={{
-        title: "FAQs | West London Auto Locksmith",
+        title: "FAQs | Mish Auto Locksmiths",
         description:
-          "Frequently asked questions about vehicle lockout services in Uxbridge and West London. Clear answers on pricing, coverage, and what to expect.",
+          "Frequently asked questions about vehicle lockout services in Guildford and Surrey. Clear answers on pricing, coverage, and what to expect.",
         canonical: `${siteContent.seo.siteUrl}/faqs`,
-        ogTitle: "FAQs — West London Auto Locksmith",
+        ogTitle: "FAQs — Mish Auto Locksmiths",
         ogDescription:
           "Common questions about vehicle lockout pricing, coverage, and how the service works.",
       }}

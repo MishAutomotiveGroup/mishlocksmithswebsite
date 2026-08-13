@@ -1,20 +1,21 @@
 // src/content/siteContent.ts
 export const siteContent = {
   business: {
-    name: "West London Auto Locksmith",
+    name: "Mish Auto Locksmiths",
     tagline: "Mobile Car Locksmith",
     phone: "0800 246 1851",
     phoneDisplay: "0800 246 1851",
     phoneE164: "+448002461851",
-    email: "info@westlondonautolocksmith.co.uk",
+    email: "",
     whatsappEnabled: true,
     whatsappNumber: "447404349837",
-    baseArea: "Uxbridge",
-    coverageRadius: "12 miles",
+    baseArea: "Guildford",
+    coverageRadius: "Surrey-wide",
     coverageAreas: [
-      "Uxbridge", "Hayes", "Southall", "Hillingdon", "Ruislip",
-      "Northolt", "Greenford", "Ealing", "Slough", "West Drayton",
-      "Yiewsley", "Harlington"
+      "Guildford", "Woking", "Godalming", "Farnham", "Camberley",
+      "Epsom", "Leatherhead", "Dorking", "Reigate", "Redhill",
+      "Weybridge", "Esher", "Chertsey", "Staines-upon-Thames",
+      "Horley", "Caterham"
     ],
   },
   pricing: {
@@ -79,7 +80,7 @@ export const siteContent = {
     enabled: true,
   },
   seo: {
-    siteUrl: "https://westlondonautolocksmith.co.uk",
+    siteUrl: "https://mish-car-keys.bigmishkah.chatgpt.site",
   },
   legal: {
     privacyLastUpdated: "July 2026",

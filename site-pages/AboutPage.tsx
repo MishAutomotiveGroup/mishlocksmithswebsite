@@ -42,7 +42,7 @@ const teamMembers = [
 const aboutFaqs = [
   {
     q: "Who will attend my vehicle?",
-    a: "You will be speaking directly with someone involved in the business who will carry out or arrange the work. West London Auto Locksmith is not a national agency — your enquiry is handled personally.",
+    a: "You will be speaking directly with someone involved in the business who will carry out or arrange the work. Mish Auto Locksmiths is not a national agency — your enquiry is handled personally.",
   },
   {
     q: "Will I know the price beforehand?",
@@ -58,7 +58,7 @@ const aboutFaqs = [
   },
   {
     q: "Do you cover my area?",
-    a: `We are based in ${siteContent.business.baseArea} and cover the surrounding West London area. Call or message with your postcode and we will confirm availability.`,
+    a: `We are based in ${siteContent.business.baseArea} and cover the surrounding Surrey area. Call or message with your postcode and we will confirm availability.`,
   },
 ];
 
@@ -90,13 +90,13 @@ export default function AboutPage() {
   return (
     <PageLayout
       meta={{
-        title: "About | West London Auto Locksmith — Uxbridge",
+        title: "About | Mish Auto Locksmiths — Guildford",
         description:
-          "West London Auto Locksmith is a local mobile auto locksmith based in Uxbridge. Vehicle lockouts and spare car keys with clear pricing before we travel.",
+          "Mish Auto Locksmiths is a local mobile auto locksmith based in Guildford. Vehicle lockouts and spare car keys with clear pricing before we travel.",
         canonical: `${siteContent.seo.siteUrl}/about`,
-        ogTitle: "About West London Auto Locksmith",
+        ogTitle: "About Mish Auto Locksmiths",
         ogDescription:
-          "A local mobile auto locksmith based in Uxbridge. Clear pricing, honest service, compatibility confirmed before travel.",
+          "A local mobile auto locksmith based in Guildford. Clear pricing, honest service, compatibility confirmed before travel.",
       }}
       hideReviewCarousel
     >
@@ -105,13 +105,13 @@ export default function AboutPage() {
       <section className="bg-[#171C22] text-white pt-9 pb-10 px-4" data-testid="section-about-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-2 text-white">
-            Meet West London Auto Locksmith
+            Meet Mish Auto Locksmiths
           </h1>
           <p className="text-[#1677FF] font-semibold text-sm mb-3">
-            A local mobile auto locksmith based in Uxbridge.
+            A local mobile auto locksmith based in Guildford.
           </p>
           <p className="text-white/55 text-sm leading-relaxed mb-8 max-w-lg">
-            We provide vehicle lockout and spare key services across West London, with clear pricing and direct communication before we travel.
+            We provide vehicle lockout and spare key services across Surrey, with clear pricing and direct communication before we travel.
           </p>
 
           {/* Team cards */}
@@ -124,7 +124,7 @@ export default function AboutPage() {
                 <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
                   <img
                     src={member.src}
-                    alt={`${member.name} — West London Auto Locksmith`}
+                    alt={`${member.name} — Mish Auto Locksmiths`}
                     className={`w-full h-full object-cover object-top ${member.imgClass}`}
                     loading="eager"
                   />
@@ -134,7 +134,7 @@ export default function AboutPage() {
                   {member.role && (
                     <p className="text-[#1677FF] text-[10px] mt-0.5">{member.role}</p>
                   )}
-                  <p className="text-white/30 text-[9px] mt-0.5">Based in Uxbridge</p>
+                  <p className="text-white/30 text-[9px] mt-0.5">Based in Guildford</p>
                 </div>
               </div>
             ))}
@@ -150,7 +150,7 @@ export default function AboutPage() {
               A Local Business You Can Speak to Directly
             </h2>
             <p className="text-sm text-[#171C22]/70 leading-relaxed mb-3">
-              West London Auto Locksmith is run locally from Uxbridge. When you call or message us, you speak directly with someone involved in the business rather than a national call centre or anonymous booking agent.
+              Mish Auto Locksmiths is run locally from Guildford. When you call or message us, you speak directly with someone involved in the business rather than a national call centre or anonymous booking agent.
             </p>
             <p className="text-sm text-[#171C22]/70 leading-relaxed">
               We aim to be straightforward about pricing and vehicle compatibility. Before travelling, we confirm the service required, whether we can help with your vehicle and the agreed price. If a job is not suitable for us, we will tell you rather than waste your time.
@@ -348,10 +348,10 @@ export default function AboutPage() {
         <div className="max-w-3xl mx-auto">
           <div className="flex items-start gap-3 mb-4">
             <MapPin size={20} className="text-[#1677FF] shrink-0 mt-0.5" />
-            <h2 className="text-xl font-bold text-[#171C22]">Serving West London</h2>
+            <h2 className="text-xl font-bold text-[#171C22]">Serving Surrey</h2>
           </div>
           <p className="text-sm text-[#171C22]/70 leading-relaxed mb-6 max-w-xl">
-            We are based in {siteContent.business.baseArea} and cover the surrounding West London area, including Hillingdon, Hayes, Ruislip, West Drayton, Slough and nearby locations. Call with your postcode and we'll confirm availability before we travel.
+            We are based in {siteContent.business.baseArea} and cover the whole of Surrey, including Woking, Godalming, Farnham, Camberley, Epsom, Reigate and nearby locations. Call with your postcode and we'll confirm availability before we travel.
           </p>
           <Link
             href="/areas-we-cover"
@@ -371,7 +371,7 @@ export default function AboutPage() {
             <div className="aspect-[3/4] overflow-hidden rounded-lg">
               <img
                 src="/images/team-member-1.png"
-                alt="West London Auto Locksmith — Gabriel"
+                alt="Mish Auto Locksmiths — Gabriel"
                 className="w-full h-full object-cover object-top scale-[1.15] -translate-y-[2%]"
                 loading="lazy"
               />
@@ -387,7 +387,7 @@ export default function AboutPage() {
             <div className="aspect-[3/4] overflow-hidden rounded-lg">
               <img
                 src="/images/technician-with-car.png"
-                alt="West London Auto Locksmith technician beside vehicle"
+                alt="Mish Auto Locksmiths technician beside vehicle"
                 className="w-full h-full object-cover object-top"
                 loading="lazy"
               />
@@ -395,7 +395,7 @@ export default function AboutPage() {
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 mb-6">
             {[
-              "Based in Uxbridge",
+              "Based in Guildford",
               "Real technicians",
               "Real customer vehicles",
               "Mobile service",
@@ -471,7 +471,7 @@ export default function AboutPage() {
             {[
               "Clear quote before travel",
               "Vehicle compatibility checked",
-              "Based in Uxbridge",
+              "Based in Guildford",
             ].map(point => (
               <div key={point} className="flex items-center gap-2">
                 <CheckCircle size={13} className="text-[#1677FF] shrink-0" />

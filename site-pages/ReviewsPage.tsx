@@ -11,13 +11,13 @@ export default function ReviewsPage() {
   return (
     <PageLayout
       meta={{
-        title: "Customer Reviews | West London Auto Locksmith",
+        title: "Customer Reviews | Mish Auto Locksmiths",
         description:
-          "Customer reviews and recent vehicle lockout work from West London Auto Locksmith, covering Uxbridge and surrounding areas.",
+          "Customer reviews and recent vehicle lockout work from Mish Auto Locksmiths, covering Guildford and surrounding areas.",
         canonical: `${siteContent.seo.siteUrl}/reviews`,
-        ogTitle: "Customer Reviews — West London Auto Locksmith",
+        ogTitle: "Customer Reviews — Mish Auto Locksmiths",
         ogDescription:
-          "Reviews and recent vehicle entry work from West London Auto Locksmith.",
+          "Reviews and recent vehicle entry work from Mish Auto Locksmiths.",
       }}
       hideReviewCarousel
     >
