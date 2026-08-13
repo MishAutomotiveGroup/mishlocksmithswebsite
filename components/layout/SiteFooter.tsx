@@ -29,12 +29,13 @@ export default function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand column */}
           <div>
-            <p className="font-bold text-white text-lg leading-tight">
-              {siteContent.business.name}
-            </p>
-            <p className="text-[#1677FF] text-xs font-medium uppercase tracking-wider mt-1 mb-4">
-              {siteContent.business.tagline}
-            </p>
+            <Link href="/" aria-label="Mish Auto Locksmiths — home">
+              <img
+                src="/logo-on-dark.svg"
+                alt="Mish Auto Locksmiths"
+                className="h-9 w-auto max-w-[260px] object-contain object-left mb-5"
+              />
+            </Link>
             <p className="text-sm text-white/60 mb-4">
               Mobile vehicle locksmith service across all areas within West London zone.
             </p>

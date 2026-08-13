@@ -58,18 +58,18 @@ export default function SiteHeader() {
           <Link
             href="/"
             className="flex items-center h-[77px] w-[55%] md:w-auto shrink-0 overflow-hidden"
-            aria-label="West London Auto Locksmith — home"
+            aria-label="Mish Auto Locksmiths — home"
             data-testid="header-logo"
           >
             <img
-              src="/images/logo-mobile.png"
-              alt="West London Auto Locksmith"
-              className="h-full w-full object-contain object-left md:hidden"
+              src="/logo-mark.svg"
+              alt="Mish"
+              className="h-11 w-auto object-contain object-left md:hidden"
             />
             <img
-              src="/images/logo-desktop.png"
-              alt="West London Auto Locksmith"
-              className="hidden md:block h-full w-auto object-contain"
+              src="/logo-on-dark.svg"
+              alt="Mish Auto Locksmiths"
+              className="hidden md:block h-10 w-auto max-w-[290px] object-contain"
             />
           </Link>
 
