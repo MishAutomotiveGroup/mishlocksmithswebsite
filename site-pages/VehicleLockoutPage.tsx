@@ -45,17 +45,17 @@ const pageFaqs = [
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-[#D8D8D3]">
+    <div className="border-b border-[#171C22]/15">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full text-left py-4 flex items-center justify-between gap-4 font-medium text-[#121212] hover:text-[#121212]/70 transition-colors min-h-[56px]"
+        className="w-full text-left py-4 flex items-center justify-between gap-4 font-medium text-[#171C22] hover:text-[#171C22]/70 transition-colors min-h-[56px]"
         aria-expanded={open}
         data-testid={`faq-toggle-${q.substring(0, 20).replace(/\s/g, "-").toLowerCase()}`}
       >
         <span>{q}</span>
-        <ChevronRight size={18} className={`shrink-0 text-[#121212]/40 transition-transform ${open ? "rotate-90" : ""}`} />
+        <ChevronRight size={18} className={`shrink-0 text-[#171C22]/40 transition-transform ${open ? "rotate-90" : ""}`} />
       </button>
-      {open && <p className="pb-4 text-sm text-[#121212]/70 leading-relaxed">{a}</p>}
+      {open && <p className="pb-4 text-sm text-[#171C22]/70 leading-relaxed">{a}</p>}
     </div>
   );
 }
@@ -76,7 +76,7 @@ export default function VehicleLockoutPage() {
     >
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-black text-white" data-testid="section-hero">
+      <section className="relative overflow-hidden bg-[#171C22] text-white" data-testid="section-hero">
 
         {/* Photo — top-right on mobile (55% wide), full-height right panel on desktop */}
         <div
@@ -109,7 +109,7 @@ export default function VehicleLockoutPage() {
         <div
           className="hidden md:block absolute inset-0 pointer-events-none"
           aria-hidden="true"
-          style={{ background: "linear-gradient(to right, #000 30%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.5) 62%, transparent 80%)" }}
+          style={{ background: "linear-gradient(to right, #171C22 30%, rgba(23,28,34,0.8) 50%, rgba(23,28,34,0.5) 62%, transparent 80%)" }}
         />
 
         {/* Content — sits above photo and gradient */}
@@ -121,7 +121,7 @@ export default function VehicleLockoutPage() {
             </h1>
 
             <div className="max-w-[60%] md:max-w-none">
-              <p className="text-[#C79A1B] font-semibold text-sm mb-1 leading-snug">
+              <p className="text-[#1677FF] font-semibold text-sm mb-1 leading-snug">
                 We can unlock your vehicle with no damage.
               </p>
 
@@ -137,7 +137,7 @@ export default function VehicleLockoutPage() {
                   ["Local mobile auto locksmith", "Local mobile auto locksmith"],
                 ] as [string, React.ReactNode][]).map(([key, label]) => (
                   <span key={key} className="inline-flex items-start gap-1.5 text-[11px] text-white/80">
-                    <CheckCircle size={10} className="text-[#C79A1B] shrink-0 mt-[1px]" />
+                    <CheckCircle size={10} className="text-[#1677FF] shrink-0 mt-[1px]" />
                     {label}
                   </span>
                 ))}
@@ -151,7 +151,7 @@ export default function VehicleLockoutPage() {
               rel="noopener noreferrer"
               aria-label="Read West London Auto Locksmith reviews on Google"
               data-testid="google-trust-box"
-              className="inline-flex items-center gap-2 border border-[#303030] rounded-xl bg-[#1a1a1a] px-[11px] py-[9px] mb-5 hover:border-[#555] hover:bg-[#222] transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50"
+              className="inline-flex items-center gap-2 border border-white/20 rounded-xl bg-[#171C22] px-[11px] py-[9px] mb-5 hover:border-[#1677FF] hover:bg-[#0D63DA] transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50"
             >
               <img
                 src="/images/google-g.png"
@@ -159,9 +159,9 @@ export default function VehicleLockoutPage() {
                 className="object-contain w-[25px] h-[25px] shrink-0"
                 style={{ mixBlendMode: 'screen' }}
               />
-              <div className="w-px h-[20px] bg-[#4a4a4a] shrink-0" />
+              <div className="w-px h-[20px] bg-white/25 shrink-0" />
               <span className="flex items-center gap-1 text-white font-semibold text-[10px] leading-tight whitespace-nowrap">
-                <svg className="w-[8px] h-[8px] shrink-0 text-[#C79A1B]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <svg className="w-[8px] h-[8px] shrink-0 text-[#1677FF]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
                 Rated 5 Stars on Google
@@ -169,8 +169,8 @@ export default function VehicleLockoutPage() {
             </a>
 
             {/* Pricing */}
-            <div className="bg-[#1b1b1b]/90 border border-white/10 rounded-xl p-4 mb-4 backdrop-blur-sm">
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#C79A1B] mb-1.5">Vehicle Lockout</p>
+            <div className="bg-[#171C22]/90 border border-white/10 rounded-xl p-4 mb-4 backdrop-blur-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#1677FF] mb-1.5">Vehicle Lockout</p>
               <p className="text-4xl font-bold text-white mb-1.5">£90–£110</p>
               <p className="text-sm text-white/55">Exact price confirmed before travel.</p>
               <p className="text-sm text-white/40">No hidden call-out fees. Never more than £110.</p>
@@ -185,7 +185,7 @@ export default function VehicleLockoutPage() {
             <a
               href={phoneHref}
               onClick={() => trackCallClick("lockout-hero")}
-              className="flex flex-col items-center justify-center w-full px-6 py-4 bg-[#C79A1B] text-[#121212] font-bold text-lg rounded-lg hover:bg-[#A07A10] transition-colors min-h-[64px] mb-3"
+              className="flex flex-col items-center justify-center w-full px-6 py-4 bg-[#1677FF] text-[#171C22] font-bold text-lg rounded-lg hover:bg-[#0D63DA] transition-colors min-h-[64px] mb-3"
               data-testid="button-call-hero"
             >
               <span className="flex items-center gap-2.5">
@@ -193,7 +193,7 @@ export default function VehicleLockoutPage() {
                 Call for Immediate Assistance
               </span>
               {hasPhone && (
-                <span className="text-[#121212]/60 font-normal text-sm mt-0.5">{siteContent.business.phone}</span>
+                <span className="text-[#171C22]/60 font-normal text-sm mt-0.5">{siteContent.business.phone}</span>
               )}
             </a>
 
@@ -218,7 +218,7 @@ export default function VehicleLockoutPage() {
       </section>
 
       {/* ── PHOTO COLLAGE ─────────────────────────────────────────────────── */}
-      <section className="bg-black px-4 pb-8" data-testid="section-photo-collage">
+      <section className="bg-[#171C22] px-4 pb-8" data-testid="section-photo-collage">
         <div className="flex flex-col gap-2 md:gap-3">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
             <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
@@ -240,16 +240,16 @@ export default function VehicleLockoutPage() {
       </section>
 
       {/* ── NEED HELP NOW? ────────────────────────────────────────────────── */}
-      <section className="py-12 px-4 bg-[#F7F7F4]" data-testid="section-spare-key-prompt">
+      <section className="py-12 px-4 bg-[#F4F6F8]" data-testid="section-spare-key-prompt">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-[#121212] rounded-xl p-7 sm:p-9 text-center">
+          <div className="bg-[#171C22] rounded-xl p-7 sm:p-9 text-center">
             <h2 className="text-2xl font-bold text-white mb-3">Looking for a spare key instead?</h2>
             <p className="text-white/65 text-sm leading-relaxed mb-7 max-w-md mx-auto">
               If you already have a working key and need a spare, visit our Spare Car Key page to find out more.
             </p>
             <Link
               href="/spare-car-key"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-[#C79A1B] text-[#121212] font-bold text-base rounded hover:bg-[#A07A10] transition-colors min-h-[52px]"
+              className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-[#1677FF] text-[#171C22] font-bold text-base rounded hover:bg-[#0D63DA] transition-colors min-h-[52px]"
             >
               Visit our Spare Car Key page <ChevronRight size={16} />
             </Link>
@@ -259,11 +259,11 @@ export default function VehicleLockoutPage() {
 
       {/* ── NOT URGENT? WHATSAPP ──────────────────────────────────────────── */}
       {siteContent.business.whatsappEnabled && (
-        <section className="pb-10 px-4 bg-[#F7F7F4]" data-testid="section-not-urgent-whatsapp">
+        <section className="pb-10 px-4 bg-[#F4F6F8]" data-testid="section-not-urgent-whatsapp">
           <div className="max-w-2xl mx-auto">
-            <div className="border border-[#D8D8D3] rounded-xl p-6 bg-white text-center">
-              <h3 className="text-base font-bold text-[#121212] mb-1">Not Urgent?</h3>
-              <p className="text-sm text-[#121212]/60 leading-relaxed mb-4 max-w-sm mx-auto">
+            <div className="border border-[#171C22]/15 rounded-xl p-6 bg-white text-center">
+              <h3 className="text-base font-bold text-[#171C22] mb-1">Not Urgent?</h3>
+              <p className="text-sm text-[#171C22]/60 leading-relaxed mb-4 max-w-sm mx-auto">
                 For non-urgent questions, send us a WhatsApp message with your vehicle make, model, location and what has happened.
               </p>
               <a
@@ -271,10 +271,10 @@ export default function VehicleLockoutPage() {
                 onClick={() => trackWhatsAppClick("lockout-not-urgent")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-[#C79A1B] text-[#121212] font-semibold text-sm rounded hover:bg-[#C79A1B]/10 transition-colors min-h-[44px]"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-[#1677FF] text-[#171C22] font-semibold text-sm rounded hover:bg-[#1677FF]/10 transition-colors min-h-[44px]"
                 data-testid="button-whatsapp-not-urgent"
               >
-                <MessageCircle size={16} className="text-[#C79A1B]" />
+                <MessageCircle size={16} className="text-[#1677FF]" />
                 Message on WhatsApp
               </a>
             </div>
@@ -284,9 +284,9 @@ export default function VehicleLockoutPage() {
 
 
       {/* ── WHAT HAPPENS WHEN YOU CALL ────────────────────────────────────── */}
-      <section className="py-12 px-4 bg-[#F7F7F4]" data-testid="section-how-it-works">
+      <section className="py-12 px-4 bg-[#F4F6F8]" data-testid="section-how-it-works">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#121212] mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-8">
             What Happens When You Call
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
@@ -308,15 +308,15 @@ export default function VehicleLockoutPage() {
               },
             ].map(step => (
               <div key={step.n} className="flex flex-col" data-testid={`step-${step.n}`}>
-                <div className="w-10 h-10 rounded-full bg-[#121212] text-white flex items-center justify-center font-bold text-base mb-3 shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#171C22] text-white flex items-center justify-center font-bold text-base mb-3 shrink-0">
                   {step.n}
                 </div>
-                <h3 className="font-bold text-[#121212] mb-1.5">{step.title}</h3>
-                <p className="text-sm text-[#121212]/65 leading-relaxed">{step.desc}</p>
+                <h3 className="font-bold text-[#171C22] mb-1.5">{step.title}</h3>
+                <p className="text-sm text-[#171C22]/65 leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </div>
-          <p className="text-xs text-[#121212]/50 border-l-2 border-[#C79A1B] pl-3 max-w-2xl">
+          <p className="text-xs text-[#171C22]/50 border-l-2 border-[#1677FF] pl-3 max-w-2xl">
             We may need to confirm you are entitled to access the vehicle before entry.
           </p>
         </div>
@@ -325,28 +325,28 @@ export default function VehicleLockoutPage() {
       {/* ── COVERAGE ──────────────────────────────────────────────────────── */}
       <section className="py-12 px-4 bg-white" data-testid="section-coverage">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#121212] mb-3">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-3">
             Mobile Vehicle Entry Across West London
           </h2>
-          <p className="text-[#121212]/65 mb-6 text-sm leading-relaxed max-w-xl">
+          <p className="text-[#171C22]/65 mb-6 text-sm leading-relaxed max-w-xl">
             Based in Uxbridge, we provide mobile vehicle lockout help to car owners across West London and nearby areas. Call with your location and we'll confirm availability and ETA before we set off.
           </p>
-          <p className="text-xs font-semibold uppercase tracking-wider text-[#121212]/40 mb-3">Some of the areas we cover</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-[#171C22]/40 mb-3">Some of the areas we cover</p>
           <div className="flex flex-wrap gap-2 mb-4">
             {siteContent.business.coverageAreas.map(area => (
               <span
                 key={area}
-                className="px-3 py-1.5 bg-[#F7F7F4] border border-[#D8D8D3] rounded text-sm text-[#121212] font-medium"
+                className="px-3 py-1.5 bg-[#F4F6F8] border border-[#171C22]/15 rounded text-sm text-[#171C22] font-medium"
                 data-testid={`area-tag-${area.replace(/\s/g, "-").toLowerCase()}`}
               >
                 {area}
               </span>
             ))}
           </div>
-          <p className="text-sm text-[#121212]/60 mb-6">Don't see your area listed? Call us to check availability for your location.</p>
+          <p className="text-sm text-[#171C22]/60 mb-6">Don't see your area listed? Call us to check availability for your location.</p>
           <Link
             href="/areas-we-cover"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#121212] border border-[#121212]/20 rounded px-5 py-2.5 hover:border-[#121212]/50 transition-colors min-h-[44px]"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#171C22] border border-[#171C22]/20 rounded px-5 py-2.5 hover:border-[#171C22]/50 transition-colors min-h-[44px]"
             data-testid="link-areas"
           >
             See Areas We Cover <ChevronRight size={15} />
@@ -358,9 +358,9 @@ export default function VehicleLockoutPage() {
       <JobGallery />
 
       {/* ── WHY CHOOSE US ─────────────────────────────────────────────────── */}
-      <section className="py-12 px-4 bg-[#F7F7F4]" data-testid="section-why-choose-us">
+      <section className="py-12 px-4 bg-[#F4F6F8]" data-testid="section-why-choose-us">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#121212] mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-6">
             Why Choose West London Auto Locksmith?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -371,8 +371,8 @@ export default function VehicleLockoutPage() {
               "No Call-Out Fee",
             ].map(pt => (
               <div key={pt} className="flex items-center gap-3">
-                <CheckCircle size={17} className="text-[#C79A1B] shrink-0" />
-                <p className="text-sm font-medium text-[#121212]">{pt}</p>
+                <CheckCircle size={17} className="text-[#1677FF] shrink-0" />
+                <p className="text-sm font-medium text-[#171C22]">{pt}</p>
               </div>
             ))}
           </div>
@@ -382,14 +382,14 @@ export default function VehicleLockoutPage() {
       {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section className="py-12 px-4 bg-white" data-testid="section-faq-preview">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#121212] mb-6">Common Questions</h2>
-          <div className="divide-y divide-[#D8D8D3]">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-6">Common Questions</h2>
+          <div className="divide-y divide-[#171C22]/15">
             {pageFaqs.map(faq => <FaqItem key={faq.q} q={faq.q} a={faq.a} />)}
           </div>
           <div className="mt-6">
             <Link
               href="/faqs"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#121212] border border-[#121212]/20 rounded px-5 py-2.5 hover:border-[#121212]/50 transition-colors min-h-[44px]"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#171C22] border border-[#171C22]/20 rounded px-5 py-2.5 hover:border-[#171C22]/50 transition-colors min-h-[44px]"
               data-testid="link-all-faqs"
             >
               See All FAQs <ChevronRight size={15} />
@@ -399,9 +399,9 @@ export default function VehicleLockoutPage() {
       </section>
 
       {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
-      <section className="py-12 px-4 bg-[#F7F7F4]" data-testid="section-cta-vehicle-lockout-final">
+      <section className="py-12 px-4 bg-[#F4F6F8]" data-testid="section-cta-vehicle-lockout-final">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-[#121212] rounded-xl p-7 sm:p-9 text-center">
+          <div className="bg-[#171C22] rounded-xl p-7 sm:p-9 text-center">
             <h2 className="text-2xl font-bold text-white mb-3">Locked Out Now?</h2>
             <p className="text-white/65 text-sm leading-relaxed mb-7 max-w-md mx-auto">
               Call West London Auto Locksmith for an immediate quote and live ETA. Mobile vehicle entry across West London.
@@ -409,7 +409,7 @@ export default function VehicleLockoutPage() {
             <a
               href={phoneHref}
               onClick={() => trackCallClick("lockout-final")}
-              className="inline-flex items-center justify-center gap-3 px-7 py-4 bg-[#C79A1B] text-[#121212] font-bold text-lg rounded hover:bg-[#A07A10] transition-colors min-h-[56px] mb-6"
+              className="inline-flex items-center justify-center gap-3 px-7 py-4 bg-[#1677FF] text-[#171C22] font-bold text-lg rounded hover:bg-[#0D63DA] transition-colors min-h-[56px] mb-6"
               data-testid="button-call-final"
             >
               <Phone size={20} />
@@ -418,7 +418,7 @@ export default function VehicleLockoutPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
               {["Estimated arrival time", "Clear quote before dispatch", "Immediate dispatch if available"].map(pt => (
                 <span key={pt} className="inline-flex items-center gap-1.5 text-xs text-white/55">
-                  <CheckCircle size={13} className="text-[#C79A1B] shrink-0" />
+                  <CheckCircle size={13} className="text-[#1677FF] shrink-0" />
                   {pt}
                 </span>
               ))}

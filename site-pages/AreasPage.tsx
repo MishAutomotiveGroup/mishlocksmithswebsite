@@ -32,20 +32,20 @@ const areaFaqs = [
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-[#D8D8D3]">
+    <div className="border-b border-[#171C22]/15">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full text-left py-4 flex items-center justify-between gap-4 font-medium text-[#121212] hover:text-[#121212]/70 transition-colors min-h-[56px]"
+        className="w-full text-left py-4 flex items-center justify-between gap-4 font-medium text-[#171C22] hover:text-[#171C22]/70 transition-colors min-h-[56px]"
         aria-expanded={open}
         data-testid={`faq-toggle-areas-${q.substring(0, 15).replace(/\s/g, "-").toLowerCase()}`}
       >
         <span>{q}</span>
         <ChevronRight
           size={18}
-          className={`shrink-0 text-[#121212]/40 transition-transform ${open ? "rotate-90" : ""}`}
+          className={`shrink-0 text-[#171C22]/40 transition-transform ${open ? "rotate-90" : ""}`}
         />
       </button>
-      {open && <p className="pb-4 text-sm text-[#121212]/70 leading-relaxed">{a}</p>}
+      {open && <p className="pb-4 text-sm text-[#171C22]/70 leading-relaxed">{a}</p>}
     </div>
   );
 }
@@ -65,7 +65,7 @@ export default function AreasPage() {
       hideReviewCarousel
     >
       {/* Hero */}
-      <section className="bg-[#121212] text-white py-14 px-4" data-testid="section-areas-hero">
+      <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-areas-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4 text-white">
             Vehicle Lockout Help Across West London
@@ -76,7 +76,7 @@ export default function AreasPage() {
           <a
             href={hasPhone ? phoneHref : "/contact"}
             onClick={() => trackCallClick("areas-hero")}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#C79A1B] text-[#121212] font-bold rounded hover:bg-[#A07A10] transition-colors min-h-[48px]"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1677FF] text-[#171C22] font-bold rounded hover:bg-[#0D63DA] transition-colors min-h-[48px]"
             data-testid="button-call-areas-hero"
           >
             <Phone size={17} />
@@ -88,25 +88,25 @@ export default function AreasPage() {
       {/* Main coverage section */}
       <section className="py-12 px-4 bg-white" data-testid="section-areas-main">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#121212] mb-4">West London Vehicle Lockout Coverage</h2>
-          <p className="text-[#121212]/70 text-base leading-relaxed mb-8 max-w-2xl">
+          <h2 className="text-2xl font-bold text-[#171C22] mb-4">West London Vehicle Lockout Coverage</h2>
+          <p className="text-[#171C22]/70 text-base leading-relaxed mb-8 max-w-2xl">
             Based in Uxbridge, we regularly help drivers in West London and surrounding areas. If you are locked out of your car, call with your location and vehicle details and we'll confirm whether we can reach you, the price, and the estimated arrival time.
           </p>
 
           {/* Reassurance card — replaces old radius graphic */}
-          <div className="mb-10 bg-[#121212] text-white rounded-xl p-6 max-w-sm">
+          <div className="mb-10 bg-[#171C22] text-white rounded-xl p-6 max-w-sm">
             <p className="font-bold text-base mb-2">Based in Uxbridge — Mobile Across West London</p>
             <p className="text-sm text-white/65 leading-relaxed">
               Call with your location and we'll confirm availability before dispatch.
             </p>
           </div>
 
-          <h2 className="text-xl font-bold text-[#121212] mb-4">Common Areas We Cover</h2>
+          <h2 className="text-xl font-bold text-[#171C22] mb-4">Common Areas We Cover</h2>
           <div className="flex flex-wrap gap-3 mb-8">
             {coverageAreas.map((area) => (
               <div
                 key={area}
-                className="px-4 py-2.5 bg-[#F7F7F4] border border-[#D8D8D3] rounded-lg text-sm text-[#121212] font-medium"
+                className="px-4 py-2.5 bg-[#F4F6F8] border border-[#171C22]/15 rounded-lg text-sm text-[#171C22] font-medium"
                 data-testid={`area-item-${area.replace(/\s/g, "-").toLowerCase()}`}
               >
                 {area}
@@ -114,8 +114,8 @@ export default function AreasPage() {
             ))}
           </div>
 
-          <div className="bg-[#121212]/5 border border-[#121212]/10 rounded-lg p-5 max-w-2xl">
-            <p className="text-sm text-[#121212]/80 leading-relaxed">
+          <div className="bg-[#171C22]/5 border border-[#171C22]/10 rounded-lg p-5 max-w-2xl">
+            <p className="text-sm text-[#171C22]/80 leading-relaxed">
               Not sure if we cover your area? Call us anyway. We'll tell you straight away if we can help, confirm the price, and give you a realistic arrival time.
             </p>
           </div>
@@ -123,7 +123,7 @@ export default function AreasPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="bg-[#121212] py-16 px-4" data-testid="section-areas-final-cta">
+      <section className="bg-[#171C22] py-16 px-4" data-testid="section-areas-final-cta">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Locked Out in West London?
@@ -134,7 +134,7 @@ export default function AreasPage() {
           <a
             href={hasPhone ? phoneHref : "/contact"}
             onClick={() => trackCallClick("areas-final")}
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#C79A1B] text-[#121212] font-bold text-lg rounded hover:bg-[#A07A10] transition-colors min-h-[56px]"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#1677FF] text-[#171C22] font-bold text-lg rounded hover:bg-[#0D63DA] transition-colors min-h-[56px]"
             data-testid="button-call-areas-final"
           >
             <Phone size={22} />
@@ -147,8 +147,8 @@ export default function AreasPage() {
       {/* FAQs */}
       <section className="py-12 px-4 bg-white" data-testid="section-areas-faqs">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#121212] mb-4">Coverage Questions</h2>
-          <div className="divide-y divide-[#D8D8D3]">
+          <h2 className="text-2xl font-bold text-[#171C22] mb-4">Coverage Questions</h2>
+          <div className="divide-y divide-[#171C22]/15">
             {areaFaqs.map((faq) => (
               <FaqItem key={faq.q} q={faq.q} a={faq.a} />
             ))}
@@ -157,14 +157,14 @@ export default function AreasPage() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/vehicle-lockout"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#121212] border border-[#121212]/20 rounded px-5 py-2.5 hover:border-[#121212]/50 transition-colors min-h-[44px]"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#171C22] border border-[#171C22]/20 rounded px-5 py-2.5 hover:border-[#171C22]/50 transition-colors min-h-[44px]"
               data-testid="link-areas-vehicle-lockout"
             >
               Our Vehicle Lockout Service <ChevronRight size={14} />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#121212] border border-[#121212]/20 rounded px-5 py-2.5 hover:border-[#121212]/50 transition-colors min-h-[44px]"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#171C22] border border-[#171C22]/20 rounded px-5 py-2.5 hover:border-[#171C22]/50 transition-colors min-h-[44px]"
               data-testid="link-areas-contact"
             >
               Contact Us <ChevronRight size={14} />

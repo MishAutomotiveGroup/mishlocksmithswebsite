@@ -44,20 +44,20 @@ const pricingFaqs = [
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-[#D8D8D3]">
+    <div className="border-b border-[#171C22]/15">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full text-left py-4 flex items-center justify-between gap-4 font-medium text-[#121212] hover:text-[#121212]/70 transition-colors min-h-[56px]"
+        className="w-full text-left py-4 flex items-center justify-between gap-4 font-medium text-[#171C22] hover:text-[#171C22]/70 transition-colors min-h-[56px]"
         aria-expanded={open}
       >
         <span>{q}</span>
         <ChevronRight
           size={18}
-          className={`shrink-0 text-[#121212]/40 transition-transform ${open ? "rotate-90" : ""}`}
+          className={`shrink-0 text-[#171C22]/40 transition-transform ${open ? "rotate-90" : ""}`}
         />
       </button>
       {open && (
-        <p className="pb-4 text-sm text-[#121212]/70 leading-relaxed">{a}</p>
+        <p className="pb-4 text-sm text-[#171C22]/70 leading-relaxed">{a}</p>
       )}
     </div>
   );
@@ -81,12 +81,12 @@ export default function PricingPage() {
     >
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="bg-[#121212] text-white pt-9 pb-8 px-4" data-testid="section-pricing-hero">
+      <section className="bg-[#171C22] text-white pt-9 pb-8 px-4" data-testid="section-pricing-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-2 text-white">
             Clear Auto Locksmith Prices
           </h1>
-          <p className="text-[#C79A1B] font-semibold text-sm mb-3">
+          <p className="text-[#1677FF] font-semibold text-sm mb-3">
             Know the likely cost before we travel.
           </p>
           <p className="text-white/55 text-sm leading-relaxed mb-6 max-w-xl">
@@ -99,7 +99,7 @@ export default function PricingPage() {
               "Price agreed before work begins",
             ].map(point => (
               <div key={point} className="flex items-center gap-2">
-                <CheckCircle size={13} className="text-[#C79A1B] shrink-0" />
+                <CheckCircle size={13} className="text-[#1677FF] shrink-0" />
                 <span className="text-sm text-white/70">{point}</span>
               </div>
             ))}
@@ -111,7 +111,7 @@ export default function PricingPage() {
       </section>
 
       {/* ── MAIN PRICING CARDS ────────────────────────────────────────────── */}
-      <section className="bg-[#121212] pb-10 px-4" data-testid="section-pricing-cards">
+      <section className="bg-[#171C22] pb-10 px-4" data-testid="section-pricing-cards">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-lg font-semibold text-white/50 uppercase tracking-wider text-xs mb-5">
             Our Typical Prices
@@ -119,8 +119,8 @@ export default function PricingPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
 
             {/* Card 1 — Vehicle Lockout */}
-            <div className="bg-[#1e1e1e] border border-white/10 rounded-xl p-6 sm:p-7 flex flex-col" data-testid="pricing-card-lockout">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#C79A1B] mb-2">Vehicle Lockout</p>
+            <div className="bg-[#171C22] border border-white/10 rounded-xl p-6 sm:p-7 flex flex-col" data-testid="pricing-card-lockout">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#1677FF] mb-2">Vehicle Lockout</p>
               <p className="text-3xl font-bold text-white mb-1">£90–£110</p>
               <p className="text-sm text-white/55 leading-relaxed mb-1 flex-1">
                 Mobile non-destructive vehicle entry across West London.
@@ -135,7 +135,7 @@ export default function PricingPage() {
                   "Damage-free entry methods where possible",
                 ].map(point => (
                   <div key={point} className="flex items-start gap-2">
-                    <CheckCircle size={13} className="text-[#C79A1B] shrink-0 mt-[2px]" />
+                    <CheckCircle size={13} className="text-[#1677FF] shrink-0 mt-[2px]" />
                     <span className="text-sm text-white/65">{point}</span>
                   </div>
                 ))}
@@ -143,7 +143,7 @@ export default function PricingPage() {
               <Link
                 href="/vehicle-lockout"
                 onClick={() => trackEvent("pricing_lockout_card_click")}
-                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#C79A1B] text-[#121212] font-bold text-sm rounded hover:bg-[#A07A10] transition-colors min-h-[48px] mb-3"
+                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#1677FF] text-[#171C22] font-bold text-sm rounded hover:bg-[#0D63DA] transition-colors min-h-[48px] mb-3"
                 data-testid="button-pricing-lockout"
               >
                 View Vehicle Lockout Service
@@ -160,8 +160,8 @@ export default function PricingPage() {
             </div>
 
             {/* Card 2 — Spare Car Keys */}
-            <div className="bg-[#1e1e1e] border border-white/10 rounded-xl p-6 sm:p-7 flex flex-col" data-testid="pricing-card-spare-key">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#C79A1B] mb-2">Spare Car Keys</p>
+            <div className="bg-[#171C22] border border-white/10 rounded-xl p-6 sm:p-7 flex flex-col" data-testid="pricing-card-spare-key">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#1677FF] mb-2">Spare Car Keys</p>
               <div className="mb-1">
                 <span className="text-xs text-white/40 font-medium">Typically </span>
                 <span className="text-3xl font-bold text-white">£160–£220</span>
@@ -179,7 +179,7 @@ export default function PricingPage() {
                   "Exact price confirmed before attendance",
                 ].map(point => (
                   <div key={point} className="flex items-start gap-2">
-                    <CheckCircle size={13} className="text-[#C79A1B] shrink-0 mt-[2px]" />
+                    <CheckCircle size={13} className="text-[#1677FF] shrink-0 mt-[2px]" />
                     <span className="text-sm text-white/65">{point}</span>
                   </div>
                 ))}
@@ -187,7 +187,7 @@ export default function PricingPage() {
               <Link
                 href="/spare-car-key"
                 onClick={() => trackEvent("pricing_spare_key_card_click")}
-                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#C79A1B] text-[#121212] font-bold text-sm rounded hover:bg-[#A07A10] transition-colors min-h-[48px] mb-3"
+                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#1677FF] text-[#171C22] font-bold text-sm rounded hover:bg-[#0D63DA] transition-colors min-h-[48px] mb-3"
                 data-testid="button-pricing-spare-key"
               >
                 View Spare Car Key Service
@@ -206,8 +206,8 @@ export default function PricingPage() {
           </div>
 
           {/* Key Programming secondary card */}
-          <div className="bg-[#161616] border border-white/10 rounded-xl px-5 py-4" data-testid="pricing-card-programming">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#C79A1B] mb-1">Key Programming</p>
+          <div className="bg-[#171C22] border border-white/10 rounded-xl px-5 py-4" data-testid="pricing-card-programming">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#1677FF] mb-1">Key Programming</p>
             <p className="text-2xl font-bold text-white mb-2">From £100</p>
             <p className="text-[11px] text-white/45 leading-relaxed">
               Remote and transponder programming for compatible vehicles. Contact us with your vehicle details so we can confirm support and provide an exact quote.
@@ -219,7 +219,7 @@ export default function PricingPage() {
       {/* ── HOW YOUR QUOTE IS CALCULATED ──────────────────────────────────── */}
       <section className="bg-white py-12 px-4" data-testid="section-pricing-how">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#121212] mb-8">How Your Quote Is Calculated</h2>
+          <h2 className="text-2xl font-bold text-[#171C22] mb-8">How Your Quote Is Calculated</h2>
           <div className="flex flex-col gap-6">
             {[
               {
@@ -244,12 +244,12 @@ export default function PricingPage() {
               },
             ].map(step => (
               <div key={step.n} className="flex items-start gap-4">
-                <div className="w-9 h-9 rounded-full bg-[#121212] text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
+                <div className="w-9 h-9 rounded-full bg-[#171C22] text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
                   {step.n}
                 </div>
                 <div>
-                  <p className="font-semibold text-sm text-[#121212] mb-0.5">{step.title}</p>
-                  <p className="text-sm text-[#121212]/60 leading-relaxed">{step.desc}</p>
+                  <p className="font-semibold text-sm text-[#171C22] mb-0.5">{step.title}</p>
+                  <p className="text-sm text-[#171C22]/60 leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -258,13 +258,13 @@ export default function PricingPage() {
       </section>
 
       {/* ── WHY WE ASK FOR VEHICLE DETAILS ───────────────────────────────── */}
-      <section className="bg-[#F7F7F4] py-12 px-4" data-testid="section-pricing-why">
+      <section className="bg-[#F4F6F8] py-12 px-4" data-testid="section-pricing-why">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-[#121212] mb-4">Why We Ask for Vehicle Details</h2>
-          <p className="text-sm text-[#121212]/70 leading-relaxed mb-3 max-w-xl">
+          <h2 className="text-xl font-bold text-[#171C22] mb-4">Why We Ask for Vehicle Details</h2>
+          <p className="text-sm text-[#171C22]/70 leading-relaxed mb-3 max-w-xl">
             Different vehicles use different locks, keys and programming systems. Your vehicle details allow us to check compatibility and provide an accurate quote before booking.
           </p>
-          <p className="text-sm text-[#121212]/70 leading-relaxed max-w-xl">
+          <p className="text-sm text-[#171C22]/70 leading-relaxed max-w-xl">
             Your location helps us confirm coverage and travel time.
           </p>
         </div>
@@ -273,7 +273,7 @@ export default function PricingPage() {
       {/* ── WHAT CAN AFFECT THE FINAL PRICE ──────────────────────────────── */}
       <section className="bg-white py-12 px-4" data-testid="section-pricing-factors">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-[#121212] mb-5">What Can Affect the Final Price?</h2>
+          <h2 className="text-xl font-bold text-[#171C22] mb-5">What Can Affect the Final Price?</h2>
           <div className="flex flex-col gap-2.5 mb-5">
             {[
               "Vehicle make, model and year",
@@ -284,12 +284,12 @@ export default function PricingPage() {
               "Additional work requested",
             ].map(factor => (
               <div key={factor} className="flex items-center gap-2.5">
-                <CheckCircle size={14} className="text-[#C79A1B] shrink-0" />
-                <span className="text-sm text-[#121212]/75">{factor}</span>
+                <CheckCircle size={14} className="text-[#1677FF] shrink-0" />
+                <span className="text-sm text-[#171C22]/75">{factor}</span>
               </div>
             ))}
           </div>
-          <p className="text-sm text-[#121212]/55 leading-relaxed">
+          <p className="text-sm text-[#171C22]/55 leading-relaxed">
             We explain any price difference before you book.
           </p>
         </div>
@@ -297,21 +297,21 @@ export default function PricingPage() {
 
       {/* ── PAYMENT METHODS ───────────────────────────────────────────────── */}
       {siteContent.pricing.paymentMethods.length > 0 && (
-        <section className="bg-[#F7F7F4] py-12 px-4" data-testid="section-pricing-payment">
+        <section className="bg-[#F4F6F8] py-12 px-4" data-testid="section-pricing-payment">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-xl font-bold text-[#121212] mb-4">Payment Methods Accepted</h2>
+            <h2 className="text-xl font-bold text-[#171C22] mb-4">Payment Methods Accepted</h2>
             <div className="flex flex-wrap gap-2 mb-4">
               {siteContent.pricing.paymentMethods.map(method => (
                 <span
                   key={method}
-                  className="px-4 py-2 bg-white border border-[#D8D8D3] rounded-lg text-sm font-medium text-[#121212]"
+                  className="px-4 py-2 bg-white border border-[#171C22]/15 rounded-lg text-sm font-medium text-[#171C22]"
                   data-testid={`payment-${method.replace(/\s/g, "-").toLowerCase()}`}
                 >
                   {method}
                 </span>
               ))}
             </div>
-            <p className="text-sm text-[#121212]/50">
+            <p className="text-sm text-[#171C22]/50">
               Payment is due once the agreed service has been completed.
             </p>
           </div>
@@ -321,8 +321,8 @@ export default function PricingPage() {
       {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section className="bg-white py-12 px-4" data-testid="section-pricing-faq">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-[#121212] mb-2">Pricing Questions</h2>
-          <div className="divide-y divide-[#D8D8D3] mt-4">
+          <h2 className="text-xl font-bold text-[#171C22] mb-2">Pricing Questions</h2>
+          <div className="divide-y divide-[#171C22]/15 mt-4">
             {pricingFaqs.map(faq => (
               <FaqItem key={faq.q} q={faq.q} a={faq.a} />
             ))}
@@ -331,7 +331,7 @@ export default function PricingPage() {
       </section>
 
       {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
-      <section className="bg-[#121212] py-14 px-4 pb-32 md:pb-14" data-testid="section-pricing-final-cta">
+      <section className="bg-[#171C22] py-14 px-4 pb-32 md:pb-14" data-testid="section-pricing-final-cta">
         <div className="max-w-xl mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">Get an Exact Quote</h2>
           <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
@@ -341,7 +341,7 @@ export default function PricingPage() {
             <a
               href={phoneHref}
               onClick={() => trackCallClick("pricing-final")}
-              className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-[#C79A1B] text-[#121212] font-bold rounded hover:bg-[#A07A10] transition-colors min-h-[56px] mb-3 text-base"
+              className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-[#1677FF] text-[#171C22] font-bold rounded hover:bg-[#0D63DA] transition-colors min-h-[56px] mb-3 text-base"
               data-testid="button-call-pricing-final"
             >
               <Phone size={20} />
@@ -368,7 +368,7 @@ export default function PricingPage() {
               "Vehicle details checked first",
             ].map(point => (
               <div key={point} className="flex items-center gap-2">
-                <CheckCircle size={13} className="text-[#C79A1B] shrink-0" />
+                <CheckCircle size={13} className="text-[#1677FF] shrink-0" />
                 <span className="text-sm text-white/50">{point}</span>
               </div>
             ))}

@@ -6,7 +6,7 @@ function StarRating({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <svg
           key={star}
-          className={`w-4 h-4 ${star <= rating ? "text-[#C79A1B]" : "text-[#D8D8D3]"}`}
+          className={`w-4 h-4 ${star <= rating ? "text-[#1677FF]" : "text-[#171C22]/15"}`}
           fill="currentColor"
           viewBox="0 0 20 20"
           aria-hidden="true"
@@ -34,25 +34,25 @@ export default function ReviewsList({
   return (
     <section className="py-14 px-4 bg-white" data-testid="section-reviews">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#121212] mb-8">{heading}</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-8">{heading}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map((review, i) => (
             <article
               key={i}
-              className="bg-[#F7F7F4] border border-[#D8D8D3] rounded-lg p-5"
+              className="bg-[#F4F6F8] border border-[#171C22]/15 rounded-lg p-5"
               data-testid={`review-card-${i}`}
             >
               <StarRating rating={review.rating} />
-              <blockquote className="mt-3 text-sm text-[#121212]/80 leading-relaxed">
+              <blockquote className="mt-3 text-sm text-[#171C22]/80 leading-relaxed">
                 &ldquo;{review.text}&rdquo;
               </blockquote>
               <footer className="mt-4 flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-[#121212]">{review.name}</p>
-                  <p className="text-xs text-[#121212]/50">{review.source}</p>
+                  <p className="text-sm font-semibold text-[#171C22]">{review.name}</p>
+                  <p className="text-xs text-[#171C22]/50">{review.source}</p>
                 </div>
                 {review.date && (
-                  <p className="text-xs text-[#121212]/40">{review.date}</p>
+                  <p className="text-xs text-[#171C22]/40">{review.date}</p>
                 )}
               </footer>
             </article>
@@ -64,7 +64,7 @@ export default function ReviewsList({
               href={googleReviewsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#121212] border border-[#121212]/20 rounded px-5 py-2.5 hover:border-[#121212]/50 transition-colors min-h-[44px]"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#171C22] border border-[#171C22]/20 rounded px-5 py-2.5 hover:border-[#171C22]/50 transition-colors min-h-[44px]"
               data-testid="link-google-reviews"
             >
               See Our Google Reviews

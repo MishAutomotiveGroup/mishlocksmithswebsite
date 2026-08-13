@@ -16,7 +16,7 @@ export default function CookiesPage() {
         canonical: `${siteContent.seo.siteUrl}/cookies`,
       }}
     >
-      <section className="bg-[#121212] text-white py-12 px-4" data-testid="section-cookies-hero">
+      <section className="bg-[#171C22] text-white py-12 px-4" data-testid="section-cookies-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-white mb-2">Cookie Policy</h1>
           <p className="text-sm text-white/50">
@@ -70,7 +70,7 @@ export default function CookiesPage() {
           </p>
           <button
             onClick={handleWithdraw}
-            className="mt-2 px-5 py-2.5 border border-[#121212]/20 text-sm font-medium text-[#121212] rounded hover:border-[#121212]/50 transition-colors min-h-[44px] not-prose"
+            className="mt-2 px-5 py-2.5 border border-[#171C22]/20 text-sm font-medium text-[#171C22] rounded hover:border-[#171C22]/50 transition-colors min-h-[44px] not-prose"
             data-testid="button-withdraw-consent"
           >
             Withdraw Cookie Consent

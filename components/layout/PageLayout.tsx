@@ -22,10 +22,10 @@ interface PageLayoutProps {
 
 export default function PageLayout({ children, meta, stickyBar }: PageLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F7F4]">
+    <div className="min-h-screen flex flex-col bg-[#F4F6F8]">
       <SEOMeta {...meta} />
       <SiteHeader />
-      <div aria-hidden="true" className="h-px bg-[#252525] pointer-events-none" />
+      <div aria-hidden="true" className="h-px bg-[#171C22] pointer-events-none" />
       <main className="flex-1 pb-20 md:pb-0" id="main-content">
         {children}
       </main>

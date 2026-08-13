@@ -46,20 +46,20 @@ const homeFaqs = [
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-[#D8D8D3]">
+    <div className="border-b border-[#171C22]/15">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full text-left py-4 flex items-center justify-between gap-4 font-medium text-[#121212] hover:text-[#121212]/70 transition-colors min-h-[56px]"
+        className="w-full text-left py-4 flex items-center justify-between gap-4 font-medium text-[#171C22] hover:text-[#171C22]/70 transition-colors min-h-[56px]"
         aria-expanded={open}
       >
         <span>{q}</span>
         <ChevronRight
           size={18}
-          className={`shrink-0 text-[#121212]/40 transition-transform ${open ? "rotate-90" : ""}`}
+          className={`shrink-0 text-[#171C22]/40 transition-transform ${open ? "rotate-90" : ""}`}
         />
       </button>
       {open && (
-        <p className="pb-4 text-sm text-[#121212]/70 leading-relaxed">{a}</p>
+        <p className="pb-4 text-sm text-[#171C22]/70 leading-relaxed">{a}</p>
       )}
     </div>
   );
@@ -82,7 +82,7 @@ export default function HomePage() {
     >
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="bg-[#121212] text-white pt-7 pb-8 px-4" data-testid="section-hero">
+      <section className="bg-[#171C22] text-white pt-7 pb-8 px-4" data-testid="section-hero">
         <div className="max-w-2xl mx-auto text-center">
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-3 text-white">
@@ -96,8 +96,8 @@ export default function HomePage() {
               "Lockouts £90–£110",
               "Spare keys usually £160–£220",
             ].map(line => (
-              <span key={line} className="inline-flex items-center gap-2 text-sm text-[#C79A1B] font-semibold">
-                <span className="text-[#C79A1B]">•</span>
+              <span key={line} className="inline-flex items-center gap-2 text-sm text-[#1677FF] font-semibold">
+                <span className="text-[#1677FF]">•</span>
                 {line}
               </span>
             ))}
@@ -107,7 +107,7 @@ export default function HomePage() {
           <a
             href={phoneHref}
             onClick={() => trackCallClick("homepage-hero")}
-            className="flex items-center justify-center gap-3 w-full px-4 py-5 bg-[#C79A1B] text-[#121212] font-bold text-base sm:text-xl rounded hover:bg-[#A07A10] transition-colors min-h-[64px] mb-5"
+            className="flex items-center justify-center gap-3 w-full px-4 py-5 bg-[#1677FF] text-[#171C22] font-bold text-base sm:text-xl rounded hover:bg-[#0D63DA] transition-colors min-h-[64px] mb-5"
             data-testid="button-call-hero"
           >
             <Phone size={24} />
@@ -125,7 +125,7 @@ export default function HomePage() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Read West London Auto Locksmith reviews on Google"
-            className="inline-flex items-center gap-2 border border-[#303030] rounded-xl bg-[#1a1a1a] px-[11px] py-[9px] hover:border-[#555] hover:bg-[#222] transition-colors duration-150"
+            className="inline-flex items-center gap-2 border border-white/20 rounded-xl bg-[#171C22] px-[11px] py-[9px] hover:border-[#1677FF] hover:bg-[#0D63DA] transition-colors duration-150"
           >
             <img
               src="/images/google-g.png"
@@ -133,9 +133,9 @@ export default function HomePage() {
               className="object-contain w-[25px] h-[25px] shrink-0"
               style={{ mixBlendMode: "screen" }}
             />
-            <div className="w-px h-[20px] bg-[#4a4a4a] shrink-0" />
+            <div className="w-px h-[20px] bg-white/25 shrink-0" />
             <span className="flex items-center gap-1 text-white font-semibold text-[10px] leading-tight whitespace-nowrap">
-              <svg className="w-[8px] h-[8px] shrink-0 text-[#C79A1B]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <svg className="w-[8px] h-[8px] shrink-0 text-[#1677FF]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
               Rated 5 Stars on Google
@@ -176,28 +176,28 @@ export default function HomePage() {
       {/* ── CHOOSE YOUR SERVICE ───────────────────────────────────────────── */}
       <section id="services" className="bg-white py-12 px-4 scroll-mt-16" data-testid="section-service-selector">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-xl sm:text-2xl font-bold text-[#121212] mb-2 text-center">
+          <h2 className="text-xl sm:text-2xl font-bold text-[#171C22] mb-2 text-center">
             Choose the Service You Need
           </h2>
-          <p className="text-[#121212]/55 text-sm text-center mb-8">
+          <p className="text-[#171C22]/55 text-sm text-center mb-8">
             We'll confirm availability, price and ETA before we travel.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             {/* Card 1 — Vehicle Lockout */}
             <div
-              className="bg-[#F7F7F4] border border-[#D8D8D3] rounded-xl p-7 flex flex-col"
+              className="bg-[#F4F6F8] border border-[#171C22]/15 rounded-xl p-7 flex flex-col"
               data-testid="service-card-lockout"
             >
-              <h3 className="font-bold text-[#121212] text-lg mb-1">Vehicle Lockout</h3>
-              <p className="text-2xl font-bold text-[#121212] mb-1">£90–£110</p>
-              <p className="text-sm text-[#121212]/60 leading-relaxed mb-6 flex-1">
+              <h3 className="font-bold text-[#171C22] text-lg mb-1">Vehicle Lockout</h3>
+              <p className="text-2xl font-bold text-[#171C22] mb-1">£90–£110</p>
+              <p className="text-sm text-[#171C22]/60 leading-relaxed mb-6 flex-1">
                 Fast, non-destructive vehicle entry across West London.
               </p>
               <Link
                 href="/vehicle-lockout"
                 onClick={() => trackEvent("homepage_lockout_card_click")}
-                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#121212] text-white font-semibold text-sm rounded hover:bg-[#2a2a2a] transition-colors min-h-[48px]"
+                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#171C22] text-white font-semibold text-sm rounded hover:bg-[#171C22] transition-colors min-h-[48px]"
                 data-testid="button-lockout-card"
               >
                 Vehicle Lockout Service
@@ -207,18 +207,18 @@ export default function HomePage() {
 
             {/* Card 2 — Spare Car Key */}
             <div
-              className="bg-[#F7F7F4] border border-[#D8D8D3] rounded-xl p-7 flex flex-col"
+              className="bg-[#F4F6F8] border border-[#171C22]/15 rounded-xl p-7 flex flex-col"
               data-testid="service-card-spare-key"
             >
-              <h3 className="font-bold text-[#121212] text-lg mb-1">Spare Car Keys</h3>
-              <p className="text-2xl font-bold text-[#121212] mb-1">£160–£220</p>
-              <p className="text-sm text-[#121212]/60 leading-relaxed mb-6 flex-1">
+              <h3 className="font-bold text-[#171C22] text-lg mb-1">Spare Car Keys</h3>
+              <p className="text-2xl font-bold text-[#171C22] mb-1">£160–£220</p>
+              <p className="text-sm text-[#171C22]/60 leading-relaxed mb-6 flex-1">
                 Working key required for most vehicles. Some keys up to £300.
               </p>
               <Link
                 href="/spare-car-key"
                 onClick={() => trackEvent("homepage_spare_key_card_click")}
-                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#121212] text-white font-semibold text-sm rounded hover:bg-[#2a2a2a] transition-colors min-h-[48px]"
+                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#171C22] text-white font-semibold text-sm rounded hover:bg-[#171C22] transition-colors min-h-[48px]"
                 data-testid="button-spare-key-card"
               >
                 Spare Car Key Service
@@ -233,9 +233,9 @@ export default function HomePage() {
       <ReviewsList heading="What Our Customers Say" showGoogleLink={true} />
 
       {/* ── WHY CHOOSE US ─────────────────────────────────────────────────── */}
-      <section className="bg-[#F7F7F4] py-12 px-4" data-testid="section-why-us">
+      <section className="bg-[#EAF3FF] py-12 px-4" data-testid="section-why-us">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-xl sm:text-2xl font-bold text-[#121212] mb-8 text-center">
+          <h2 className="text-xl sm:text-2xl font-bold text-[#171C22] mb-8 text-center">
             Why Choose Us
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4">
@@ -248,8 +248,8 @@ export default function HomePage() {
               "Compatibility checked before booking",
             ].map(point => (
               <div key={point} className="flex items-center gap-2.5">
-                <CheckCircle size={16} className="text-[#C79A1B] shrink-0" />
-                <span className="text-sm font-medium text-[#121212]">{point}</span>
+                <CheckCircle size={16} className="text-[#1677FF] shrink-0" />
+                <span className="text-sm font-medium text-[#171C22]">{point}</span>
               </div>
             ))}
           </div>
@@ -259,7 +259,7 @@ export default function HomePage() {
       {/* ── HOW IT WORKS ──────────────────────────────────────────────────── */}
       <section className="bg-white py-14 px-4" data-testid="section-how-it-works">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#121212] mb-10 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-10 text-center">
             How It Works
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
@@ -281,11 +281,11 @@ export default function HomePage() {
               },
             ].map((step) => (
               <div key={step.n} className="flex flex-col items-start" data-testid={`step-${step.n}`}>
-                <div className="w-11 h-11 rounded-full bg-[#121212] text-white flex items-center justify-center font-bold text-base mb-4 shrink-0">
+                <div className="w-11 h-11 rounded-full bg-[#171C22] text-white flex items-center justify-center font-bold text-base mb-4 shrink-0">
                   {step.n}
                 </div>
-                <h3 className="font-bold text-[#121212] mb-2">{step.title}</h3>
-                <p className="text-sm text-[#121212]/65 leading-relaxed">{step.desc}</p>
+                <h3 className="font-bold text-[#171C22] mb-2">{step.title}</h3>
+                <p className="text-sm text-[#171C22]/65 leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -293,21 +293,21 @@ export default function HomePage() {
       </section>
 
       {/* ── SERVICE AREA ──────────────────────────────────────────────────── */}
-      <section className="bg-[#F7F7F4] py-14 px-4" data-testid="section-coverage">
+      <section className="bg-[#F4F6F8] py-14 px-4" data-testid="section-coverage">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#121212] mb-3">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-3">
             Based in Uxbridge, Serving West London
           </h2>
-          <p className="text-[#121212]/70 text-base leading-relaxed mb-3 max-w-xl">
+          <p className="text-[#171C22]/70 text-base leading-relaxed mb-3 max-w-xl">
             We provide mobile car locksmith help across our West London service area, including Uxbridge, Hillingdon, Hayes, Ruislip, West Drayton, Slough and nearby locations.
           </p>
-          <p className="text-[#121212]/60 text-sm leading-relaxed mb-7 max-w-xl">
+          <p className="text-[#171C22]/60 text-sm leading-relaxed mb-7 max-w-xl">
             Don't see your area listed? Call with your postcode and we'll confirm availability and a live ETA before we set off.
           </p>
           <Link
             href="/areas-we-cover"
             onClick={() => trackEvent("homepage_areas_click")}
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#121212] border border-[#121212]/25 rounded px-5 py-2.5 hover:border-[#121212]/50 transition-colors min-h-[44px]"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#171C22] border border-[#171C22]/25 rounded px-5 py-2.5 hover:border-[#171C22]/50 transition-colors min-h-[44px]"
             data-testid="link-areas"
           >
             View Areas We Cover <ChevronRight size={15} />
@@ -318,10 +318,10 @@ export default function HomePage() {
       {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section className="bg-white py-14 px-4" data-testid="section-faq">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#121212] mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#171C22] mb-6">
             Car Locksmith Questions
           </h2>
-          <div className="divide-y divide-[#D8D8D3]">
+          <div className="divide-y divide-[#171C22]/15">
             {homeFaqs.map((faq) => (
               <FaqItem key={faq.q} q={faq.q} a={faq.a} />
             ))}
@@ -329,7 +329,7 @@ export default function HomePage() {
           <div className="mt-6">
             <Link
               href="/faqs"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#121212] border border-[#121212]/20 rounded px-5 py-2.5 hover:border-[#121212]/50 transition-colors min-h-[44px]"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#171C22] border border-[#171C22]/20 rounded px-5 py-2.5 hover:border-[#171C22]/50 transition-colors min-h-[44px]"
               data-testid="link-all-faqs"
             >
               See All FAQs <ChevronRight size={15} />
@@ -339,7 +339,7 @@ export default function HomePage() {
       </section>
 
       {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
-      <section className="bg-[#121212] py-16 px-4" data-testid="section-final-cta">
+      <section className="bg-[#171C22] py-16 px-4" data-testid="section-final-cta">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Need Car Locksmith Help?
@@ -350,7 +350,7 @@ export default function HomePage() {
           <a
             href={phoneHref}
             onClick={() => trackCallClick("homepage-final")}
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#C79A1B] text-[#121212] font-bold text-lg rounded hover:bg-[#A07A10] transition-colors min-h-[56px] min-w-[240px]"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#1677FF] text-[#171C22] font-bold text-lg rounded hover:bg-[#0D63DA] transition-colors min-h-[56px] min-w-[240px]"
             data-testid="button-call-final"
           >
             <Phone size={22} />

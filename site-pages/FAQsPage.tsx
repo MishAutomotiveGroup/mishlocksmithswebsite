@@ -7,21 +7,21 @@ import { siteContent } from "@/content/siteContent";
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-[#D8D8D3]">
+    <div className="border-b border-[#171C22]/15">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full text-left py-5 flex items-start justify-between gap-4 font-medium text-[#121212] hover:text-[#121212]/70 transition-colors min-h-[60px]"
+        className="w-full text-left py-5 flex items-start justify-between gap-4 font-medium text-[#171C22] hover:text-[#171C22]/70 transition-colors min-h-[60px]"
         aria-expanded={open}
         data-testid={`faq-toggle-${q.substring(0, 20).replace(/[^a-z0-9]/gi, "-").toLowerCase()}`}
       >
         <span className="text-base leading-snug">{q}</span>
         <ChevronRight
           size={18}
-          className={`shrink-0 text-[#121212]/40 transition-transform mt-0.5 ${open ? "rotate-90" : ""}`}
+          className={`shrink-0 text-[#171C22]/40 transition-transform mt-0.5 ${open ? "rotate-90" : ""}`}
         />
       </button>
       {open && (
-        <p className="pb-5 text-sm text-[#121212]/70 leading-relaxed pr-8">{a}</p>
+        <p className="pb-5 text-sm text-[#171C22]/70 leading-relaxed pr-8">{a}</p>
       )}
     </div>
   );
@@ -84,7 +84,7 @@ export default function FAQsPage() {
       }}
       hideReviewCarousel
     >
-      <section className="bg-[#121212] text-white py-14 px-4" data-testid="section-faqs-hero">
+      <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-faqs-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4 text-white">
             Frequently Asked Questions
@@ -97,7 +97,7 @@ export default function FAQsPage() {
 
       <section className="py-12 px-4 bg-white" data-testid="section-faqs-list">
         <div className="max-w-3xl mx-auto">
-          <div className="divide-y divide-[#D8D8D3]">
+          <div className="divide-y divide-[#171C22]/15">
             {faqs.map((faq) => (
               <FaqItem key={faq.q} q={faq.q} a={faq.a} />
             ))}

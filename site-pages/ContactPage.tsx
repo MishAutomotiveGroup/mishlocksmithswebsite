@@ -24,7 +24,7 @@ export default function ContactPage() {
       }}
       hideReviewCarousel
     >
-      <section className="bg-[#121212] text-white py-14 px-4" data-testid="section-contact-hero">
+      <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-contact-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4 text-white">
             Contact West London Auto Locksmith
@@ -40,23 +40,23 @@ export default function ContactPage() {
 
           {/* Phone */}
           <div data-testid="contact-phone-block">
-            <h2 className="text-xl font-bold text-[#121212] mb-5">Call Us</h2>
+            <h2 className="text-xl font-bold text-[#171C22] mb-5">Call Us</h2>
             {hasPhone ? (
               <>
                 <a
                   href={`tel:${siteContent.business.phone.replace(/\s/g, "")}`}
                   onClick={() => trackCallClick("contact")}
-                  className="inline-flex items-center gap-3 px-7 py-4 bg-[#C79A1B] text-[#121212] font-bold text-lg rounded hover:bg-[#A07A10] transition-colors min-h-[60px] mb-4"
+                  className="inline-flex items-center gap-3 px-7 py-4 bg-[#1677FF] text-[#171C22] font-bold text-lg rounded hover:bg-[#0D63DA] transition-colors min-h-[60px] mb-4"
                   data-testid="button-call-contact"
                 >
                   <Phone size={22} />
                   {siteContent.business.phone}
                 </a>
-                <p className="text-xs text-[#121212]/50">Tap to call on mobile</p>
+                <p className="text-xs text-[#171C22]/50">Tap to call on mobile</p>
               </>
             ) : (
-              <div className="bg-[#F7F7F4] border border-[#D8D8D3] rounded-lg p-5">
-                <p className="text-sm text-[#121212]/70">
+              <div className="bg-[#F4F6F8] border border-[#171C22]/15 rounded-lg p-5">
+                <p className="text-sm text-[#171C22]/70">
                   Phone number coming soon. Please check back shortly.
                 </p>
               </div>
@@ -66,23 +66,23 @@ export default function ContactPage() {
           {/* Email */}
           {siteContent.business.email && (
             <div data-testid="contact-email-block">
-              <h2 className="text-xl font-bold text-[#121212] mb-3">Email Us</h2>
+              <h2 className="text-xl font-bold text-[#171C22] mb-3">Email Us</h2>
               <a
                 href={`mailto:${siteContent.business.email}`}
-                className="inline-flex items-center gap-2 text-[#121212] font-semibold text-base hover:text-[#C79A1B] transition-colors"
+                className="inline-flex items-center gap-2 text-[#171C22] font-semibold text-base hover:text-[#1677FF] transition-colors"
                 data-testid="link-email-contact"
               >
                 <Mail size={18} />
                 {siteContent.business.email}
               </a>
-              <p className="text-xs text-[#121212]/50 mt-2">For non-urgent enquiries. For lockouts, calling is fastest.</p>
+              <p className="text-xs text-[#171C22]/50 mt-2">For non-urgent enquiries. For lockouts, calling is fastest.</p>
             </div>
           )}
 
           {/* What to have ready */}
           <div data-testid="contact-prep-block">
-            <h2 className="text-xl font-bold text-[#121212] mb-4">Before You Call</h2>
-            <p className="text-sm text-[#121212]/70 mb-4 leading-relaxed">
+            <h2 className="text-xl font-bold text-[#171C22] mb-4">Before You Call</h2>
+            <p className="text-sm text-[#171C22]/70 mb-4 leading-relaxed">
               Having this information ready helps us give you a clear answer and accurate
               price quickly:
             </p>
@@ -93,8 +93,8 @@ export default function ContactPage() {
                 "Brief description of the situation — keys locked inside, or cannot open the vehicle",
                 "Be ready to confirm you are entitled to access the vehicle (a standard precaution)",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-2 text-sm text-[#121212]/80">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C79A1B] mt-2 shrink-0" />
+                <li key={item} className="flex items-start gap-2 text-sm text-[#171C22]/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#1677FF] mt-2 shrink-0" />
                   {item}
                 </li>
               ))}
@@ -102,9 +102,9 @@ export default function ContactPage() {
           </div>
 
           {/* Coverage reminder */}
-          <div className="bg-[#F7F7F4] border border-[#D8D8D3] rounded-lg p-5" data-testid="contact-coverage-block">
-            <p className="text-sm font-semibold text-[#121212] mb-1">Coverage area</p>
-            <p className="text-sm text-[#121212]/65 leading-relaxed">
+          <div className="bg-[#F4F6F8] border border-[#171C22]/15 rounded-lg p-5" data-testid="contact-coverage-block">
+            <p className="text-sm font-semibold text-[#171C22] mb-1">Coverage area</p>
+            <p className="text-sm text-[#171C22]/65 leading-relaxed">
               We cover vehicle lockouts within approximately {siteContent.business.coverageRadius} of{" "}
               {siteContent.business.baseArea}, including {siteContent.business.coverageAreas.slice(0, 5).join(", ")} and
               surrounding areas. Call to confirm we can reach your location.
@@ -114,18 +114,18 @@ export default function ContactPage() {
           {/* WhatsApp (conditional) */}
           {siteContent.business.whatsappEnabled && siteContent.business.whatsappNumber && (
             <div data-testid="contact-whatsapp-block">
-              <h2 className="text-lg font-bold text-[#121212] mb-3">WhatsApp</h2>
+              <h2 className="text-lg font-bold text-[#171C22] mb-3">WhatsApp</h2>
               <a
                 href={`https://wa.me/${siteContent.business.whatsappNumber.replace(/[^0-9]/g, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackWhatsAppClick("contact")}
-                className="inline-flex items-center gap-2 px-5 py-3 border border-[#25D366] text-[#121212] font-medium text-sm rounded hover:bg-[#25D366]/5 transition-colors min-h-[48px]"
+                className="inline-flex items-center gap-2 px-5 py-3 border border-[#25D366] text-[#171C22] font-medium text-sm rounded hover:bg-[#25D366]/5 transition-colors min-h-[48px]"
                 data-testid="button-whatsapp"
               >
                 Message on WhatsApp
               </a>
-              <p className="text-xs text-[#121212]/50 mt-2">
+              <p className="text-xs text-[#171C22]/50 mt-2">
                 For enquiries only — calling is faster for urgent lockouts.
               </p>
             </div>
@@ -133,9 +133,9 @@ export default function ContactPage() {
 
           {/* Legal/business details */}
           {hasTrust && (
-            <div className="pt-4 border-t border-[#D8D8D3]" data-testid="contact-legal-block">
-              <h2 className="text-base font-semibold text-[#121212] mb-3">Business Details</h2>
-              <div className="text-xs text-[#121212]/50 space-y-1">
+            <div className="pt-4 border-t border-[#171C22]/15" data-testid="contact-legal-block">
+              <h2 className="text-base font-semibold text-[#171C22] mb-3">Business Details</h2>
+              <div className="text-xs text-[#171C22]/50 space-y-1">
                 {siteContent.trust.legalName && <p>{siteContent.trust.legalName}</p>}
                 {siteContent.trust.legalAddress && <p>{siteContent.trust.legalAddress}</p>}
                 {siteContent.trust.companyRegistration && (

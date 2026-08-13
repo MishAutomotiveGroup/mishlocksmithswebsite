@@ -1,7 +1,7 @@
 "use client";
 
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/site-pages/not-found";
@@ -66,10 +66,16 @@ function Router() {
 }
 
 function App() {
+  const [currentPath, setCurrentPath] = useState("/");
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname || "/");
+  }, []);
+
   return (
     <TooltipProvider>
       <StructuredData />
-      <WouterRouter ssrPath="/">
+      <WouterRouter ssrPath={currentPath}>
         <Router />
         <CookieConsent />
       </WouterRouter>

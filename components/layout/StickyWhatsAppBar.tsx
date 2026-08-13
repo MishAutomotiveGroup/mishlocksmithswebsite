@@ -12,7 +12,7 @@ interface Props {
 export default function StickyWhatsAppBar({ whatsappHref }: Props) {
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-[#121212] border-t border-white/10 py-3 px-4"
+      className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-[#171C22] border-t border-white/10 py-3 px-4"
       data-testid="sticky-whatsapp-bar"
     >
       <div className="flex items-center gap-3">
@@ -20,7 +20,7 @@ export default function StickyWhatsAppBar({ whatsappHref }: Props) {
           <a
             href={phoneHref}
             onClick={() => trackCallClick("sticky-spare-key")}
-            className="flex-1 flex items-center justify-center gap-2 bg-[#C79A1B] text-[#121212] font-bold text-sm rounded py-3 min-h-[52px] hover:bg-[#A07A10] transition-colors active:scale-[0.99]"
+            className="flex-1 flex items-center justify-center gap-2 bg-[#1677FF] text-[#171C22] font-bold text-sm rounded py-3 min-h-[52px] hover:bg-[#0D63DA] transition-colors active:scale-[0.99]"
             data-testid="button-call-sticky-spare-key"
           >
             <Phone size={18} />

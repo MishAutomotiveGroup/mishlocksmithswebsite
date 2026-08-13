@@ -95,8 +95,8 @@ export default function AvailabilityIndicator() {
           aria-controls="hours-modal"
           className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 cursor-pointer transition-colors ${
             available
-              ? "border border-[#2a4a2a] bg-[#1a1a1a] hover:bg-[#222]"
-              : "border border-[#303030] bg-[#1a1a1a] hover:bg-[#222]"
+              ? "border border-[#2a4a2a] bg-[#171C22] hover:bg-[#0D63DA]"
+              : "border border-white/20 bg-[#171C22] hover:bg-[#0D63DA]"
           }`}
         >
           <span className={`w-2 h-2 rounded-full shrink-0 ${available ? "bg-[#4a9a4a] animate-pulse" : "bg-[#888]"}`} />
@@ -136,7 +136,7 @@ export default function AvailabilityIndicator() {
           {/* Card */}
           <div
             ref={modalRef}
-            className="relative z-10 bg-[#1e1e1e] border border-white/20 rounded-xl shadow-2xl p-5 w-full max-w-[320px]"
+            className="relative z-10 bg-[#171C22] border border-white/20 rounded-xl shadow-2xl p-5 w-full max-w-[320px]"
             style={{
               opacity: visible ? 1 : 0,
               transform: visible ? "scale(1)" : "scale(0.96)",

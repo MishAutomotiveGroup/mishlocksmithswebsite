@@ -11,7 +11,7 @@ export default function PrivacyPage() {
         canonical: `${siteContent.seo.siteUrl}/privacy`,
       }}
     >
-      <section className="bg-[#121212] text-white py-12 px-4" data-testid="section-privacy-hero">
+      <section className="bg-[#171C22] text-white py-12 px-4" data-testid="section-privacy-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-white mb-2">Privacy Policy</h1>
           <p className="text-sm text-white/50">

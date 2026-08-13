@@ -15,7 +15,7 @@ export default function CarKeysPage() {
       }}
     >
       <section className="min-h-[60vh] flex items-center justify-center px-4 bg-white">
-        <p className="text-[#121212]/30 text-sm">Car Keys page — coming soon</p>
+        <p className="text-[#171C22]/30 text-sm">Car Keys page — coming soon</p>
       </section>
     </PageLayout>
   );

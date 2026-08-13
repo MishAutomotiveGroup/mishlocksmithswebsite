@@ -50,7 +50,7 @@ export default function ServicesPage() {
     >
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="bg-[#121212] text-white pt-9 pb-8 px-4">
+      <section className="bg-[#171C22] text-white pt-9 pb-8 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-3 text-white">
             What Do You Need Help With?
@@ -65,16 +65,16 @@ export default function ServicesPage() {
       </section>
 
       {/* ── SERVICE CARDS ─────────────────────────────────────────────────── */}
-      <section className="bg-[#121212] pb-12 px-4" data-testid="section-service-selector">
+      <section className="bg-[#171C22] pb-12 px-4" data-testid="section-service-selector">
         <div className="max-w-3xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             {/* Card 1 — Vehicle Lockout */}
             <div
-              className="bg-[#1e1e1e] border border-white/10 rounded-xl p-6 sm:p-7 flex flex-col"
+              className="bg-[#171C22] border border-white/10 rounded-xl p-6 sm:p-7 flex flex-col"
               data-testid="service-card-lockout"
             >
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#C79A1B] mb-2">Vehicle Lockout</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#1677FF] mb-2">Vehicle Lockout</p>
               <h2 className="font-bold text-white text-xl mb-2 leading-snug">Locked Your Keys in the Car?</h2>
               <p className="text-3xl font-bold text-white mb-3">£90–£110</p>
               <p className="text-sm text-white/55 leading-relaxed mb-5 flex-1">
@@ -83,7 +83,7 @@ export default function ServicesPage() {
               <div className="flex flex-col gap-2 mb-6">
                 {lockoutTicks.map(point => (
                   <div key={point} className="flex items-start gap-2">
-                    <CheckCircle size={13} className="text-[#C79A1B] shrink-0 mt-[2px]" />
+                    <CheckCircle size={13} className="text-[#1677FF] shrink-0 mt-[2px]" />
                     <span className="text-sm text-white/65">{point}</span>
                   </div>
                 ))}
@@ -91,7 +91,7 @@ export default function ServicesPage() {
               <Link
                 href="/vehicle-lockout"
                 onClick={() => trackEvent("services_page_lockout_click")}
-                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#C79A1B] text-[#121212] font-bold text-sm rounded hover:bg-[#A07A10] transition-colors min-h-[48px] mb-3"
+                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#1677FF] text-[#171C22] font-bold text-sm rounded hover:bg-[#0D63DA] transition-colors min-h-[48px] mb-3"
                 data-testid="button-lockout-service"
               >
                 View Vehicle Lockout Service
@@ -110,10 +110,10 @@ export default function ServicesPage() {
 
             {/* Card 2 — Spare Car Key */}
             <div
-              className="bg-[#1e1e1e] border border-white/10 rounded-xl p-6 sm:p-7 flex flex-col"
+              className="bg-[#171C22] border border-white/10 rounded-xl p-6 sm:p-7 flex flex-col"
               data-testid="service-card-spare-key"
             >
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#C79A1B] mb-2">Spare Car Keys</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#1677FF] mb-2">Spare Car Keys</p>
               <h2 className="font-bold text-white text-xl mb-2 leading-snug">Need a Spare Car Key?</h2>
               <div className="mb-3">
                 <span className="text-xs text-white/40 font-medium">Typically </span>
@@ -125,7 +125,7 @@ export default function ServicesPage() {
               <div className="flex flex-col gap-2 mb-6">
                 {spareKeyTicks.map(point => (
                   <div key={point} className="flex items-start gap-2">
-                    <CheckCircle size={13} className="text-[#C79A1B] shrink-0 mt-[2px]" />
+                    <CheckCircle size={13} className="text-[#1677FF] shrink-0 mt-[2px]" />
                     <span className="text-sm text-white/65">{point}</span>
                   </div>
                 ))}
@@ -133,7 +133,7 @@ export default function ServicesPage() {
               <Link
                 href="/spare-car-key"
                 onClick={() => trackEvent("services_page_spare_key_click")}
-                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#C79A1B] text-[#121212] font-bold text-sm rounded hover:bg-[#A07A10] transition-colors min-h-[48px] mb-3"
+                className="flex items-center justify-center gap-2 w-full px-4 py-3.5 bg-[#1677FF] text-[#171C22] font-bold text-sm rounded hover:bg-[#0D63DA] transition-colors min-h-[48px] mb-3"
                 data-testid="button-spare-key-service"
               >
                 View Spare Car Key Service
@@ -160,20 +160,20 @@ export default function ServicesPage() {
       </section>
 
       {/* ── NOT SURE ──────────────────────────────────────────────────────── */}
-      <section className="bg-[#F7F7F4] py-12 px-4" data-testid="section-not-sure">
+      <section className="bg-[#F4F6F8] py-12 px-4" data-testid="section-not-sure">
         <div className="max-w-xl mx-auto">
-          <div className="border border-[#D8D8D3] rounded-xl p-7 sm:p-9 text-center">
-            <h2 className="text-xl font-bold text-[#121212] mb-3">
+          <div className="border border-[#171C22]/15 rounded-xl p-7 sm:p-9 text-center">
+            <h2 className="text-xl font-bold text-[#171C22] mb-3">
               Not Sure Which Service You Need?
             </h2>
-            <p className="text-sm text-[#121212]/60 leading-relaxed mb-7 max-w-sm mx-auto">
+            <p className="text-sm text-[#171C22]/60 leading-relaxed mb-7 max-w-sm mx-auto">
               Call us with your vehicle make, model, year, location and what has happened. We'll tell you which service is suitable and confirm the likely price before travelling.
             </p>
             {hasPhone && (
               <a
                 href={phoneHref}
                 onClick={() => trackCallClick("services-not-sure")}
-                className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-[#C79A1B] text-[#121212] font-bold rounded hover:bg-[#A07A10] transition-colors min-h-[56px] mb-3 text-base"
+                className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-[#1677FF] text-[#171C22] font-bold rounded hover:bg-[#0D63DA] transition-colors min-h-[56px] mb-3 text-base"
                 data-testid="button-call-not-sure"
               >
                 <Phone size={20} />
@@ -186,7 +186,7 @@ export default function ServicesPage() {
                 onClick={() => trackWhatsAppClick("services-not-sure")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full px-6 py-3.5 border border-[#121212]/20 text-[#121212] font-semibold text-sm rounded hover:border-[#121212]/40 transition-colors min-h-[48px]"
+                className="flex items-center justify-center gap-2 w-full px-6 py-3.5 border border-[#171C22]/20 text-[#171C22] font-semibold text-sm rounded hover:border-[#171C22]/40 transition-colors min-h-[48px]"
                 data-testid="button-whatsapp-not-sure"
               >
                 <MessageCircle size={16} />
@@ -200,14 +200,14 @@ export default function ServicesPage() {
       {/* ── TRUST ─────────────────────────────────────────────────────────── */}
       <section className="bg-white py-12 px-4 pb-28 md:pb-14" data-testid="section-trust">
         <div className="max-w-xl mx-auto">
-          <h2 className="text-lg font-bold text-[#121212] mb-6 text-center">
+          <h2 className="text-lg font-bold text-[#171C22] mb-6 text-center">
             Why Choose West London Auto Locksmith?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {trustPoints.map(point => (
               <div key={point} className="flex items-center gap-2.5">
-                <CheckCircle size={16} className="text-[#C79A1B] shrink-0" />
-                <span className="text-sm font-medium text-[#121212]">{point}</span>
+                <CheckCircle size={16} className="text-[#1677FF] shrink-0" />
+                <span className="text-sm font-medium text-[#171C22]">{point}</span>
               </div>
             ))}
           </div>

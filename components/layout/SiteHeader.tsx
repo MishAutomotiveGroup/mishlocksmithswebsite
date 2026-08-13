@@ -51,7 +51,7 @@ export default function SiteHeader() {
     <div className="sticky top-0 z-40" data-testid="site-header">
 
       {/* ── Compact header row ──────────────────────────────────────────── */}
-      <header className="bg-[#151515]">
+      <header className="bg-[#171C22]">
         <div className="max-w-[1150px] mx-auto flex items-center h-[77px] px-3 gap-2">
 
           {/* Logo */}
@@ -80,18 +80,18 @@ export default function SiteHeader() {
           <a
             href={phoneHref}
             onClick={() => trackCallClick("header")}
-            className="md:hidden flex items-center justify-center w-11 h-11 bg-[#C79A1B] rounded-lg hover:bg-[#A07A10] active:scale-95 transition-all shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="md:hidden flex items-center justify-center w-11 h-11 bg-[#1677FF] rounded-lg hover:bg-[#0D63DA] active:scale-95 transition-all shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             aria-label={`Call us on ${phone}`}
             data-testid="button-call-header"
           >
-            <Phone size={22} className="text-[#121212]" />
+            <Phone size={22} className="text-[#171C22]" />
           </a>
 
           {/* Call — desktop: pill with number */}
           <a
             href={phoneHref}
             onClick={() => trackCallClick("header")}
-            className="hidden md:inline-flex items-center gap-2 px-4 py-2.5 bg-[#C79A1B] rounded-lg hover:bg-[#A07A10] active:scale-95 transition-all text-[#121212] font-bold text-sm shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="hidden md:inline-flex items-center gap-2 px-4 py-2.5 bg-[#1677FF] rounded-lg hover:bg-[#0D63DA] active:scale-95 transition-all text-[#171C22] font-bold text-sm shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             aria-label={`Call us on ${phone}`}
             data-testid="button-call-header-desktop"
           >
@@ -102,7 +102,7 @@ export default function SiteHeader() {
           {/* Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex items-center justify-center w-11 h-11 rounded-lg text-white/60 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C79A1B]"
+            className="flex items-center justify-center w-11 h-11 rounded-lg text-white/60 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             data-testid="button-menu-toggle"
@@ -114,7 +114,7 @@ export default function SiteHeader() {
 
       {/* ── Nav drawer ──────────────────────────────────────────────────── */}
       {menuOpen && (
-        <div className="absolute left-0 right-0 top-full bg-[#2A2A2A] border-b border-white/10 shadow-xl" data-testid="nav-menu">
+        <div className="absolute left-0 right-0 top-full bg-[#171C22] border-b border-white/10 shadow-xl" data-testid="nav-menu">
           <nav className="max-w-6xl mx-auto px-4 py-2" aria-label="Site navigation">
             {navLinks.map(link =>
               link.href.startsWith("/#") ? (
