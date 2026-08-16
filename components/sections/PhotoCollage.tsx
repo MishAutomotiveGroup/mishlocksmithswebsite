@@ -12,22 +12,14 @@ export default function PhotoCollage() {
         </div>
         <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
           <img
-            src="/images/job6.png"
-            alt="Auto locksmith technician by a service vehicle"
-            className="w-full h-full object-cover object-top"
-            loading="lazy"
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-        <div className="aspect-square overflow-hidden rounded-lg">
-          <img
             src="/images/gallery-vehicle-side.png"
             alt="Mish Auto Locksmiths branded service vehicle"
             className="w-full h-full object-cover object-center"
             loading="lazy"
           />
         </div>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
         <div className="aspect-square overflow-hidden rounded-lg">
           <img
             src="/images/job7.png"
