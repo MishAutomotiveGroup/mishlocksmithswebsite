@@ -4,9 +4,9 @@ export default function PhotoCollage() {
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
         <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
           <img
-            src="/images/homepage-hero.svg"
-            alt="Mish Auto Locksmiths service vehicle"
-            className="w-full h-full object-cover object-center"
+            src="/images/job7.png"
+            alt="Technician working on a vehicle door lock"
+            className="w-full h-full object-cover object-top"
             loading="eager"
           />
         </div>
@@ -22,9 +22,9 @@ export default function PhotoCollage() {
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
         <div className="aspect-square overflow-hidden rounded-lg">
           <img
-            src="/images/job7.png"
-            alt="Technician working on a vehicle door lock"
-            className="w-full h-full object-cover object-top"
+            src="/images/homepage-hero.svg"
+            alt="Mish Auto Locksmiths service vehicle"
+            className="w-full h-full object-cover object-center"
             loading="lazy"
           />
         </div>
@@ -41,6 +41,14 @@ export default function PhotoCollage() {
             src="/images/job5.png"
             alt="Technician working on a vehicle door"
             className="w-full h-full object-cover object-top"
+            loading="lazy"
+          />
+        </div>
+        <div className="aspect-square overflow-hidden rounded-lg md:hidden">
+          <img
+            src="/images/gallery-vehicle-side.png"
+            alt="Mish Auto Locksmiths branded service vehicle"
+            className="w-full h-full object-cover object-center"
             loading="lazy"
           />
         </div>
