@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Phone, ChevronRight, CheckCircle } from "lucide-react";
 import PageLayout from "@/components/layout/PageLayout";
 import AvailabilityIndicator from "@/components/sections/AvailabilityIndicator";
+import PhotoCollage from "@/components/sections/PhotoCollage";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackEvent } from "@/lib/analytics";
 
@@ -120,31 +121,8 @@ export default function HomePage() {
 
         </div>
 
-        <div className="-mx-4 mt-8" data-testid="section-photo-collage">
-          <div className="flex flex-col gap-2 md:gap-3 px-4">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
-              <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
-                <img src="/images/homepage-hero.svg" alt="Mish Auto Locksmiths service vehicle" className="w-full h-full object-cover object-center" loading="eager" />
-              </div>
-              <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
-                <img src="/images/job6.png" alt="Auto locksmith technician by a service vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-              <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/gallery-vehicle-side.png" alt="Mish Auto Locksmiths branded service vehicle" className="w-full h-full object-cover object-center" loading="lazy" />
-              </div>
-              <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/job7.png" alt="Technician working on a vehicle door lock" className="w-full h-full object-cover object-top" loading="lazy" />
-              </div>
-              <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/gallery-bottom-left.svg" alt="Mish Auto Locksmiths technician with service vehicle" className="w-full h-full object-cover object-center" loading="lazy" />
-              </div>
-              <div className="aspect-square overflow-hidden rounded-lg">
-                <img src="/images/job5.png" alt="Technician working on a vehicle door" className="w-full h-full object-cover object-top" loading="lazy" />
-              </div>
-            </div>
-          </div>
+        <div className="-mx-4 mt-8 px-4" data-testid="section-photo-collage">
+          <PhotoCollage />
         </div>
       </section>
 

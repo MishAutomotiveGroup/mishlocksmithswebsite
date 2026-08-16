@@ -6,6 +6,7 @@ import {
 import PageLayout from "@/components/layout/PageLayout";
 import StickyWhatsAppBar from "@/components/layout/StickyWhatsAppBar";
 import AvailabilityIndicator from "@/components/sections/AvailabilityIndicator";
+import PhotoCollage from "@/components/sections/PhotoCollage";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
 
@@ -180,24 +181,7 @@ export default function SpareCarKeyPage() {
       </section>
 
       <section className="bg-[#171C22] px-4 pb-8" data-testid="section-photo-collage">
-        <div className="flex flex-col gap-2 md:gap-3">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
-            <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
-              <img src="/images/job-lockout-top.png" alt="Technician unlocking a car door" className="w-full h-full object-cover" loading="lazy" />
-            </div>
-            <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
-              <img src="/images/job6.png" alt="Auto locksmith technician by a service vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2 md:gap-3">
-            <div className="aspect-square overflow-hidden rounded-lg">
-              <img src="/images/job3.png" alt="Auto locksmith technician" className="w-full h-full object-cover object-top" loading="lazy" />
-            </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
-              <img src="/images/job5.png" alt="Technician working on a vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
-            </div>
-          </div>
-        </div>
+        <PhotoCollage />
       </section>
 
       {/* ── KEY PROGRAMMING CARD ─────────────────────────────────────────── */}
