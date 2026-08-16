@@ -124,7 +124,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-2 md:gap-3 px-4">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
               <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-lg">
-                <img src="/images/job4.png" alt="Auto locksmith technician beside a service vehicle" className="w-full h-full object-cover" loading="eager" />
+                <img src="/images/homepage-hero.svg" alt="Mish Auto Locksmiths service vehicle" className="w-full h-full object-cover object-center" loading="eager" />
               </div>
               <div className="col-span-1 overflow-hidden rounded-lg hidden md:block">
                 <img src="/images/job6.png" alt="Auto locksmith technician by a service vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
