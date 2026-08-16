@@ -96,7 +96,7 @@ export default function SpareCarKeyPage() {
             background: 'black',
           }}
         >
-          <img src="/images/technician-hero.png" alt="" className="w-full h-full object-contain object-right-top md:object-cover md:object-[center_20%]" loading="eager" fetchPriority="high" decoding="sync" />
+          <img src="/images/technician-hero.png" alt="" className="w-full h-full object-cover object-[center_18%] md:object-[center_24%]" loading="eager" fetchPriority="high" decoding="sync" />
         </div>
         <div className="block md:hidden absolute top-0 inset-x-0 h-[400px] pointer-events-none" aria-hidden="true" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 70%)' }} />
         <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true" style={{ background: "linear-gradient(to right, #171C22 30%, rgba(23,28,34,0.8) 50%, rgba(23,28,34,0.5) 62%, transparent 80%)" }} />
