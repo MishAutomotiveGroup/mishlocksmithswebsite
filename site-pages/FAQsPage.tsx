@@ -57,8 +57,8 @@ const faqs = [
     a: "We may ask you to confirm that you are entitled to access the vehicle before we carry out entry. This is a standard precaution. In practice, we use common sense and context, but we reserve the right to ask for reasonable confirmation.",
   },
   {
-    q: "Do you offer key programming, replacement keys, or ignition repairs?",
-    a: "No. We offer vehicle entry only. We do not provide key programming, key coding, key cutting, spare or replacement keys, or ignition repairs. If you need those services, you will need to contact a different provider.",
+    q: "Do you offer key programming, key cutting, or replacement keys?",
+    a: "Yes. We offer key programming, key coding and key cutting for supported vehicles, including spare and replacement car keys. Call us with your vehicle make, model and year so we can confirm availability and provide a clear price before any work begins.",
   },
   ...(siteContent.pricing.paymentMethods.length > 0
     ? [
@@ -76,11 +76,11 @@ export default function FAQsPage() {
       meta={{
         title: "FAQs | Mish Auto Locksmiths",
         description:
-          "Frequently asked questions about vehicle lockout services in Guildford and Surrey. Clear answers on pricing, coverage, and what to expect.",
+          "Frequently asked questions about vehicle lockouts, key programming and key cutting in Guildford and Surrey. Clear answers on pricing, coverage, and what to expect.",
         canonical: `${siteContent.seo.siteUrl}/faqs`,
         ogTitle: "FAQs — Mish Auto Locksmiths",
         ogDescription:
-          "Common questions about vehicle lockout pricing, coverage, and how the service works.",
+          "Common questions about vehicle lockouts, key programming, key cutting, pricing and coverage.",
       }}
     >
       <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-faqs-hero">
@@ -89,7 +89,7 @@ export default function FAQsPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-base text-white/75 max-w-xl leading-relaxed">
-            Straightforward answers to common questions about our vehicle lockout service.
+            Straightforward answers to common questions about vehicle entry, key programming and key cutting.
           </p>
         </div>
       </section>

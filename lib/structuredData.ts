@@ -25,7 +25,7 @@ export function getLocalBusinessSchema() {
     "@type": "Locksmith",
     name: business.name,
     description:
-      "Vehicle lockout specialist covering Guildford and surrounding areas in Surrey. Vehicle entry only — no key programming or house locksmithing.",
+      "Mobile auto locksmith covering Guildford and Surrey, offering vehicle entry, car key programming, key cutting, and spare or replacement keys for supported vehicles.",
     url: seo.siteUrl,
     ...(telephone ? { telephone } : {}),
     areaServed: business.coverageAreas.map((name) => ({ "@type": "Place", name })),
