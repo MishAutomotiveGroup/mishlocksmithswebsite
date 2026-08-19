@@ -56,21 +56,21 @@ export default function AreasPage() {
       meta={{
         title: "Areas We Cover Across Surrey | Mish Auto Locksmiths",
         description:
-          "Mobile vehicle lockout service across Surrey and nearby areas, dispatching from Guildford. Call to confirm availability, price and ETA for your location.",
+          "Mobile auto locksmith services across Surrey from Guildford, including vehicle entry, key cutting, programming, and spare or replacement car keys.",
         canonical: `${siteContent.seo.siteUrl}/areas-we-cover`,
         ogTitle: "Areas We Cover Across Surrey — Mish Auto Locksmiths",
         ogDescription:
-          "Mobile vehicle lockout help across Surrey. Call with your location and we'll confirm availability and price before dispatch.",
+          "Mobile vehicle entry and car key services across Surrey. Call with your location and vehicle details to confirm availability and price.",
       }}
     >
       {/* Hero */}
       <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-areas-hero">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4 text-white">
-            Vehicle Lockout Help Across Surrey
+            Mobile Auto Locksmith Services Across Surrey
           </h1>
           <p className="text-base text-white/75 max-w-xl leading-relaxed mb-7">
-            We dispatch from Guildford and cover vehicle lockouts across Surrey and nearby areas.
+            Based in Guildford, we provide vehicle entry, key cutting, key programming, and spare or replacement car keys across Surrey.
           </p>
           <a
             href={hasPhone ? phoneHref : "/contact"}
@@ -87,9 +87,9 @@ export default function AreasPage() {
       {/* Main coverage section */}
       <section className="py-12 px-4 bg-white" data-testid="section-areas-main">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#171C22] mb-4">Surrey Vehicle Lockout Coverage</h2>
+          <h2 className="text-2xl font-bold text-[#171C22] mb-4">Surrey Auto Locksmith Coverage</h2>
           <p className="text-[#171C22]/70 text-base leading-relaxed mb-8 max-w-2xl">
-            Based in Guildford, we regularly help drivers in Surrey and surrounding areas. If you are locked out of your car, call with your location and vehicle details and we'll confirm whether we can reach you, the price, and the estimated arrival time.
+            Based in Guildford, we help drivers across Surrey with vehicle lockouts, key cutting, key programming, and spare or replacement car keys. Call with your location and vehicle details and we'll confirm compatibility, availability, price, and the estimated arrival time.
           </p>
 
           {/* Reassurance card — replaces old radius graphic */}
@@ -125,10 +125,10 @@ export default function AreasPage() {
       <section className="bg-[#171C22] py-16 px-4" data-testid="section-areas-final-cta">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            Locked Out in Surrey?
+            Need an Auto Locksmith in Surrey?
           </h2>
           <p className="text-white/70 text-base mb-8 max-w-lg mx-auto leading-relaxed">
-            Call with your location and vehicle details. We'll confirm availability, price, and ETA before dispatch.
+            Call with your location, vehicle details, and the service you need. We'll confirm compatibility, availability, price, and ETA before dispatch.
           </p>
           <a
             href={hasPhone ? phoneHref : "/contact"}

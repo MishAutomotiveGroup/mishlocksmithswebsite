@@ -4,7 +4,7 @@ import { useLocation } from "wouter";
 export default function LostCarKeysPage() {
   const [, navigate] = useLocation();
   useEffect(() => {
-    navigate("/car-keys", { replace: true });
+    navigate("/spare-car-key", { replace: true });
   }, [navigate]);
   return null;
 }

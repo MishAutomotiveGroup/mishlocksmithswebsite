@@ -42,7 +42,7 @@ const faqs = [
   },
   {
     q: "Do you cover my location?",
-    a: `We operate within approximately ${siteContent.business.coverageRadius} of ${siteContent.business.baseArea}. If you are unsure whether you are within our area, the quickest way to check is to call us — we will confirm immediately. We may not be able to reach you if your location is too far outside our operating area.`,
+    a: `We are based in ${siteContent.business.baseArea} and cover locations across Surrey. If you are unsure whether we cover your area, call us with your postcode and we will confirm availability before you book.`,
   },
   {
     q: "How is the price confirmed?",

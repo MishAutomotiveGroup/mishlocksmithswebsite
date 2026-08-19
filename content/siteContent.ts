@@ -38,7 +38,7 @@ export const siteContent = {
     invoiceAvailable: false,
     companyRegistration: "",
     vatNumber: "",
-    legalName: "",
+    legalName: "Mish Automotive Group",
     legalAddress: "",
     yearEstablished: "",
   },

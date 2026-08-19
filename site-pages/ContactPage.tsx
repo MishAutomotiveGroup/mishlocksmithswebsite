@@ -16,11 +16,11 @@ export default function ContactPage() {
       meta={{
         title: "Contact | Mish Auto Locksmiths",
         description:
-          "Contact Mish Auto Locksmiths for vehicle lockout help in Guildford and Surrey. Clear price confirmed before we travel.",
+          "Contact Mish Auto Locksmiths for vehicle entry, key cutting, programming, and spare or replacement car keys across Guildford and Surrey.",
         canonical: `${siteContent.seo.siteUrl}/contact`,
         ogTitle: "Contact Mish Auto Locksmiths",
         ogDescription:
-          "Locked out of your vehicle? Call Mish Auto Locksmiths. We cover Guildford and surrounding areas.",
+          "Mobile auto locksmith services across Guildford and Surrey. Call to confirm compatibility, availability and price.",
       }}
     >
       <section className="bg-[#171C22] text-white py-14 px-4" data-testid="section-contact-hero">
@@ -73,7 +73,7 @@ export default function ContactPage() {
               {[
                 "Your current location (street, area, or postcode)",
                 "Vehicle make and model",
-                "Brief description of the situation — keys locked inside, or cannot open the vehicle",
+                "Brief description of the service needed — vehicle entry, spare or replacement key, cutting, or programming",
                 "Be ready to confirm you are entitled to access the vehicle (a standard precaution)",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-[#171C22]/80">
@@ -88,7 +88,7 @@ export default function ContactPage() {
           <div className="bg-[#F4F6F8] border border-[#171C22]/15 rounded-lg p-5" data-testid="contact-coverage-block">
             <p className="text-sm font-semibold text-[#171C22] mb-1">Coverage area</p>
             <p className="text-sm text-[#171C22]/65 leading-relaxed">
-              Based in {siteContent.business.baseArea}, we provide mobile vehicle-lockout help throughout Surrey,
+              Based in {siteContent.business.baseArea}, we provide mobile auto locksmith services throughout Surrey,
               including {siteContent.business.coverageAreas.slice(1, 6).join(", ")} and surrounding areas. Call to
               confirm availability for your location.
             </p>

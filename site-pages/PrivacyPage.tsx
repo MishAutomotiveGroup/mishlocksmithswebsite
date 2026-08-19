@@ -25,8 +25,10 @@ export default function PrivacyPage() {
           <h2>Who We Are</h2>
           <p>
             {siteContent.trust.legalName || siteContent.business.name} operates the website at{" "}
-            {siteContent.seo.siteUrl}. We provide vehicle lockout services in Surrey. For any
-            data-related enquiries, please use the contact details shown in the footer of this site.
+            {siteContent.seo.siteUrl}. We provide mobile auto locksmith services across Surrey,
+            including vehicle entry, car key cutting, key programming, and spare or replacement
+            keys for supported vehicles. For any data-related enquiries, please use the contact
+            details on our contact page or in the footer of this site.
           </p>
 
           <h2>What Data We Collect</h2>
@@ -50,7 +52,7 @@ export default function PrivacyPage() {
           <p>We use the information you provide to:</p>
           <ul>
             <li>Respond to your enquiry and provide a quote</li>
-            <li>Arrange and carry out the vehicle lockout service</li>
+            <li>Arrange and carry out the auto locksmith service you requested</li>
             <li>Keep business records as required by law</li>
           </ul>
           <p>
@@ -106,8 +108,8 @@ export default function PrivacyPage() {
             <li>Object to processing based on legitimate interest</li>
           </ul>
           <p>
-            To exercise any of these rights, contact us using the telephone number or address
-            listed in the footer of this site. We may ask you to verify your identity before
+            To exercise any of these rights, contact us using the details on our contact page or
+            in the footer of this site. We may ask you to verify your identity before
             processing a request.
           </p>
 

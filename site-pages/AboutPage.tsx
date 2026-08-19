@@ -20,8 +20,7 @@ const aboutMsg = encodeURIComponent(
 const whatsappHref = `${waBase}?text=${aboutMsg}`;
 
 const teamMembers = [
-  { src: "/images/team-member-1.png", name: "Gabriel", imgClass: "scale-[1.15] -translate-y-[2%]" },
-  { src: "/images/team-member-2.png", name: "Mishkah", imgClass: "" },
+  { src: "/images/technician-hero.png", name: "Mishkah", imgClass: "object-[center_22%]" },
 ];
 
 // ── FAQ ───────────────────────────────────────────────────────────────────────
@@ -29,7 +28,7 @@ const teamMembers = [
 const aboutFaqs = [
   {
     q: "Who will attend my vehicle?",
-    a: "You will be speaking directly with someone involved in the business who will carry out or arrange the work. Mish Auto Locksmiths is not a national agency — your enquiry is handled personally.",
+    a: "You will be speaking directly with Mishkah, who will carry out or arrange the work. Mish Auto Locksmiths is not a national agency — your enquiry is handled personally.",
   },
   {
     q: "Will I know the price beforehand?",
@@ -100,9 +99,9 @@ export default function AboutPage() {
             We provide vehicle lockout and spare key services across Surrey, with clear pricing and direct communication before we travel.
           </p>
           <p className="text-[10px] font-semibold uppercase tracking-wider text-white/30 mb-4">
-            The People Behind the Business
+            Behind the Business
           </p>
-          <div className="grid grid-cols-2 gap-4 max-w-md">
+          <div className="grid grid-cols-1 gap-4 max-w-[240px]">
             {teamMembers.map((member) => (
               <div key={member.src} className="flex flex-col">
                 <div className="aspect-[3/4] overflow-hidden rounded-t-xl">
@@ -334,13 +333,13 @@ export default function AboutPage() {
           <h2 className="text-xl font-bold text-white mb-7">Straightforward Local Service</h2>
           <div className="grid grid-cols-3 gap-2 md:gap-3 mb-7">
             <div className="aspect-[3/4] overflow-hidden rounded-lg">
-              <img src="/images/team-member-1.png" alt="Auto locksmith technician" className="w-full h-full object-cover object-top scale-[1.15] -translate-y-[2%]" loading="lazy" />
+              <img src="/images/technician-hero.png" alt="Mishkah, mobile auto locksmith" className="w-full h-full object-cover object-[center_22%]" loading="lazy" />
             </div>
             <div className="aspect-[3/4] overflow-hidden rounded-lg">
               <img src="/images/job-lockout-top.png" alt="Technician carrying out a vehicle lockout" className="w-full h-full object-cover object-top" loading="lazy" />
             </div>
             <div className="aspect-[3/4] overflow-hidden rounded-lg">
-              <img src="/images/technician-with-car.png" alt="Auto locksmith technician beside a vehicle" className="w-full h-full object-cover object-top" loading="lazy" />
+              <img src="/images/gallery-vehicle-side.png" alt="Mish Auto Locksmiths mobile service vehicle" className="w-full h-full object-cover object-center" loading="lazy" />
             </div>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 mb-6">

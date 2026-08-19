@@ -38,7 +38,7 @@ const pageFaqs = [
   },
   {
     q: "Which areas do you cover?",
-    a: `We operate within approximately ${siteContent.business.coverageRadius} of ${siteContent.business.baseArea}, covering areas including ${siteContent.business.coverageAreas.slice(0, 6).join(", ")} and surrounding locations.`,
+    a: `We are based in ${siteContent.business.baseArea} and cover locations across Surrey, including ${siteContent.business.coverageAreas.slice(0, 6).join(", ")} and surrounding areas. Call with your postcode and we will confirm availability.`,
   },
 ];
 
