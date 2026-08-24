@@ -89,7 +89,7 @@ export default function SpareCarKeyPage() {
       <section className="relative overflow-hidden bg-[#171C22] text-white" data-testid="section-hero">
 
         <div
-          className="absolute top-0 right-0 w-[70%] h-[400px] md:bottom-0 md:h-full md:w-[60%] pointer-events-none"
+          className="absolute top-0 right-0 w-[70%] h-[560px] md:bottom-0 md:h-full md:w-[60%] pointer-events-none"
           aria-hidden="true"
           style={{
             WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 25%, black 55%)',
@@ -99,7 +99,7 @@ export default function SpareCarKeyPage() {
         >
           <img src="/images/technician-hero.png" alt="" className="w-full h-full object-cover object-[center_18%] md:object-[center_24%]" loading="eager" fetchPriority="high" decoding="sync" />
         </div>
-        <div className="block md:hidden absolute top-0 inset-x-0 h-[400px] pointer-events-none" aria-hidden="true" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 70%)' }} />
+        <div className="block md:hidden absolute top-0 inset-x-0 h-[560px] pointer-events-none" aria-hidden="true" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 70%)' }} />
         <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true" style={{ background: "linear-gradient(to right, #171C22 30%, rgba(23,28,34,0.8) 50%, rgba(23,28,34,0.5) 62%, transparent 80%)" }} />
 
         {/* Content */}

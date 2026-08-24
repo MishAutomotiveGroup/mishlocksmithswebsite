@@ -223,8 +223,8 @@ export default function VehicleQuoteSearch() {
   return (
     <div className="mb-5 rounded-xl border border-white/15 bg-[#10151A]/95 p-4 shadow-xl sm:p-5" data-testid="vehicle-quote-search">
       <div className="mb-4">
-        <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#1677FF]">Instant vehicle check</p>
-        <h2 className="text-xl font-bold text-white">Find your spare-key options</h2>
+        <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#1677FF]">Spare car key pricing</p>
+        <h2 className="text-xl font-bold text-white">Get an instant quote</h2>
         <p className="mt-1 text-xs leading-relaxed text-white/55">Enter the year, then search for the make and model.</p>
       </div>
 
