@@ -428,9 +428,9 @@ export default function VehicleQuoteSearch() {
           </p>
 
           {quoteResult.quoteReference ? (
-            <div className="my-4 rounded-xl border-2 border-[#1677FF] bg-[#171C22] px-4 py-5 text-center text-white shadow-lg">
+            <div className="my-4 rounded-xl border-2 border-[#1677FF] bg-[#171C22] px-4 py-4 text-center text-white shadow-lg">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#1677FF]">Your quote reference</p>
-              <p className="mt-1 text-5xl font-black tracking-tight sm:text-6xl">{quoteResult.quoteReference}</p>
+              <p className="mt-1 text-3xl font-black tracking-tight sm:text-4xl">{quoteResult.quoteReference}</p>
               <p className="mt-2 text-sm font-semibold text-white">Use this reference number for your phone call.</p>
             </div>
           ) : null}
@@ -481,7 +481,7 @@ export default function VehicleQuoteSearch() {
               )}
             </div>
           ) : (
-            <p className="mt-2 text-xs leading-relaxed text-[#171C22]/65">
+            <p className={`mt-3 leading-relaxed ${quoteResult.status === "not_found" ? "text-base font-semibold text-[#171C22]" : "text-xs text-[#171C22]/65"}`}>
               {quoteResult.status === "not_supported"
                 ? workingKey === "no"
                   ? "We cannot currently offer an all-keys-lost replacement for this vehicle."
