@@ -412,21 +412,35 @@ function QuoteSearchLog() {
 
   useEffect(() => {
     let active = true;
-    fetch("/api/admin/quote-searches", { cache: "no-store" })
-      .then(async (response) => {
+    let requestInFlight = false;
+
+    const loadSearches = async (initialLoad = false) => {
+      if (requestInFlight) return;
+      requestInFlight = true;
+
+      try {
+        const response = await fetch("/api/admin/quote-searches", { cache: "no-store" });
         if (!response.ok) throw new Error(await readApiError(response));
-        return response.json() as Promise<{ searches: QuoteSearchView[] }>;
-      })
-      .then((body) => {
-        if (active) setSearches(body.searches);
-      })
-      .catch((loadError: unknown) => {
+        const body = await response.json() as { searches: QuoteSearchView[] };
+        if (active) {
+          setSearches(body.searches);
+          setError("");
+        }
+      } catch (loadError: unknown) {
         if (active) setError(loadError instanceof Error ? loadError.message : "Unable to load quote searches.");
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-    return () => { active = false; };
+      } finally {
+        requestInFlight = false;
+        if (active && initialLoad) setLoading(false);
+      }
+    };
+
+    void loadSearches(true);
+    const refreshTimer = window.setInterval(() => void loadSearches(), 1_000);
+
+    return () => {
+      active = false;
+      window.clearInterval(refreshTimer);
+    };
   }, []);
 
   const filtered = useMemo(() => {
