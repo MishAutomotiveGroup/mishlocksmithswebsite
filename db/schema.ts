@@ -88,5 +88,26 @@ export const adminSessions = sqliteTable(
   ],
 );
 
+/**
+ * A privacy-conscious record of each public quote lookup. It stores only the
+ * vehicle details needed to follow up on a quote—no email address, telephone
+ * number or other contact data is collected by the search form.
+ */
+export const quoteSearches = sqliteTable(
+  "quote_searches",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    createdAt: text("created_at").notNull(),
+    make: text("make").notNull(),
+    model: text("model").notNull(),
+    year: integer("year").notNull(),
+    serviceType: text("service_type").notNull(),
+    hasWorkingKey: integer("has_working_key", { mode: "boolean" }).notNull(),
+    resultStatus: text("result_status").notNull(),
+    sourcePage: text("source_page").notNull(),
+  },
+  (table) => [index("quote_searches_created_at_idx").on(table.createdAt)],
+);
+
 export type KeyRecord = typeof keyRecords.$inferSelect;
 export type NewKeyRecord = typeof keyRecords.$inferInsert;

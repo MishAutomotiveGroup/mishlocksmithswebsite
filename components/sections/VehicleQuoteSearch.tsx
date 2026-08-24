@@ -12,7 +12,7 @@ type SearchOption = {
 };
 
 type QuoteOption = {
-  id: number;
+  id: string;
   keyType: "universal" | "oem";
   displayName: string;
   priceMinPence: number | null;
@@ -20,8 +20,7 @@ type QuoteOption = {
   jobMinutesMin: number | null;
   jobMinutesMax: number | null;
   stockStatus: "in_stock" | "order_required" | "check_availability";
-  leadBusinessDaysMin: number | null;
-  leadBusinessDaysMax: number | null;
+  leadTime: string | null;
   imagePath: string | null;
 };
 
@@ -120,13 +119,9 @@ function formatMinutes(min: number | null, max: number | null) {
 function formatStock(option: QuoteOption) {
   if (option.stockStatus === "in_stock") return "Normally in stock";
   if (option.stockStatus === "order_required") {
-    const min = option.leadBusinessDaysMin;
-    const max = option.leadBusinessDaysMax;
-    if (min !== null && max !== null && min !== max) return `Order time: ${min}–${max} business days`;
-    if (min !== null || max !== null) return `Order time: ${min ?? max} business days`;
-    return "Stock order required";
+    return option.leadTime ? `Order time: ${option.leadTime}` : "Stock order required";
   }
-  return "Availability checked before booking";
+  return option.leadTime || "Availability checked before booking";
 }
 
 type SearchSelectProps = {
@@ -245,7 +240,7 @@ export default function VehicleQuoteSearch() {
   const [selectedMake, setSelectedMake] = useState<VehicleMake | null>(null);
   const [workingKey, setWorkingKey] = useState<"" | "yes" | "no">("");
   const [quoteResult, setQuoteResult] = useState<QuoteResult | null>(null);
-  const [selectedOptionId, setSelectedOptionId] = useState<number | null>(null);
+  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
