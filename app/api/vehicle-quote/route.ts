@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { keyRecords, quoteSearches, type KeyRecord } from "@/db/schema";
+import { findVehicleCatalogueOption, type VehicleCatalogueOption } from "@/lib/vehicle-catalogue";
 
 export const dynamic = "force-dynamic";
 
@@ -100,7 +100,7 @@ function randomAvailableReference(used: Set<number>) {
   throw new Error("Unable to allocate a quote reference.");
 }
 
-async function recordSearch(record: KeyRecord, input: {
+async function recordSearch(vehicle: VehicleCatalogueOption, input: {
   hasWorkingKey: boolean;
   serviceType: ServiceType;
   resultStatus: ResultStatus;
@@ -117,11 +117,11 @@ async function recordSearch(record: KeyRecord, input: {
     try {
       await getDb().insert(quoteSearches).values({
         createdAt: new Date().toISOString(),
-        make: record.make,
-        model: record.model,
-        year: record.yearFrom,
-        yearTo: record.yearTo,
-        generation: record.generation,
+        make: vehicle.make,
+        model: vehicle.model,
+        year: vehicle.yearFrom,
+        yearTo: vehicle.yearTo,
+        generation: vehicle.generation,
         serviceType: input.serviceType,
         hasWorkingKey: input.hasWorkingKey,
         resultStatus: input.resultStatus,
@@ -137,6 +137,38 @@ async function recordSearch(record: KeyRecord, input: {
   throw new Error("Unable to allocate a quote reference.");
 }
 
+function normalise(value: string) {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\bmark\b/g, "mk")
+    .replace(/[^a-z0-9]+/g, "");
+}
+
+function normaliseMake(value: string) {
+  const normalised = normalise(value);
+  if (normalised === "opel" || normalised === "vauxhall") return "vauxhall";
+  if (normalised === "kgm" || normalised === "ssangyong") return "kgm";
+  if (normalised === "ds" || normalised === "dsautomobiles") return "ds";
+  return normalised;
+}
+
+function sameYearRange(record: KeyRecord, vehicle: VehicleCatalogueOption) {
+  return record.yearFrom === vehicle.yearFrom && (record.yearTo ?? null) === vehicle.yearTo;
+}
+
+function matchingKeyRecord(records: KeyRecord[], vehicle: VehicleCatalogueOption) {
+  return records.find((record) => (
+    normaliseMake(record.make) === normaliseMake(vehicle.make)
+    && normalise(record.model) === normalise(vehicle.model)
+    && (
+      normalise(record.generation) === normalise(vehicle.generation)
+      || sameYearRange(record, vehicle)
+    )
+  )) ?? null;
+}
+
 export async function POST(request: Request) {
   try {
     const payload = (await request.json()) as {
@@ -146,28 +178,31 @@ export async function POST(request: Request) {
     const recordId = typeof payload.recordId === "string" ? payload.recordId.trim() : "";
     const hasWorkingKey = payload.hasWorkingKey;
 
-    if (!recordId || recordId.length > 100) {
+    if (!recordId || recordId.length > 300) {
       return json({ error: "Choose a vehicle generation." }, 400);
     }
     if (typeof hasWorkingKey !== "boolean") {
       return json({ error: "Tell us whether you have a working key." }, 400);
     }
 
-    const record = await getDb().query.keyRecords.findFirst({
-      where: eq(keyRecords.id, recordId),
-    });
-    if (!record) return json({ error: "That vehicle generation is no longer available. Please choose again." }, 404);
+    const vehicle = findVehicleCatalogueOption(recordId);
+    if (!vehicle) return json({ error: "That vehicle generation is no longer available. Please choose again." }, 404);
+
+    const databaseRecords = await getDb().select().from(keyRecords);
+    const record = matchingKeyRecord(databaseRecords, vehicle);
 
     const serviceType: ServiceType = hasWorkingKey ? "spare_key" : "all_keys_lost";
-    const supported = recordSupportsService(record, serviceType);
-    const options = supported ? keyOptionsForRecord(record) : [];
-    const resultStatus: ResultStatus = !supported
-      ? "not_supported"
-      : options.length === 0
-        ? "manual_check"
-        : "matched";
+    const supported = record ? recordSupportsService(record, serviceType) : false;
+    const options = record && supported ? keyOptionsForRecord(record) : [];
+    const resultStatus: ResultStatus = !record
+      ? "not_found"
+      : !supported
+        ? "not_supported"
+        : options.length === 0
+          ? "manual_check"
+          : "matched";
 
-    const referenceNumber = await recordSearch(record, {
+    const referenceNumber = await recordSearch(vehicle, {
       hasWorkingKey,
       serviceType,
       resultStatus,
@@ -178,11 +213,11 @@ export async function POST(request: Request) {
       quoteReference: `#${referenceNumber}`,
       serviceType,
       vehicle: {
-        make: record.make,
-        model: record.model,
-        yearFrom: record.yearFrom,
-        yearTo: record.yearTo,
-        generation: record.generation,
+        make: vehicle.make,
+        model: vehicle.model,
+        yearFrom: vehicle.yearFrom,
+        yearTo: vehicle.yearTo,
+        generation: vehicle.generation,
         workingKeyRequired: serviceType === "spare_key",
       },
       options,

@@ -161,7 +161,7 @@ export default function VehicleQuoteSearch() {
         <div className="rounded-lg border border-amber-300/40 bg-amber-50 p-4 text-sm text-[#171C22]" role="alert">{optionsError}</div>
       ) : records.length === 0 ? (
         <div className="rounded-lg border border-white/15 bg-white/5 p-4 text-sm leading-6 text-white/65">
-          Vehicle generations will appear here once they have been added to the key database.
+          Vehicle choices are temporarily unavailable. Please call or WhatsApp us for a quote.
         </div>
       ) : (
         <form
@@ -341,7 +341,9 @@ export default function VehicleQuoteSearch() {
                 ? workingKey === "no"
                   ? "We cannot currently offer an all-keys-lost replacement for this vehicle."
                   : "We cannot currently offer a spare key for this vehicle."
-                : "This vehicle needs a manual compatibility or stock check before we can confirm a price."}
+                : quoteResult.status === "not_found"
+                  ? "This vehicle is not currently included in our key database. Call us with the reference above and we’ll check it manually."
+                  : "This vehicle needs a manual compatibility or stock check before we can confirm a price."}
             </p>
           )}
 
