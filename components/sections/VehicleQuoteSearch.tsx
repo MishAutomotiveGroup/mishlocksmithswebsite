@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Check, ChevronDown, MessageCircle, Phone, Search } from "lucide-react";
+import { Check, ChevronDown, Clock3, Loader2, MessageCircle, PackageCheck, Phone, Search } from "lucide-react";
 import { vehicleCatalogue, type VehicleMake } from "@/content/vehicleCatalogue";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
@@ -9,6 +9,33 @@ import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
 type SearchOption = {
   label: string;
   searchTerms?: string[];
+};
+
+type QuoteOption = {
+  id: number;
+  keyType: "universal" | "oem";
+  displayName: string;
+  priceMinPence: number | null;
+  priceMaxPence: number | null;
+  jobMinutesMin: number | null;
+  jobMinutesMax: number | null;
+  stockStatus: "in_stock" | "order_required" | "check_availability";
+  leadBusinessDaysMin: number | null;
+  leadBusinessDaysMax: number | null;
+  imagePath: string | null;
+};
+
+type QuoteResult = {
+  status: "matched" | "manual_check" | "not_supported" | "not_found";
+  serviceType: "spare_key" | "all_keys_lost";
+  vehicle: {
+    make: string;
+    model: string;
+    year: number;
+    variant: string | null;
+    workingKeyRequired: boolean | null;
+  };
+  options: QuoteOption[];
 };
 
 const earliestYear = 1950;
@@ -71,6 +98,34 @@ function filterOptions(options: SearchOption[], query: string) {
     .filter(item => Number.isFinite(item.score))
     .sort((a, b) => a.score - b.score || a.option.label.localeCompare(b.option.label, "en-GB"))
     .map(item => item.option);
+}
+
+function formatPrice(minPence: number | null, maxPence: number | null) {
+  if (minPence === null && maxPence === null) return "Price confirmed before booking";
+  const min = minPence === null ? maxPence : minPence;
+  const max = maxPence === null ? minPence : maxPence;
+  if (min === null || max === null) return "Price confirmed before booking";
+  if (min === max) return `£${(min / 100).toFixed(min % 100 === 0 ? 0 : 2)}`;
+  return `£${(min / 100).toFixed(min % 100 === 0 ? 0 : 2)}–£${(max / 100).toFixed(max % 100 === 0 ? 0 : 2)}`;
+}
+
+function formatMinutes(min: number | null, max: number | null) {
+  if (min === null && max === null) return "Time confirmed before booking";
+  if (min === max || max === null) return `About ${min} minutes`;
+  if (min === null) return `Up to ${max} minutes`;
+  return `${min}–${max} minutes`;
+}
+
+function formatStock(option: QuoteOption) {
+  if (option.stockStatus === "in_stock") return "Normally in stock";
+  if (option.stockStatus === "order_required") {
+    const min = option.leadBusinessDaysMin;
+    const max = option.leadBusinessDaysMax;
+    if (min !== null && max !== null && min !== max) return `Order time: ${min}–${max} business days`;
+    if (min !== null || max !== null) return `Order time: ${min ?? max} business days`;
+    return "Stock order required";
+  }
+  return "Availability checked before booking";
 }
 
 type SearchSelectProps = {
@@ -187,7 +242,11 @@ export default function VehicleQuoteSearch() {
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [selectedMake, setSelectedMake] = useState<VehicleMake | null>(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [workingKey, setWorkingKey] = useState<"" | "yes" | "no">("");
+  const [quoteResult, setQuoteResult] = useState<QuoteResult | null>(null);
+  const [selectedOptionId, setSelectedOptionId] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const numericYear = Number(year);
   const yearIsValid = /^\d{4}$/.test(year) && numericYear >= earliestYear && numericYear <= latestYear;
@@ -208,14 +267,18 @@ export default function VehicleQuoteSearch() {
   }, [selectedMake]);
 
   const matchedModel = modelOptions.some(option => option.label === model);
-  const canSubmit = yearIsValid && Boolean(selectedMake) && matchedModel;
+  const canSubmit = yearIsValid && Boolean(selectedMake) && matchedModel && workingKey !== "";
+  const selectedOption = quoteResult?.options.find(option => option.id === selectedOptionId) ?? null;
 
   const vehicleMessage = [
-    "Hi, I'd like a spare car key quote.",
+    workingKey === "no"
+      ? "Hi, I'd like an all-keys-lost replacement quote."
+      : "Hi, I'd like a spare car key quote.",
     "",
     `Vehicle: ${year} ${make} ${model}`,
     "",
-    "Do you have a working original key? Yes / No",
+    `Working key: ${workingKey === "yes" ? "Yes" : workingKey === "no" ? "No" : "Not answered"}`,
+    ...(selectedOption ? [`Selected key: ${selectedOption.displayName} (${selectedOption.keyType === "oem" ? "OEM" : "Universal"})`] : []),
     "Postcode / area:",
   ].join("\n");
   const whatsappUrl = `https://wa.me/${siteContent.business.whatsappNumber}?text=${encodeURIComponent(vehicleMessage)}`;
@@ -229,9 +292,28 @@ export default function VehicleQuoteSearch() {
       </div>
 
       <form
-        onSubmit={event => {
+        onSubmit={async event => {
           event.preventDefault();
-          if (canSubmit) setSubmitted(true);
+          if (!canSubmit || loading) return;
+          setLoading(true);
+          setError("");
+          setQuoteResult(null);
+          setSelectedOptionId(null);
+          try {
+            const response = await fetch("/api/vehicle-quote", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ year: numericYear, make, model, hasWorkingKey: workingKey === "yes" }),
+            });
+            const result = await response.json() as QuoteResult & { error?: string };
+            if (!response.ok) throw new Error(result.error || "Quote lookup failed");
+            setQuoteResult(result);
+            setSelectedOptionId(result.status === "matched" && result.options.length === 1 ? result.options[0].id : null);
+          } catch (lookupError) {
+            setError(lookupError instanceof Error ? lookupError.message : "We couldn't check this vehicle right now.");
+          } finally {
+            setLoading(false);
+          }
         }}
         className="space-y-3"
       >
@@ -251,7 +333,10 @@ export default function VehicleQuoteSearch() {
               setMake("");
               setModel("");
               setSelectedMake(null);
-              setSubmitted(false);
+              setWorkingKey("");
+              setQuoteResult(null);
+              setSelectedOptionId(null);
+              setError("");
             }}
             aria-describedby="vehicle-year-help"
             className="h-12 w-full rounded-lg border border-white/20 bg-white px-3 text-base font-medium text-[#171C22] outline-none transition placeholder:text-[#171C22]/40 focus:border-[#1677FF] focus:ring-2 focus:ring-[#1677FF]/30"
@@ -272,14 +357,20 @@ export default function VehicleQuoteSearch() {
             setMake(value);
             setModel("");
             setSelectedMake(null);
-            setSubmitted(false);
+            setWorkingKey("");
+            setQuoteResult(null);
+            setSelectedOptionId(null);
+            setError("");
           }}
           onSelect={value => {
             const nextMake = vehicleCatalogue.find(item => item.name === value) ?? null;
             setMake(value);
             setSelectedMake(nextMake);
             setModel("");
-            setSubmitted(false);
+            setWorkingKey("");
+            setQuoteResult(null);
+            setSelectedOptionId(null);
+            setError("");
           }}
         />
 
@@ -292,30 +383,128 @@ export default function VehicleQuoteSearch() {
           disabled={!selectedMake}
           onChange={value => {
             setModel(value);
-            setSubmitted(false);
+            setQuoteResult(null);
+            setSelectedOptionId(null);
+            setError("");
           }}
           onSelect={value => {
             setModel(value);
-            setSubmitted(false);
+            setQuoteResult(null);
+            setSelectedOptionId(null);
+            setError("");
           }}
         />
 
+        <fieldset>
+          <legend className="mb-1.5 block text-xs font-semibold text-white/75">4. Do you have at least one working key?</legend>
+          <div className="grid grid-cols-2 gap-2">
+            {(["yes", "no"] as const).map(answer => (
+              <button
+                key={answer}
+                type="button"
+                aria-pressed={workingKey === answer}
+                disabled={!matchedModel}
+                onClick={() => {
+                  setWorkingKey(answer);
+                  setQuoteResult(null);
+                  setSelectedOptionId(null);
+                  setError("");
+                }}
+                className={`min-h-12 rounded-lg border px-4 py-3 text-sm font-bold transition disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/5 disabled:text-white/25 ${workingKey === answer ? "border-[#1677FF] bg-[#1677FF] text-[#171C22]" : "border-white/20 bg-white/5 text-white hover:border-white/45"}`}
+              >
+                {answer === "yes" ? "Yes, I have one" : "No, all keys are lost"}
+              </button>
+            ))}
+          </div>
+        </fieldset>
+
         <button
           type="submit"
-          disabled={!canSubmit}
+          disabled={!canSubmit || loading}
           className="flex min-h-12 w-full items-center justify-center rounded-lg bg-[#1677FF] px-5 py-3 text-sm font-bold text-[#171C22] transition hover:bg-[#0D63DA] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/30"
         >
-          Check key options
+          {loading ? <><Loader2 size={17} className="mr-2 animate-spin" /> Checking your vehicle…</> : "Check key options"}
         </button>
       </form>
 
-      {submitted && (
+      {error && (
+        <div className="mt-4 rounded-lg border border-amber-300/50 bg-amber-50 p-4 text-sm text-[#171C22]" role="alert">
+          {error}
+        </div>
+      )}
+
+      {quoteResult && (
         <div className="mt-4 rounded-lg border border-[#1677FF]/35 bg-[#EAF3FF] p-4 text-[#171C22]" role="status">
-          <p className="text-xs font-bold uppercase tracking-wider text-[#1677FF]">Vehicle selected</p>
-          <p className="mt-1 font-bold">{year} {make} {model}</p>
-          <p className="mt-2 text-xs leading-relaxed text-[#171C22]/65">
-            An instant price is not listed for this vehicle yet. You can still send these details or call for a compatibility check.
+          <p className="text-xs font-bold uppercase tracking-wider text-[#1677FF]">
+            {quoteResult.status === "matched" ? "Instant quote" : "Vehicle check"}
           </p>
+          <p className="mt-1 font-bold">
+            {quoteResult.vehicle.year} {quoteResult.vehicle.make} {quoteResult.vehicle.model}
+            {quoteResult.vehicle.variant ? ` — ${quoteResult.vehicle.variant}` : ""}
+          </p>
+
+          {quoteResult.status === "matched" ? (
+            <div className="mt-3 space-y-3">
+              <p className="text-xs font-semibold text-[#171C22]/75">
+                {quoteResult.options.length > 1
+                  ? "Select the key that looks like yours."
+                  : "This is the matching key option for your vehicle."}
+              </p>
+              {quoteResult.options.map(option => {
+                const selected = selectedOptionId === option.id;
+                return (
+                  <button
+                    key={option.id}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setSelectedOptionId(option.id)}
+                    className={`w-full overflow-hidden rounded-lg border bg-white text-left transition ${selected ? "border-[#1677FF] ring-2 ring-[#1677FF]/25" : "border-[#171C22]/15 hover:border-[#1677FF]/55"}`}
+                  >
+                    {option.imagePath ? (
+                      <img src={option.imagePath} alt={`${option.displayName} car key`} className="h-40 w-full bg-[#F4F6F8] object-contain p-3" loading="lazy" />
+                    ) : (
+                      <div className="flex h-28 items-center justify-center bg-[#F4F6F8] px-4 text-center text-xs font-medium text-[#171C22]/45">Key photograph being added</div>
+                    )}
+                    <div className="p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#1677FF]">{option.keyType === "oem" ? "OEM key" : "Universal key"}</span>
+                          <h3 className="font-bold text-[#171C22]">{option.displayName}</h3>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <p className="shrink-0 text-xl font-bold text-[#171C22]">{formatPrice(option.priceMinPence, option.priceMaxPence)}</p>
+                          <span className={`mt-1 flex h-5 w-5 items-center justify-center rounded-full border ${selected ? "border-[#1677FF] bg-[#1677FF] text-white" : "border-[#171C22]/25"}`}>
+                            {selected && <Check size={13} />}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="mt-3 grid gap-2 text-xs text-[#171C22]/65">
+                        <span className="flex items-center gap-2"><Clock3 size={14} className="text-[#1677FF]" /> {formatMinutes(option.jobMinutesMin, option.jobMinutesMax)}</span>
+                        <span className="flex items-center gap-2"><PackageCheck size={14} className="text-[#1677FF]" /> {formatStock(option)}</span>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+              {quoteResult.options.length > 0 && !selectedOption && (
+                <p className="text-center text-xs font-medium text-[#171C22]/60">Choose a key above to continue with that option.</p>
+              )}
+              {quoteResult.serviceType === "spare_key" && quoteResult.vehicle.workingKeyRequired && (
+                <p className="text-xs leading-relaxed text-[#171C22]/65">This quote requires the working key to be present at the appointment.</p>
+              )}
+            </div>
+          ) : (
+            <p className="mt-2 text-xs leading-relaxed text-[#171C22]/65">
+              {quoteResult.status === "not_supported"
+                ? workingKey === "no"
+                  ? "We cannot currently offer an all-keys-lost replacement for this vehicle."
+                  : "We cannot currently offer a spare key for this vehicle."
+                : quoteResult.status === "manual_check"
+                  ? "This vehicle needs a manual compatibility or stock check before we can confirm a price."
+                  : "This vehicle is not in our instant-price database yet. Contact us and we can check it manually."}
+            </p>
+          )}
+
           <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
             <a
               href={`tel:${siteContent.business.phoneE164}`}

@@ -48,6 +48,18 @@ export default function PrivacyPage() {
             financial information is processed via this site.
           </p>
 
+          <h2>Instant Quote Searches</h2>
+          <p>
+            When you use the instant vehicle quote tool, we record the vehicle year, make, model,
+            whether you have a working key, the service requested, and whether a matching quote was
+            available. This helps us understand which vehicles customers most often need help with
+            and improve the quote database.
+          </p>
+          <p>
+            These search records do not include your name, phone number, email address, vehicle
+            registration, postcode, or precise location. They are not used to identify you.
+          </p>
+
           <h2>How We Use Your Data</h2>
           <p>We use the information you provide to:</p>
           <ul>
@@ -118,6 +130,10 @@ export default function PrivacyPage() {
           <ul>
             <li>
               <strong>Hosting:</strong> Our website is hosted by a third-party web hosting provider.
+            </li>
+            <li>
+              <strong>Supabase:</strong> Our instant quote database stores vehicle compatibility,
+              pricing records, and anonymous vehicle-search information.
             </li>
             <li>
               <strong>WhatsApp / Meta:</strong> Pre-filled message buttons link to WhatsApp,
