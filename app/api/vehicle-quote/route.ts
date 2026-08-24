@@ -134,9 +134,9 @@ async function recordSearch(input: {
   serviceType: "spare_key" | "all_keys_lost";
   resultStatus: "matched" | "manual_check" | "not_supported" | "not_found";
 }) {
-  await databaseRequest<void>("quote_searches", {
+  const rows = await databaseRequest<Array<{ id: number }>>("quote_searches?select=id", {
     method: "POST",
-    headers: { Prefer: "return=minimal" },
+    headers: { Prefer: "return=representation" },
     body: JSON.stringify({
       lookup_method: "manual",
       make: input.make,
@@ -149,6 +149,7 @@ async function recordSearch(input: {
       source_page: "spare-car-key",
     }),
   });
+  return rows[0]?.id ?? null;
 }
 
 export async function POST(request: Request) {
@@ -191,13 +192,15 @@ export async function POST(request: Request) {
           ? "manual_check"
           : "matched";
 
-    await recordSearch({ make, model, year, hasWorkingKey, serviceType, resultStatus }).catch(error => {
+    const quoteSearchId = await recordSearch({ make, model, year, hasWorkingKey, serviceType, resultStatus }).catch(error => {
       console.error("Quote search logging failed", error);
+      return null;
     });
 
     const primaryVehicle = supportedVehicles[0] ?? vehicles[0] ?? null;
     return json({
       status: resultStatus,
+      quoteReference: quoteSearchId === null ? null : `MCK-${String(quoteSearchId).padStart(6, "0")}`,
       serviceType,
       vehicle: primaryVehicle ? {
         make: primaryVehicle.make,

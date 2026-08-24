@@ -38,7 +38,8 @@ export function recordToView(record: KeyRecord): KeyRecordView {
     yearFrom: record.yearFrom,
     yearTo: record.yearTo,
     transponderClonable: record.transponderClonable,
-    powerSupplyRequired: record.powerSupplyRequired,
+    powerSupplyRequirement:
+      record.powerSupplyRequirement as KeyRecordView["powerSupplyRequirement"],
     aklCompatible: record.aklCompatible,
     addKeyCompatible: record.addKeyCompatible,
     aklPinMethod: record.aklPinMethod as KeyRecordView["aklPinMethod"],
@@ -106,4 +107,3 @@ export async function deletePhotos(keys: Array<string | null | undefined>) {
   const present = keys.filter((key): key is string => Boolean(key));
   if (present.length) await getBucket().delete(present);
 }
-

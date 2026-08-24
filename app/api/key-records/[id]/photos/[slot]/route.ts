@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { keyRecords } from "@/db/schema";
-import { getKeyDatabaseApiUser } from "@/lib/key-database-auth";
+import { getAdminApiSession } from "@/lib/admin-auth";
 import {
   getBucket,
   photoKeyForSlot,
@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 type RouteContext = { params: Promise<{ id: string; slot: string }> };
 
 export async function GET(_request: Request, context: RouteContext) {
-  const auth = await getKeyDatabaseApiUser();
+  const auth = await getAdminApiSession();
   if (auth.response) return auth.response;
 
   const { id, slot } = await context.params;
@@ -38,4 +38,3 @@ export async function GET(_request: Request, context: RouteContext) {
     },
   });
 }
-

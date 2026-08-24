@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "1fb2fd44-2034-43eb-be5b-fdc7bf75fcff",
+  "id": "c31f52f1-5c3a-4513-ab1e-2c579a45c372",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "key_records": {
@@ -70,9 +70,9 @@
           "notNull": false,
           "autoincrement": false
         },
-        "power_supply_required": {
-          "name": "power_supply_required",
-          "type": "integer",
+        "power_supply_requirement": {
+          "name": "power_supply_requirement",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false

@@ -8,7 +8,7 @@ CREATE TABLE `key_records` (
 	`oem_key_photo_key` text,
 	`universal_key_photo_key` text,
 	`transponder_clonable` integer,
-	`power_supply_required` integer,
+	`power_supply_requirement` text,
 	`akl_compatible` integer,
 	`add_key_compatible` integer,
 	`akl_pin_method` text,

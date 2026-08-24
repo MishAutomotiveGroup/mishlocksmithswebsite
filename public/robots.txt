@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin-login
+Disallow: /key-database
+Disallow: /api/admin/
+Disallow: /api/key-records/
 
 Sitemap: https://mish-car-keys.bigmishkah.chatgpt.site/sitemap.xml

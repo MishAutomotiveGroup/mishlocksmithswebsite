@@ -2,6 +2,7 @@ import {
   pinMethodOptions,
   type KeyRecordPayload,
   type PinMethod,
+  type PowerSupplyRequirement,
   type YesNoUnknown,
 } from "@/lib/key-records";
 
@@ -32,6 +33,12 @@ function pinMethodValue(value: unknown, field: string): PinMethod {
     return value as PinMethod;
   }
   throw new Error(`${field} is invalid.`);
+}
+
+function powerSupplyValue(value: unknown): PowerSupplyRequirement {
+  if (value === null) return null;
+  if (value === "required" || value === "not_required" || value === "optional") return value;
+  throw new Error("Power supply requirement is invalid.");
 }
 
 function yearValue(value: unknown, field: string, required: boolean) {
@@ -66,20 +73,13 @@ export function parseKeyRecordPayload(input: unknown): KeyRecordPayload {
   const addKeyPinMethod = pinMethodValue(value.addKeyPinMethod, "Add-key PIN method");
   const aklPinSupplier = textValue(value.aklPinSupplier, "AKL PIN supplier");
   const addKeyPinSupplier = textValue(value.addKeyPinSupplier, "Add-key PIN supplier");
-  if (aklPinMethod === "purchase_from_supplier" && !aklPinSupplier) {
-    throw new Error("Enter the supplier used for an AKL PIN code.");
-  }
-  if (addKeyPinMethod === "purchase_from_supplier" && !addKeyPinSupplier) {
-    throw new Error("Enter the supplier used for an add-key PIN code.");
-  }
-
   return {
     make: textValue(value.make, "Make", true),
     model: textValue(value.model, "Model", true),
     yearFrom,
     yearTo,
     transponderClonable: booleanValue(value.transponderClonable, "Transponder clonable"),
-    powerSupplyRequired: booleanValue(value.powerSupplyRequired, "Power supply required"),
+    powerSupplyRequirement: powerSupplyValue(value.powerSupplyRequirement),
     aklCompatible: booleanValue(value.aklCompatible, "AKL compatible"),
     addKeyCompatible: booleanValue(value.addKeyCompatible, "Add key compatible"),
     aklPinMethod,
@@ -102,4 +102,3 @@ export function parseKeyRecordPayload(input: unknown): KeyRecordPayload {
     notes: textValue(value.notes, "Notes"),
   };
 }
-

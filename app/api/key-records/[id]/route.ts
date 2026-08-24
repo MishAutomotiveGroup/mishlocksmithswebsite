@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { keyRecords } from "@/db/schema";
-import { getKeyDatabaseApiUser } from "@/lib/key-database-auth";
+import { getAdminApiSession, requestIsSameOrigin } from "@/lib/admin-auth";
 import { parseKeyRecordPayload } from "@/lib/key-record-validation";
 import {
   deletePhotos,
@@ -14,7 +14,8 @@ export const dynamic = "force-dynamic";
 type RouteContext = { params: Promise<{ id: string }> };
 
 export async function PUT(request: Request, context: RouteContext) {
-  const auth = await getKeyDatabaseApiUser();
+  if (!requestIsSameOrigin(request)) return Response.json({ error: "Invalid request." }, { status: 403 });
+  const auth = await getAdminApiSession();
   if (auth.response || !auth.user) return auth.response!;
 
   const { id } = await context.params;
@@ -89,8 +90,9 @@ export async function PUT(request: Request, context: RouteContext) {
   }
 }
 
-export async function DELETE(_request: Request, context: RouteContext) {
-  const auth = await getKeyDatabaseApiUser();
+export async function DELETE(request: Request, context: RouteContext) {
+  if (!requestIsSameOrigin(request)) return Response.json({ error: "Invalid request." }, { status: 403 });
+  const auth = await getAdminApiSession();
   if (auth.response) return auth.response;
   const { id } = await context.params;
   const db = getDb();
@@ -107,4 +109,3 @@ export async function DELETE(_request: Request, context: RouteContext) {
   ]);
   return Response.json({ deleted: true });
 }
-

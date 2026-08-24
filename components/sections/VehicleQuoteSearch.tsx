@@ -27,6 +27,7 @@ type QuoteOption = {
 
 type QuoteResult = {
   status: "matched" | "manual_check" | "not_supported" | "not_found";
+  quoteReference: string | null;
   serviceType: "spare_key" | "all_keys_lost";
   vehicle: {
     make: string;
@@ -278,6 +279,7 @@ export default function VehicleQuoteSearch() {
     `Vehicle: ${year} ${make} ${model}`,
     "",
     `Working key: ${workingKey === "yes" ? "Yes" : workingKey === "no" ? "No" : "Not answered"}`,
+    ...(quoteResult?.quoteReference ? [`Quote reference: ${quoteResult.quoteReference}`] : []),
     ...(selectedOption ? [`Selected key: ${selectedOption.displayName} (${selectedOption.keyType === "oem" ? "OEM" : "Universal"})`] : []),
     "Postcode / area:",
   ].join("\n");
@@ -442,6 +444,7 @@ export default function VehicleQuoteSearch() {
             {quoteResult.vehicle.year} {quoteResult.vehicle.make} {quoteResult.vehicle.model}
             {quoteResult.vehicle.variant ? ` — ${quoteResult.vehicle.variant}` : ""}
           </p>
+          {quoteResult.quoteReference ? <p className="mt-1 text-xs font-bold text-[#171C22]/65">Reference: {quoteResult.quoteReference}</p> : null}
 
           {quoteResult.status === "matched" ? (
             <div className="mt-3 space-y-3">

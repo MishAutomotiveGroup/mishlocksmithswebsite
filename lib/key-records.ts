@@ -1,8 +1,14 @@
 export type YesNoUnknown = boolean | null;
 
+export type PowerSupplyRequirement =
+  | "required"
+  | "not_required"
+  | "optional"
+  | null;
+
 export const pinMethodOptions = [
   "readable_by_autel",
-  "purchase_from_supplier",
+  "purchase_online",
   "not_required",
   "unobtainable",
 ] as const;
@@ -15,7 +21,7 @@ export type KeyRecordPayload = {
   yearFrom: number;
   yearTo: number | null;
   transponderClonable: YesNoUnknown;
-  powerSupplyRequired: YesNoUnknown;
+  powerSupplyRequirement: PowerSupplyRequirement;
   aklCompatible: YesNoUnknown;
   addKeyCompatible: YesNoUnknown;
   aklPinMethod: PinMethod;
@@ -53,7 +59,7 @@ export const emptyKeyRecord: KeyRecordPayload = {
   yearFrom: new Date().getFullYear(),
   yearTo: null,
   transponderClonable: null,
-  powerSupplyRequired: null,
+  powerSupplyRequirement: null,
   aklCompatible: null,
   addKeyCompatible: null,
   aklPinMethod: null,
@@ -94,4 +100,3 @@ export function yesNoLabel(value: YesNoUnknown) {
   if (value === false) return "No";
   return "Not checked";
 }
-

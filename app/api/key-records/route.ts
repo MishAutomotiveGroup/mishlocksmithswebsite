@@ -1,7 +1,7 @@
 import { desc } from "drizzle-orm";
 import { getDb } from "@/db";
 import { keyRecords } from "@/db/schema";
-import { getKeyDatabaseApiUser } from "@/lib/key-database-auth";
+import { getAdminApiSession, requestIsSameOrigin } from "@/lib/admin-auth";
 import { parseKeyRecordPayload } from "@/lib/key-record-validation";
 import {
   deletePhotos,
@@ -12,7 +12,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const auth = await getKeyDatabaseApiUser();
+  const auth = await getAdminApiSession();
   if (auth.response) return auth.response;
 
   const records = await getDb()
@@ -23,7 +23,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const auth = await getKeyDatabaseApiUser();
+  if (!requestIsSameOrigin(request)) return Response.json({ error: "Invalid request." }, { status: 403 });
+  const auth = await getAdminApiSession();
   if (auth.response || !auth.user) return auth.response!;
 
   const uploaded: string[] = [];
@@ -65,4 +66,3 @@ export async function POST(request: Request) {
     return Response.json({ error: message }, { status: 400 });
   }
 }
-

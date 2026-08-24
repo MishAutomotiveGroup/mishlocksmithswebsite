@@ -7,6 +7,7 @@ import {
   CarFront,
   Check,
   ChevronRight,
+  ClipboardList,
   Clock3,
   KeyRound,
   Loader2,
@@ -16,7 +17,6 @@ import {
   Plus,
   Search,
   ShieldCheck,
-  Trash2,
   Upload,
   X,
 } from "lucide-react";
@@ -28,12 +28,12 @@ import {
   type KeyRecordPayload,
   type KeyRecordView,
   type PinMethod,
+  type PowerSupplyRequirement,
   type YesNoUnknown,
 } from "@/lib/key-records";
 
 type Props = {
   adminName: string;
-  signOutPath: string;
 };
 
 type PhotoFiles = {
@@ -62,7 +62,7 @@ const emptyRemoved: RemovedPhotos = {
 
 const pinLabels: Record<Exclude<PinMethod, null>, string> = {
   readable_by_autel: "Readable by Autel",
-  purchase_from_supplier: "Purchase from supplier",
+  purchase_online: "Purchase online",
   not_required: "Not required",
   unobtainable: "Unobtainable",
 };
@@ -87,12 +87,13 @@ async function readApiError(response: Response) {
   }
 }
 
-export default function KeyDatabaseAdmin({ adminName, signOutPath }: Props) {
+export default function KeyDatabaseAdmin({ adminName }: Props) {
   const [records, setRecords] = useState<KeyRecordView[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [editing, setEditing] = useState<KeyRecordView | null | "new">(null);
+  const [activeTab, setActiveTab] = useState<"database" | "quotes">("database");
 
   const loadRecords = useCallback(async () => {
     setLoading(true);
@@ -147,25 +148,17 @@ export default function KeyDatabaseAdmin({ adminName, signOutPath }: Props) {
     );
   }, [records, search]);
 
-  async function deleteRecord(record: KeyRecordView) {
-    const confirmed = window.confirm(
-      `Delete ${record.make} ${record.model} (${formatVehicleYears(record.yearFrom, record.yearTo)})? This cannot be undone.`,
-    );
-    if (!confirmed) return;
-    const response = await fetch(`/api/key-records/${record.id}`, { method: "DELETE" });
-    if (!response.ok) {
-      setError(await readApiError(response));
-      return;
-    }
-    setRecords((current) => current.filter((item) => item.id !== record.id));
-  }
-
   function recordSaved(record: KeyRecordView) {
     setRecords((current) => {
       const without = current.filter((item) => item.id !== record.id);
       return [record, ...without];
     });
     setEditing(null);
+  }
+
+  async function signOut() {
+    await fetch("/api/admin/logout", { method: "POST" });
+    window.location.assign("/admin-login");
   }
 
   if (editing) {
@@ -194,18 +187,29 @@ export default function KeyDatabaseAdmin({ adminName, signOutPath }: Props) {
           </div>
           <div className="flex items-center gap-2">
             <span className="hidden max-w-48 truncate text-xs text-slate-400 lg:block">{adminName}</span>
-            <a
-              href={signOutPath}
+            <button
+              type="button"
+              onClick={() => void signOut()}
               className="inline-flex h-9 items-center gap-2 rounded-lg border border-slate-700 px-3 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:text-white"
             >
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">Sign out</span>
-            </a>
+            </button>
           </div>
         </div>
       </header>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8 flex w-fit rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+          <button type="button" onClick={() => setActiveTab("database")} className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-bold transition ${activeTab === "database" ? "bg-[#171C22] text-white" : "text-slate-500 hover:text-slate-900"}`}>
+            <KeyRound className="h-4 w-4" /> Key database
+          </button>
+          <button type="button" onClick={() => setActiveTab("quotes")} className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-bold transition ${activeTab === "quotes" ? "bg-[#171C22] text-white" : "text-slate-500 hover:text-slate-900"}`}>
+            <ClipboardList className="h-4 w-4" /> Quote log
+          </button>
+        </div>
+
+        {activeTab === "quotes" ? <QuoteSearchLog /> : <>
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1677FF]">Internal tools</p>
@@ -275,12 +279,12 @@ export default function KeyDatabaseAdmin({ adminName, signOutPath }: Props) {
                   key={record.id}
                   record={record}
                   onEdit={() => setEditing(record)}
-                  onDelete={() => void deleteRecord(record)}
                 />
               ))}
             </div>
           )}
         </div>
+        </>}
       </section>
     </main>
   );
@@ -328,11 +332,9 @@ function EmptyState({ hasSearch, onAdd }: { hasSearch: boolean; onAdd: () => voi
 function RecordCard({
   record,
   onEdit,
-  onDelete,
 }: {
   record: KeyRecordView;
   onEdit: () => void;
-  onDelete: () => void;
 }) {
   return (
     <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:border-blue-200 hover:shadow-md">
@@ -370,11 +372,8 @@ function RecordCard({
         </div>
       </div>
       <div className="flex justify-end gap-2 border-t border-slate-100 px-4 py-3">
-        <button type="button" onClick={onDelete} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50">
-          <Trash2 className="h-4 w-4" /> Delete
-        </button>
         <button type="button" onClick={onEdit} className="inline-flex items-center gap-2 rounded-lg bg-[#171C22] px-4 py-2 text-xs font-semibold text-white hover:bg-slate-700">
-          <Pencil className="h-4 w-4" /> View & edit
+          <ChevronRight className="h-4 w-4" /> View details
         </button>
       </div>
     </article>
@@ -388,6 +387,103 @@ function StatusPill({ label, value }: { label: string; value: YesNoUnknown }) {
       ? "border-red-200 bg-red-50 text-red-700"
       : "border-slate-200 bg-slate-50 text-slate-500";
   return <span className={`rounded-full border px-2.5 py-1 text-[11px] font-bold ${style}`}>{label}: {yesNoLabel(value)}</span>;
+}
+
+type QuoteSearchView = {
+  id: number;
+  reference: string;
+  createdAt: string;
+  make: string;
+  model: string;
+  year: number;
+  serviceType: "spare_key" | "all_keys_lost";
+  hasWorkingKey: boolean;
+  resultStatus: "matched" | "manual_check" | "not_supported" | "not_found";
+};
+
+function QuoteSearchLog() {
+  const [searches, setSearches] = useState<QuoteSearchView[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/admin/quote-searches", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(await readApiError(response));
+        return response.json() as Promise<{ searches: QuoteSearchView[] }>;
+      })
+      .then((body) => {
+        if (active) setSearches(body.searches);
+      })
+      .catch((loadError: unknown) => {
+        if (active) setError(loadError instanceof Error ? loadError.message : "Unable to load quote searches.");
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => { active = false; };
+  }, []);
+
+  const filtered = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return searches;
+    return searches.filter((item) => [item.reference, item.make, item.model, String(item.year), item.resultStatus].some((value) => value.toLowerCase().includes(needle)));
+  }, [query, searches]);
+
+  const statusLabel = (status: QuoteSearchView["resultStatus"]) => ({
+    matched: "Quote matched",
+    manual_check: "Manual check",
+    not_supported: "Not supported",
+    not_found: "Vehicle not found",
+  })[status];
+
+  return (
+    <div>
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1677FF]">Customer activity</p>
+        <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Quote search log</h1>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">Every saved key-page search, its quote reference and the vehicle details entered.</p>
+      </div>
+
+      <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div className="flex flex-col gap-4 border-b border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+          <div className="relative w-full sm:max-w-md">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search reference, vehicle, year or status…" className="h-11 w-full rounded-xl border border-slate-300 bg-white pl-10 pr-4 text-sm outline-none transition focus:border-[#1677FF] focus:ring-4 focus:ring-blue-100" />
+          </div>
+          <p className="text-sm text-slate-500">{filtered.length} searches</p>
+        </div>
+
+        {loading ? <div className="flex min-h-64 items-center justify-center gap-3 text-sm text-slate-500"><Loader2 className="h-5 w-5 animate-spin text-[#1677FF]" /> Loading quote log…</div> : null}
+        {error ? <div className="m-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">{error}</div> : null}
+        {!loading && !error && filtered.length === 0 ? <div className="flex min-h-64 flex-col items-center justify-center p-8 text-center"><ClipboardList className="h-9 w-9 text-slate-300" /><h2 className="mt-4 text-lg font-bold">No quote searches yet</h2><p className="mt-2 text-sm text-slate-500">New searches from the key page will appear here.</p></div> : null}
+
+        {!loading && !error && filtered.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[900px] text-left text-sm">
+              <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+                <tr><th className="px-5 py-3">Reference</th><th className="px-5 py-3">Date</th><th className="px-5 py-3">Vehicle</th><th className="px-5 py-3">Request</th><th className="px-5 py-3">Working key</th><th className="px-5 py-3">Result</th></tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {filtered.map((item) => (
+                  <tr key={item.id} className="hover:bg-slate-50/70">
+                    <td className="px-5 py-4 font-bold text-[#1677FF]">{item.reference}</td>
+                    <td className="px-5 py-4 text-slate-600">{new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeStyle: "short" }).format(new Date(item.createdAt))}</td>
+                    <td className="px-5 py-4"><p className="font-bold text-slate-900">{item.year} {item.make} {item.model}</p></td>
+                    <td className="px-5 py-4 text-slate-600">{item.serviceType === "spare_key" ? "Spare key" : "All keys lost"}</td>
+                    <td className="px-5 py-4 text-slate-600">{item.hasWorkingKey ? "Yes" : "No"}</td>
+                    <td className="px-5 py-4"><span className={`rounded-full px-2.5 py-1 text-xs font-bold ${item.resultStatus === "matched" ? "bg-emerald-50 text-emerald-700" : item.resultStatus === "not_supported" ? "bg-red-50 text-red-700" : "bg-amber-50 text-amber-700"}`}>{statusLabel(item.resultStatus)}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
 }
 
 function RecordEditor({
@@ -407,6 +503,7 @@ function RecordEditor({
   const [removed, setRemoved] = useState<RemovedPhotos>(emptyRemoved);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [editMode, setEditMode] = useState(!record);
 
   function update<K extends keyof KeyRecordPayload>(field: K, value: KeyRecordPayload[K]) {
     setForm((current) => ({ ...current, [field]: value }));
@@ -461,20 +558,24 @@ function RecordEditor({
           <button type="button" onClick={onCancel} className="inline-flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800 hover:text-white">
             <ArrowLeft className="h-5 w-5" /> Back to database
           </button>
-          <p className="hidden text-sm font-semibold sm:block">{record ? "Edit key record" : "New key record"}</p>
+          {record && !editMode ? (
+            <button type="button" onClick={() => setEditMode(true)} className="inline-flex items-center gap-2 rounded-lg bg-[#1677FF] px-4 py-2 text-sm font-bold text-white hover:bg-[#0D63DA]">
+              <Pencil className="h-4 w-4" /> Edit record
+            </button>
+          ) : <p className="hidden text-sm font-semibold sm:block">{record ? "Editing key record" : "New key record"}</p>}
         </div>
       </header>
 
       <form onSubmit={submit} className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         <div className="mb-7">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1677FF]">{record ? "Update record" : "Add record"}</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1677FF]">{record ? editMode ? "Editing record" : "Read-only record" : "Add record"}</p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight">{record ? `${record.make} ${record.model}` : "Vehicle and key details"}</h1>
           <p className="mt-2 text-sm text-slate-600">Leave anything you have not verified as “Not checked.”</p>
         </div>
 
         {error ? <div className="mb-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">{error}</div> : null}
 
-        <div className="space-y-5">
+        <fieldset disabled={!editMode} className="space-y-5 disabled:[&_input]:cursor-default disabled:[&_input]:bg-slate-50 disabled:[&_select]:cursor-default disabled:[&_select]:bg-slate-50 disabled:[&_textarea]:cursor-default disabled:[&_textarea]:bg-slate-50">
           <FormSection title="Vehicle application" description="The make, model and production years this key setup applies to." icon={CarFront}>
             <div className="grid gap-4 sm:grid-cols-2">
               <TextField label="Make" required value={form.make} onChange={(value) => update("make", value)} placeholder="e.g. Ford" />
@@ -484,7 +585,7 @@ function RecordEditor({
             </div>
           </FormSection>
 
-          <FormSection title="Reference photos" description="Upload a vehicle, OEM key and compatible universal key photo." icon={Upload}>
+          <FormSection title="Reference photos" description="Upload a vehicle, AFM / OEM-style key and compatible universal key photo." icon={Upload}>
             <div className="grid gap-4 md:grid-cols-3">
               <PhotoField
                 label="Car photo"
@@ -495,7 +596,7 @@ function RecordEditor({
                 onRemove={() => { setFiles((value) => ({ ...value, carPhoto: null })); setRemoved((value) => ({ ...value, carPhoto: true })); }}
               />
               <PhotoField
-                label="OEM key photo"
+                label="AFM / OEM-style key photo"
                 existingUrl={record?.oemKeyPhotoUrl ?? null}
                 file={files.oemKeyPhoto}
                 removed={removed.oemKeyPhoto}
@@ -516,15 +617,15 @@ function RecordEditor({
           <FormSection title="Programming compatibility" description="Confirm what can be done with the equipment and process currently available." icon={ShieldCheck}>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <TriStateField label="Transponder clonable?" value={form.transponderClonable} onChange={(value) => update("transponderClonable", value)} />
-              <TriStateField label="Power supply required?" value={form.powerSupplyRequired} onChange={(value) => update("powerSupplyRequired", value)} />
+              <PowerSupplyField value={form.powerSupplyRequirement} onChange={(value) => update("powerSupplyRequirement", value)} />
               <TriStateField label="AKL compatible?" value={form.aklCompatible} onChange={(value) => update("aklCompatible", value)} />
               <TriStateField label="Add key compatible?" value={form.addKeyCompatible} onChange={(value) => update("addKeyCompatible", value)} />
               <TriStateField label="Key cloning?" value={form.keyCloning} onChange={(value) => update("keyCloning", value)} />
               <TriStateField label="Universal key compatible?" value={form.universalKeyCompatible} onChange={(value) => update("universalKeyCompatible", value)} />
             </div>
-            <div className="mt-4">
+            {form.universalKeyCompatible === true ? <div className="mt-4">
               <TextField label="Compatible universal key(s)" value={form.compatibleUniversalKeys} onChange={(value) => update("compatibleUniversalKeys", value)} placeholder="Enter model names or codes" />
-            </div>
+            </div> : null}
           </FormSection>
 
           <FormSection title="PIN codes and blade" description="Record how each PIN is obtained and the blade code needed." icon={KeyRound}>
@@ -541,16 +642,16 @@ function RecordEditor({
               <TriStateField label="Key blanks in stock?" value={form.keyBlanksInStock} onChange={(value) => update("keyBlanksInStock", value)} />
               <div className="hidden sm:block" />
               <TriStateField label="Universal key in stock?" value={form.universalKeyInStock} onChange={(value) => update("universalKeyInStock", value)} />
-              <TextField label="Universal key supplier" value={form.universalKeySupplier} onChange={(value) => update("universalKeySupplier", value)} placeholder="Required when ordering" />
-              <TriStateField label="OEM key in stock?" value={form.oemKeyInStock} onChange={(value) => update("oemKeyInStock", value)} />
-              <TextField label="OEM key supplier" value={form.oemKeySupplier} onChange={(value) => update("oemKeySupplier", value)} placeholder="Required when ordering" />
+              {form.universalKeyInStock === false ? <TextField label="Universal key supplier" value={form.universalKeySupplier} onChange={(value) => update("universalKeySupplier", value)} placeholder="Enter supplier" /> : <div />}
+              <TriStateField label="AFM / OEM-style key in stock?" value={form.oemKeyInStock} onChange={(value) => update("oemKeyInStock", value)} />
+              {form.oemKeyInStock === false ? <TextField label="AFM / OEM-style key supplier" value={form.oemKeySupplier} onChange={(value) => update("oemKeySupplier", value)} placeholder="Enter supplier" /> : <div />}
             </div>
           </FormSection>
 
           <FormSection title="Lead time and prices" description="Use current stock and supplier shipping times to estimate availability." icon={Clock3}>
             <div className="grid gap-4 sm:grid-cols-3">
               <TextField label="Lead time" value={form.leadTime} onChange={(value) => update("leadTime", value)} placeholder="e.g. Same day / 2–3 days" />
-              <MoneyField label="OEM key price" value={oemPrice} onChange={setOemPrice} />
+              <MoneyField label="OEM / AFM key price" value={oemPrice} onChange={setOemPrice} />
               <MoneyField label="Universal key price" value={universalPrice} onChange={setUniversalPrice} />
             </div>
             <div className="mt-4">
@@ -566,9 +667,9 @@ function RecordEditor({
               </label>
             </div>
           </FormSection>
-        </div>
+        </fieldset>
 
-        <div className="sticky bottom-0 z-20 -mx-4 mt-6 border-t border-slate-200 bg-white/95 px-4 py-4 shadow-[0_-8px_30px_rgba(15,23,42,0.08)] backdrop-blur sm:-mx-6 sm:px-6">
+        {editMode ? <div className="sticky bottom-0 z-20 -mx-4 mt-6 border-t border-slate-200 bg-white/95 px-4 py-4 shadow-[0_-8px_30px_rgba(15,23,42,0.08)] backdrop-blur sm:-mx-6 sm:px-6">
           <div className="mx-auto flex max-w-5xl justify-end gap-3">
             <button type="button" onClick={onCancel} disabled={saving} className="min-h-11 rounded-xl border border-slate-300 px-5 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 disabled:opacity-50">Cancel</button>
             <button type="submit" disabled={saving} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#1677FF] px-6 py-3 text-sm font-bold text-white hover:bg-[#0D63DA] disabled:opacity-60">
@@ -576,7 +677,7 @@ function RecordEditor({
               {saving ? "Saving…" : record ? "Save changes" : "Create record"}
             </button>
           </div>
-        </div>
+        </div> : null}
       </form>
     </main>
   );
@@ -628,6 +729,16 @@ function TriStateField({ label, value, onChange }: { label: string; value: YesNo
   );
 }
 
+function PowerSupplyField({ value, onChange }: { value: PowerSupplyRequirement; onChange: (value: PowerSupplyRequirement) => void }) {
+  return (
+    <label className="block text-sm font-semibold text-slate-700">Power supply required?
+      <select value={value ?? "unknown"} onChange={(event) => onChange(event.target.value === "unknown" ? null : event.target.value as PowerSupplyRequirement)} className="mt-2 h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm font-normal outline-none transition focus:border-[#1677FF] focus:ring-4 focus:ring-blue-100">
+        <option value="unknown">Not selected</option><option value="required">Required</option><option value="not_required">Not required</option><option value="optional">Optional</option>
+      </select>
+    </label>
+  );
+}
+
 function PinMethodField({ label, value, supplier, onMethod, onSupplier }: { label: string; value: PinMethod; supplier: string; onMethod: (value: PinMethod) => void; onSupplier: (value: string) => void }) {
   return (
     <div>
@@ -637,7 +748,7 @@ function PinMethodField({ label, value, supplier, onMethod, onSupplier }: { labe
           {Object.entries(pinLabels).map(([key, text]) => <option key={key} value={key}>{text}</option>)}
         </select>
       </label>
-      {value === "purchase_from_supplier" ? <div className="mt-3"><TextField label="Supplier name" required value={supplier} onChange={onSupplier} placeholder="Enter supplier" /></div> : null}
+      {value === "purchase_online" ? <div className="mt-3"><TextField label="Online source" value={supplier} onChange={onSupplier} placeholder="Optional supplier or website" /></div> : null}
     </div>
   );
 }

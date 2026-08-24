@@ -22,9 +22,7 @@ export const keyRecords = sqliteTable(
     transponderClonable: integer("transponder_clonable", {
       mode: "boolean",
     }),
-    powerSupplyRequired: integer("power_supply_required", {
-      mode: "boolean",
-    }),
+    powerSupplyRequirement: text("power_supply_requirement"),
     aklCompatible: integer("akl_compatible", { mode: "boolean" }),
     addKeyCompatible: integer("add_key_compatible", { mode: "boolean" }),
 
@@ -71,5 +69,3 @@ export const keyRecords = sqliteTable(
 
 export type KeyRecord = typeof keyRecords.$inferSelect;
 export type NewKeyRecord = typeof keyRecords.$inferInsert;
-// See examples/d1/db/schema.ts for an opt-in example.
-export {};
