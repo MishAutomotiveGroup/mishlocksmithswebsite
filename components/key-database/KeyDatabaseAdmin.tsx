@@ -143,6 +143,7 @@ export default function KeyDatabaseAdmin({ adminName }: Props) {
       [
         record.make,
         record.model,
+        record.generation,
         record.keyBlankCode,
         record.compatibleUniversalKeys,
         String(record.yearFrom),
@@ -355,7 +356,7 @@ function RecordCard({
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#1677FF]">
-                {formatVehicleYears(record.yearFrom, record.yearTo)}
+                {formatVehicleYears(record.yearFrom, record.yearTo)}{record.generation ? ` (${record.generation})` : ""}
               </p>
               <h3 className="mt-1 truncate text-xl font-extrabold">{record.make} {record.model}</h3>
             </div>
@@ -399,6 +400,8 @@ type QuoteSearchView = {
   make: string;
   model: string;
   year: number;
+  yearTo: number | null;
+  generation: string | null;
   serviceType: "spare_key" | "all_keys_lost";
   hasWorkingKey: boolean;
   resultStatus: "matched" | "manual_check" | "not_supported" | "not_found";
@@ -488,7 +491,10 @@ function QuoteSearchLog() {
                   <tr key={item.id} className="hover:bg-slate-50/70">
                     <td className="px-5 py-4 font-bold text-[#1677FF]">{item.reference}</td>
                     <td className="px-5 py-4 text-slate-600">{new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeStyle: "short" }).format(new Date(item.createdAt))}</td>
-                    <td className="px-5 py-4"><p className="font-bold text-slate-900">{item.year} {item.make} {item.model}</p></td>
+                    <td className="px-5 py-4">
+                      <p className="font-bold text-slate-900">{item.make} {item.model}</p>
+                      <p className="mt-1 text-xs text-slate-500">{item.yearTo && item.yearTo !== item.year ? `${item.year}–${item.yearTo}` : item.year}{item.generation ? ` (${item.generation})` : ""}</p>
+                    </td>
                     <td className="px-5 py-4 text-slate-600">{item.serviceType === "spare_key" ? "Spare key" : "All keys lost"}</td>
                     <td className="px-5 py-4 text-slate-600">{item.hasWorkingKey ? "Yes" : "No"}</td>
                     <td className="px-5 py-4"><span className={`rounded-full px-2.5 py-1 text-xs font-bold ${item.resultStatus === "matched" ? "bg-emerald-50 text-emerald-700" : item.resultStatus === "not_supported" ? "bg-red-50 text-red-700" : "bg-amber-50 text-amber-700"}`}>{statusLabel(item.resultStatus)}</span></td>
@@ -599,6 +605,7 @@ function RecordEditor({
               <TextField label="Model" required value={form.model} onChange={(value) => update("model", value)} placeholder="e.g. Focus" />
               <NumberField label="Start year" required value={String(form.yearFrom)} onChange={(value) => update("yearFrom", Number(value))} placeholder="2015" />
               <NumberField label="End year" value={yearTo} onChange={setYearTo} placeholder="Leave blank for one year" />
+              <TextField label="Generation" required value={form.generation} onChange={(value) => update("generation", value)} placeholder="e.g. MK3" />
             </div>
           </FormSection>
 

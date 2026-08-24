@@ -37,6 +37,7 @@ export function recordToView(record: KeyRecord): KeyRecordView {
     model: record.model,
     yearFrom: record.yearFrom,
     yearTo: record.yearTo,
+    generation: record.generation,
     transponderClonable: record.transponderClonable,
     powerSupplyRequirement:
       record.powerSupplyRequirement as KeyRecordView["powerSupplyRequirement"],

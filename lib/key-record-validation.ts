@@ -78,6 +78,7 @@ export function parseKeyRecordPayload(input: unknown): KeyRecordPayload {
     model: textValue(value.model, "Model", true),
     yearFrom,
     yearTo,
+    generation: textValue(value.generation, "Generation", true),
     transponderClonable: booleanValue(value.transponderClonable, "Transponder clonable"),
     powerSupplyRequirement: powerSupplyValue(value.powerSupplyRequirement),
     aklCompatible: booleanValue(value.aklCompatible, "AKL compatible"),

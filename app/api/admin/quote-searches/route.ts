@@ -19,11 +19,13 @@ export async function GET() {
     return Response.json({
       searches: rows.map((row) => ({
         id: row.id,
-        reference: `MCK-${String(row.id).padStart(6, "0")}`,
+        reference: row.referenceNumber ? `#${row.referenceNumber}` : `#${1_000 + row.id}`,
         createdAt: row.createdAt,
         make: row.make,
         model: row.model,
         year: row.year,
+        yearTo: row.yearTo,
+        generation: row.generation,
         serviceType: row.serviceType,
         hasWorkingKey: row.hasWorkingKey,
         resultStatus: row.resultStatus,

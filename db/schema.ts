@@ -1,5 +1,5 @@
 // Intentionally empty by default.
-import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 /**
  * One row represents one vehicle/key application. Nullable boolean fields are
@@ -14,6 +14,7 @@ export const keyRecords = sqliteTable(
     model: text("model").notNull(),
     yearFrom: integer("year_from").notNull(),
     yearTo: integer("year_to"),
+    generation: text("generation").notNull().default(""),
 
     carPhotoKey: text("car_photo_key"),
     oemKeyPhotoKey: text("oem_key_photo_key"),
@@ -101,12 +102,18 @@ export const quoteSearches = sqliteTable(
     make: text("make").notNull(),
     model: text("model").notNull(),
     year: integer("year").notNull(),
+    yearTo: integer("year_to"),
+    generation: text("generation"),
     serviceType: text("service_type").notNull(),
     hasWorkingKey: integer("has_working_key", { mode: "boolean" }).notNull(),
     resultStatus: text("result_status").notNull(),
     sourcePage: text("source_page").notNull(),
+    referenceNumber: integer("reference_number"),
   },
-  (table) => [index("quote_searches_created_at_idx").on(table.createdAt)],
+  (table) => [
+    index("quote_searches_created_at_idx").on(table.createdAt),
+    uniqueIndex("quote_searches_reference_number_unique").on(table.referenceNumber),
+  ],
 );
 
 export type KeyRecord = typeof keyRecords.$inferSelect;

@@ -20,6 +20,7 @@ export type KeyRecordPayload = {
   model: string;
   yearFrom: number;
   yearTo: number | null;
+  generation: string;
   transponderClonable: YesNoUnknown;
   powerSupplyRequirement: PowerSupplyRequirement;
   aklCompatible: YesNoUnknown;
@@ -58,6 +59,7 @@ export const emptyKeyRecord: KeyRecordPayload = {
   model: "",
   yearFrom: new Date().getFullYear(),
   yearTo: null,
+  generation: "",
   transponderClonable: null,
   powerSupplyRequirement: null,
   aklCompatible: null,
