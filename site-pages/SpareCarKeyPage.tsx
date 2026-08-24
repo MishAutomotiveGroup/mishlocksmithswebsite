@@ -7,6 +7,7 @@ import PageLayout from "@/components/layout/PageLayout";
 import StickyWhatsAppBar from "@/components/layout/StickyWhatsAppBar";
 import AvailabilityIndicator from "@/components/sections/AvailabilityIndicator";
 import PhotoCollage from "@/components/sections/PhotoCollage";
+import VehicleQuoteSearch from "@/components/sections/VehicleQuoteSearch";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
 
@@ -142,6 +143,8 @@ export default function SpareCarKeyPage() {
             <div className="flex justify-center mb-5">
               <AvailabilityIndicator />
             </div>
+
+            <VehicleQuoteSearch />
 
             {/* Primary CTA — Call Now */}
             {hasPhone && (
