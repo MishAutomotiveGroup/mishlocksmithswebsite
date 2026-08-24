@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { Check, Clock3, Loader2, MessageCircle, PackageCheck, Phone } from "lucide-react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { Check, ChevronDown, Clock3, Loader2, MessageCircle, PackageCheck, Phone, Search } from "lucide-react";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
 
@@ -73,7 +73,160 @@ function formatStock(option: QuoteOption) {
   return option.leadTime || "Availability checked before booking";
 }
 
-const selectClass = "h-12 w-full rounded-lg border border-white/20 bg-white px-3 text-base font-semibold text-[#171C22] outline-none transition focus:border-[#1677FF] focus:ring-2 focus:ring-[#1677FF]/30 disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35";
+type SearchableSelectOption = {
+  value: string;
+  label: string;
+};
+
+function normaliseSearch(value: string) {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function SearchableSelect({
+  label,
+  value,
+  options,
+  placeholder,
+  disabled = false,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: SearchableSelectOption[];
+  placeholder: string;
+  disabled?: boolean;
+  onChange: (value: string) => void;
+}) {
+  const inputId = useId();
+  const listboxId = `${inputId}-listbox`;
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [highlightedIndex, setHighlightedIndex] = useState(0);
+  const selectedLabel = options.find((option) => option.value === value)?.label ?? "";
+
+  const filteredOptions = useMemo(() => {
+    const search = normaliseSearch(query);
+    if (!search) return options;
+    const terms = search.split(" ");
+    return options.filter((option) => {
+      const searchableLabel = normaliseSearch(option.label);
+      return terms.every((term) => searchableLabel.includes(term));
+    });
+  }, [options, query]);
+
+  useEffect(() => {
+    function closeOnOutsidePointer(event: PointerEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    }
+
+    document.addEventListener("pointerdown", closeOnOutsidePointer);
+    return () => document.removeEventListener("pointerdown", closeOnOutsidePointer);
+  }, []);
+
+  function openList() {
+    if (disabled) return;
+    setQuery("");
+    setHighlightedIndex(0);
+    setOpen(true);
+  }
+
+  function chooseOption(option: SearchableSelectOption) {
+    onChange(option.value);
+    setQuery("");
+    setOpen(false);
+  }
+
+  return (
+    <div ref={rootRef} className="relative">
+      <label htmlFor={inputId} className="block text-xs font-semibold text-white/75">
+        {label}
+      </label>
+      <div className="relative mt-1.5">
+        <Search
+          size={17}
+          aria-hidden="true"
+          className={`pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 ${disabled ? "text-white/25" : "text-[#171C22]/45"}`}
+        />
+        <input
+          id={inputId}
+          type="text"
+          role="combobox"
+          autoComplete="off"
+          aria-autocomplete="list"
+          aria-expanded={open}
+          aria-controls={listboxId}
+          aria-activedescendant={open && filteredOptions[highlightedIndex] ? `${inputId}-option-${highlightedIndex}` : undefined}
+          value={open ? query : selectedLabel}
+          placeholder={placeholder}
+          disabled={disabled}
+          onFocus={openList}
+          onClick={() => {
+            if (!open) openList();
+          }}
+          onChange={(event) => {
+            setQuery(event.target.value);
+            setHighlightedIndex(0);
+            setOpen(true);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "ArrowDown") {
+              event.preventDefault();
+              if (!open) openList();
+              else setHighlightedIndex((index) => Math.min(index + 1, Math.max(filteredOptions.length - 1, 0)));
+            } else if (event.key === "ArrowUp") {
+              event.preventDefault();
+              setHighlightedIndex((index) => Math.max(index - 1, 0));
+            } else if (event.key === "Enter" && open && filteredOptions[highlightedIndex]) {
+              event.preventDefault();
+              chooseOption(filteredOptions[highlightedIndex]);
+            } else if (event.key === "Escape") {
+              setOpen(false);
+            }
+          }}
+          className="h-12 w-full rounded-lg border border-white/20 bg-white py-2 pl-10 pr-10 text-base font-semibold text-[#171C22] outline-none transition placeholder:text-[#171C22]/45 focus:border-[#1677FF] focus:ring-2 focus:ring-[#1677FF]/30 disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35 disabled:placeholder:text-white/30"
+        />
+        <ChevronDown
+          size={18}
+          aria-hidden="true"
+          className={`pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 transition ${disabled ? "text-white/25" : "text-[#171C22]/45"} ${open ? "rotate-180" : ""}`}
+        />
+      </div>
+
+      {open && (
+        <div
+          id={listboxId}
+          role="listbox"
+          className="absolute z-50 mt-1 max-h-64 w-full overflow-y-auto rounded-lg border border-[#171C22]/15 bg-white p-1 text-[#171C22] shadow-2xl"
+        >
+          {filteredOptions.length > 0 ? filteredOptions.map((option, index) => (
+            <button
+              id={`${inputId}-option-${index}`}
+              key={option.value}
+              type="button"
+              role="option"
+              aria-selected={option.value === value}
+              onPointerEnter={() => setHighlightedIndex(index)}
+              onPointerDown={(event) => event.preventDefault()}
+              onClick={() => chooseOption(option)}
+              className={`flex min-h-11 w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm font-semibold transition ${highlightedIndex === index ? "bg-[#EAF3FF] text-[#0D63DA]" : "hover:bg-[#F4F6F8]"}`}
+            >
+              <span>{option.label}</span>
+              {option.value === value && <Check size={16} aria-hidden="true" className="shrink-0 text-[#1677FF]" />}
+            </button>
+          )) : (
+            <p className="px-3 py-4 text-sm text-[#171C22]/60">No matching options found.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function VehicleQuoteSearch() {
   const [records, setRecords] = useState<VehicleRecordOption[]>([]);
@@ -119,6 +272,12 @@ export default function VehicleQuoteSearch() {
       .filter((record) => record.make === make && record.model === model)
       .sort((a, b) => b.yearFrom - a.yearFrom)
   ), [make, model, records]);
+  const makeOptions = useMemo(() => makes.map((item) => ({ value: item, label: item })), [makes]);
+  const modelOptions = useMemo(() => models.map((item) => ({ value: item, label: item })), [models]);
+  const generationOptions = useMemo(() => generations.map((record) => ({
+    value: record.id,
+    label: generationLabel(record),
+  })), [generations]);
 
   const selectedRecord = records.find((record) => record.id === recordId) ?? null;
   const selectedOption = quoteResult?.options.find((option) => option.id === selectedOptionId) ?? null;
@@ -150,7 +309,7 @@ export default function VehicleQuoteSearch() {
       <div className="mb-4">
         <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#1677FF]">Spare car key pricing</p>
         <h2 className="text-xl font-bold text-white">Get an instant quote</h2>
-        <p className="mt-1 text-xs leading-relaxed text-white/55">Choose the make, model and vehicle generation.</p>
+        <p className="mt-1 text-xs leading-relaxed text-white/55">Type to search, or choose the make, model and vehicle generation from each list.</p>
       </div>
 
       {optionsLoading ? (
@@ -188,60 +347,46 @@ export default function VehicleQuoteSearch() {
           }}
           className="space-y-3"
         >
-          <label className="block text-xs font-semibold text-white/75">
-            1. Make
-            <select
-              value={make}
-              onChange={(event) => {
-                setMake(event.target.value);
+          <SearchableSelect
+            label="1. Make"
+            value={make}
+            options={makeOptions}
+            placeholder="Search or select make"
+            onChange={(nextMake) => {
+                setMake(nextMake);
                 setModel("");
                 setRecordId("");
                 setWorkingKey("");
                 resetResult();
-              }}
-              className={`mt-1.5 ${selectClass}`}
-            >
-              <option value="">Select make</option>
-              {makes.map((item) => <option key={item} value={item}>{item}</option>)}
-            </select>
-          </label>
+            }}
+          />
 
-          <label className="block text-xs font-semibold text-white/75">
-            2. Model
-            <select
-              value={model}
-              disabled={!make}
-              onChange={(event) => {
-                setModel(event.target.value);
+          <SearchableSelect
+            label="2. Model"
+            value={model}
+            options={modelOptions}
+            placeholder={make ? "Search or select model" : "Select a make first"}
+            disabled={!make}
+            onChange={(nextModel) => {
+                setModel(nextModel);
                 setRecordId("");
                 setWorkingKey("");
                 resetResult();
-              }}
-              className={`mt-1.5 ${selectClass}`}
-            >
-              <option value="">Select model</option>
-              {models.map((item) => <option key={item} value={item}>{item}</option>)}
-            </select>
-          </label>
+            }}
+          />
 
-          <label className="block text-xs font-semibold text-white/75">
-            3. Year and generation
-            <select
-              value={recordId}
-              disabled={!model}
-              onChange={(event) => {
-                setRecordId(event.target.value);
+          <SearchableSelect
+            label="3. Year and generation"
+            value={recordId}
+            options={generationOptions}
+            placeholder={model ? "Search or select year/generation" : "Select a model first"}
+            disabled={!model}
+            onChange={(nextRecordId) => {
+                setRecordId(nextRecordId);
                 setWorkingKey("");
                 resetResult();
-              }}
-              className={`mt-1.5 ${selectClass}`}
-            >
-              <option value="">Select year and generation</option>
-              {generations.map((record) => (
-                <option key={record.id} value={record.id}>{generationLabel(record)}</option>
-              ))}
-            </select>
-          </label>
+            }}
+          />
 
           <fieldset disabled={!recordId}>
             <legend className="mb-1.5 text-xs font-semibold text-white/75">Do you have a working key?</legend>
