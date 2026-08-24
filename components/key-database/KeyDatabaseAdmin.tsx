@@ -112,6 +112,9 @@ export default function KeyDatabaseAdmin({ adminName }: Props) {
 
   useEffect(() => {
     let active = true;
+    void fetch("/api/admin/session", { method: "POST" }).then((response) => {
+      if (response.status === 401) window.location.assign("/admin-login");
+    });
     fetch("/api/key-records", { cache: "no-store" })
       .then(async (response) => {
         if (!response.ok) throw new Error(await readApiError(response));

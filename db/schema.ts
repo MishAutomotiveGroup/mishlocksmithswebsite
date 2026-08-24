@@ -67,5 +67,26 @@ export const keyRecords = sqliteTable(
   ],
 );
 
+/**
+ * Durable, revocable admin browser sessions. The browser receives the random
+ * token while D1 stores only its SHA-256 digest, so a database leak does not
+ * expose usable login cookies.
+ */
+export const adminSessions = sqliteTable(
+  "admin_sessions",
+  {
+    tokenHash: text("token_hash").primaryKey(),
+    userId: text("user_id").notNull(),
+    adminEmail: text("admin_email").notNull(),
+    authUpdatedAt: text("auth_updated_at").notNull(),
+    createdAt: text("created_at").notNull(),
+    lastUsedAt: text("last_used_at").notNull(),
+  },
+  (table) => [
+    index("admin_sessions_user_idx").on(table.userId),
+    index("admin_sessions_email_idx").on(table.adminEmail),
+  ],
+);
+
 export type KeyRecord = typeof keyRecords.$inferSelect;
 export type NewKeyRecord = typeof keyRecords.$inferInsert;
