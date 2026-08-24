@@ -143,6 +143,10 @@ function normalise(value: string) {
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/\bmark\b/g, "mk")
+    .replace(/\bmk\s*iv\b/g, "mk4")
+    .replace(/\bmk\s*iii\b/g, "mk3")
+    .replace(/\bmk\s*ii\b/g, "mk2")
+    .replace(/\bmk\s*i\b/g, "mk1")
     .replace(/[^a-z0-9]+/g, "");
 }
 
@@ -155,7 +159,7 @@ function normaliseMake(value: string) {
 }
 
 function sameYearRange(record: KeyRecord, vehicle: VehicleCatalogueOption) {
-  return record.yearFrom === vehicle.yearFrom && (record.yearTo ?? null) === vehicle.yearTo;
+  return record.yearFrom === vehicle.yearFrom && (record.yearTo ?? 2026) === vehicle.yearTo;
 }
 
 function matchingKeyRecord(records: KeyRecord[], vehicle: VehicleCatalogueOption) {

@@ -7,7 +7,9 @@ The vehicle make, model and generation catalogue is adapted from
 2026 lifeofcapo, and is used under the MIT License.
 
 Changes: the source catalogue was filtered to common UK makes, UK-facing make
-aliases were added, and BMW Series model names were reordered for UK display.
+aliases were added, BMW Series model names were reordered for UK display,
+source-marked current ranges were closed at catalogue year 2026, and Ford Focus
+facelift ranges were independently corrected.
 
 ```text
 MIT License
