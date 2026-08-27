@@ -21,6 +21,7 @@ export type KeyRecordPayload = {
   yearFrom: number;
   yearTo: number | null;
   generation: string;
+  profileName: string;
   transponderClonable: YesNoUnknown;
   powerSupplyRequirement: PowerSupplyRequirement;
   aklCompatible: YesNoUnknown;
@@ -39,7 +40,8 @@ export type KeyRecordPayload = {
   universalKeySupplier: string;
   oemKeyInStock: YesNoUnknown;
   oemKeySupplier: string;
-  leadTime: string;
+  universalLeadTime: string;
+  aftermarketLeadTime: string;
   oemPricePence: number | null;
   universalPricePence: number | null;
   notes: string;
@@ -60,6 +62,7 @@ export const emptyKeyRecord: KeyRecordPayload = {
   yearFrom: new Date().getFullYear(),
   yearTo: null,
   generation: "",
+  profileName: "",
   transponderClonable: null,
   powerSupplyRequirement: null,
   aklCompatible: null,
@@ -78,7 +81,8 @@ export const emptyKeyRecord: KeyRecordPayload = {
   universalKeySupplier: "",
   oemKeyInStock: null,
   oemKeySupplier: "",
-  leadTime: "",
+  universalLeadTime: "",
+  aftermarketLeadTime: "",
   oemPricePence: null,
   universalPricePence: null,
   notes: "",

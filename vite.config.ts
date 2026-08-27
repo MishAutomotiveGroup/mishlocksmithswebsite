@@ -8,9 +8,6 @@ const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
 
 const { d1, r2 } = hostingConfig;
 
-// macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
-const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
-
 const localBindingConfig = {
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
@@ -47,9 +44,21 @@ export default defineConfig(async () => {
     server: {
       host: "0.0.0.0",
       allowedHosts: ["terminal.local"],
-      ...(isCodexSeatbeltSandbox
-        ? { watch: { useFsEvents: false, usePolling: true } }
-        : {}),
+      // Polling keeps hot reload reliable when this Windows folder is mounted
+      // into Docker. A one-second interval avoids unnecessary laptop load.
+      watch: {
+        useFsEvents: false,
+        usePolling: true,
+        interval: 1_000,
+        ignored: [
+          "**/node_modules/**",
+          "**/.git/**",
+          "**/.sites-runtime/**",
+          "**/.wrangler/**",
+          "**/.next/**",
+          "**/dist/**",
+        ],
+      },
     },
     plugins: [
       vinext(),

@@ -28,6 +28,7 @@ export function getLocalBusinessSchema() {
       "Mobile auto locksmith covering Guildford and Surrey, offering vehicle entry, car key programming, key cutting, and spare or replacement keys for supported vehicles.",
     url: seo.siteUrl,
     ...(telephone ? { telephone } : {}),
+    email: business.email,
     areaServed: business.coverageAreas.map((name) => ({ "@type": "Place", name })),
     address: {
       "@type": "PostalAddress",

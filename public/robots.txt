@@ -1,8 +1,10 @@
 User-agent: *
 Allow: /
 Disallow: /admin-login
+Disallow: /admin
 Disallow: /key-database
+Disallow: /quote-log
 Disallow: /api/admin/
 Disallow: /api/key-records/
 
-Sitemap: https://mish-car-keys.bigmishkah.chatgpt.site/sitemap.xml
+Sitemap: https://mishlocksmiths.co.uk/sitemap.xml

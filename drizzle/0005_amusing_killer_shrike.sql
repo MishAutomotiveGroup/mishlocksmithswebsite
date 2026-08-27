@@ -1,0 +1,1 @@
+ALTER TABLE `key_records` ADD `profile_name` text DEFAULT '' NOT NULL;

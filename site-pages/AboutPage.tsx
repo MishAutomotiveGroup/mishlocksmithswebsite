@@ -339,7 +339,7 @@ export default function AboutPage() {
               <img src="/images/job-lockout-top.png" alt="Technician carrying out a vehicle lockout" className="w-full h-full object-cover object-top" loading="lazy" />
             </div>
             <div className="aspect-[3/4] overflow-hidden rounded-lg">
-              <img src="/images/gallery-vehicle-side.png" alt="Mish Auto Locksmiths mobile service vehicle" className="w-full h-full object-cover object-center" loading="lazy" />
+              <img src="/images/job5.png" alt="Technician working on a vehicle door" className="w-full h-full object-cover object-top" loading="lazy" />
             </div>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 mb-6">

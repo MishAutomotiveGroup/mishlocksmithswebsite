@@ -15,6 +15,7 @@ export const keyRecords = sqliteTable(
     yearFrom: integer("year_from").notNull(),
     yearTo: integer("year_to"),
     generation: text("generation").notNull().default(""),
+    profileName: text("profile_name").notNull().default(""),
 
     carPhotoKey: text("car_photo_key"),
     oemKeyPhotoKey: text("oem_key_photo_key"),
@@ -48,7 +49,11 @@ export const keyRecords = sqliteTable(
     oemKeyInStock: integer("oem_key_in_stock", { mode: "boolean" }),
     oemKeySupplier: text("oem_key_supplier"),
 
+    // Kept for backwards compatibility with records created before lead times
+    // were split by remote type.
     leadTime: text("lead_time"),
+    universalLeadTime: text("universal_lead_time"),
+    aftermarketLeadTime: text("aftermarket_lead_time"),
     oemPricePence: integer("oem_price_pence"),
     universalPricePence: integer("universal_price_pence"),
     notes: text("notes"),

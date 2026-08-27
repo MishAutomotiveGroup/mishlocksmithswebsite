@@ -10,8 +10,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function KeyDatabasePage() {
+export default async function KeyDatabasePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ vehicle?: string }>;
+}) {
   const user = await getAdminSession();
   if (!user) redirect("/admin-login");
-  return <KeyDatabaseAdmin adminName={user.displayName} />;
+  const { vehicle = "" } = await searchParams;
+  return <KeyDatabaseAdmin adminName={user.displayName} initialVehicleId={vehicle} />;
 }

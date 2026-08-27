@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Phone, MessageCircle } from "lucide-react";
+import { Mail, Phone, MessageCircle } from "lucide-react";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
 
@@ -49,6 +49,14 @@ export default function SiteFooter() {
                 {siteContent.business.phone}
               </a>
             )}
+            <a
+              href={`mailto:${siteContent.business.email}`}
+              className="flex items-center gap-2 text-white/60 text-sm hover:text-white transition-colors mt-2 break-all"
+              data-testid="link-email-footer"
+            >
+              <Mail size={14} className="shrink-0" />
+              {siteContent.business.email}
+            </a>
             {siteContent.business.whatsappEnabled && siteContent.business.whatsappNumber && (
               <a
                 href={`https://wa.me/${siteContent.business.whatsappNumber.replace(/[^0-9]/g, "")}`}

@@ -9,7 +9,7 @@ type RouteContext = { params: Promise<{ id: string; slot: string }> };
 
 export async function GET(_request: Request, context: RouteContext) {
   const { id, slot } = await context.params;
-  if (slot !== "oem-key" && slot !== "universal-key") {
+  if (slot !== "oem-reference" && slot !== "oem-key" && slot !== "universal-key") {
     return new Response("Not found", { status: 404 });
   }
 
@@ -18,7 +18,11 @@ export async function GET(_request: Request, context: RouteContext) {
   });
   if (!record) return new Response("Not found", { status: 404 });
 
-  const key = slot === "oem-key" ? record.oemKeyPhotoKey : record.universalKeyPhotoKey;
+  const key = slot === "oem-reference"
+    ? record.carPhotoKey
+    : slot === "oem-key"
+      ? record.oemKeyPhotoKey
+      : record.universalKeyPhotoKey;
   if (!key) return new Response("Not found", { status: 404 });
 
   const object = await getBucket().get(key);

@@ -1,6 +1,6 @@
 import PageLayout from "@/components/layout/PageLayout";
 import { siteContent } from "@/content/siteContent";
-import { Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
 
 const hasPhone = siteContent.business.phone !== "PHONE_NUMBER_PLACEHOLDER";
@@ -60,6 +60,22 @@ export default function ContactPage() {
                 </p>
               </div>
             )}
+          </div>
+
+          {/* Email */}
+          <div data-testid="contact-email-block">
+            <h2 className="text-xl font-bold text-[#171C22] mb-3">Email Us</h2>
+            <a
+              href={`mailto:${siteContent.business.email}`}
+              className="inline-flex items-center gap-3 text-[#1677FF] font-semibold text-base hover:text-[#0D63DA] transition-colors break-all"
+              data-testid="link-email-contact"
+            >
+              <Mail size={20} className="shrink-0" />
+              {siteContent.business.email}
+            </a>
+            <p className="text-xs text-[#171C22]/50 mt-2">
+              For non-urgent enquiries. Please call for urgent vehicle lockouts.
+            </p>
           </div>
 
           {/* What to have ready */}

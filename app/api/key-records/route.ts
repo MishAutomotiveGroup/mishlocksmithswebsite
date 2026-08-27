@@ -50,6 +50,7 @@ export async function POST(request: Request) {
     const record = {
       id,
       ...payload,
+      leadTime: null,
       carPhotoKey,
       oemKeyPhotoKey,
       universalKeyPhotoKey,

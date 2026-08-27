@@ -29,6 +29,20 @@
       "when": 1787597231424,
       "tag": "0003_dry_mauler",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1787740257490,
+      "tag": "0004_thin_maestro",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1787751377746,
+      "tag": "0005_amusing_killer_shrike",
+      "breakpoints": true
     }
   ]
 }

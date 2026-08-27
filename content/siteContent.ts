@@ -6,6 +6,7 @@ export const siteContent = {
     phone: "0800 246 1851",
     phoneDisplay: "0800 246 1851",
     phoneE164: "+448002461851",
+    email: "info@mishlocksmiths.co.uk",
     whatsappEnabled: true,
     whatsappNumber: "447404349837",
     baseArea: "Guildford",
@@ -50,7 +51,7 @@ export const siteContent = {
     enabled: false,
   },
   seo: {
-    siteUrl: "https://mish-car-keys.bigmishkah.chatgpt.site",
+    siteUrl: "https://mishlocksmiths.co.uk",
   },
   legal: {
     privacyLastUpdated: "August 2026",

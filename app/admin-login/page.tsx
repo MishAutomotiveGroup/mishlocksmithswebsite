@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminLoginPage() {
-  if (await getAdminSession()) redirect("/key-database");
+  if (await getAdminSession()) redirect("/admin");
   return <AdminLoginForm />;
 }
 

@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { Check, ChevronDown, Clock3, Loader2, MessageCircle, PackageCheck, Phone, Search } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Check, Clock3, Loader2, MapPin, MessageCircle, Phone, ScanSearch } from "lucide-react";
 import { siteContent } from "@/content/siteContent";
 import { trackCallClick, trackWhatsAppClick } from "@/lib/analytics";
+import SearchableSelect from "@/components/vehicle-search/SearchableSelect";
 
 type VehicleRecordOption = {
   id: string;
@@ -16,7 +17,8 @@ type VehicleRecordOption = {
 
 type QuoteOption = {
   id: string;
-  keyType: "universal" | "oem";
+  keyType: "universal" | "aftermarket" | "estimated_range";
+  priceStatus: "confirmed" | "estimated";
   displayName: string;
   priceMinPence: number | null;
   priceMaxPence: number | null;
@@ -27,8 +29,15 @@ type QuoteOption = {
   imagePath: string | null;
 };
 
+type OemKeyChoice = {
+  id: string;
+  displayName: string;
+  imagePath: string | null;
+  options: QuoteOption[];
+};
+
 type QuoteResult = {
-  status: "matched" | "manual_check" | "not_supported" | "not_found";
+  status: "matched" | "estimated" | "manual_check" | "not_supported" | "not_found";
   quoteReference: string | null;
   serviceType: "spare_key" | "all_keys_lost";
   vehicle: {
@@ -40,7 +49,39 @@ type QuoteResult = {
     workingKeyRequired: boolean | null;
   };
   options: QuoteOption[];
+  keyChoices: OemKeyChoice[];
+  fallbackOption: QuoteOption | null;
 };
+
+type RegistrationVehicle = {
+  registration: string;
+  make: string;
+  model: string;
+  year: number | null;
+};
+
+function normaliseWords(value: string) {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function normaliseMake(value: string) {
+  const normalised = normaliseWords(value).replace(/\s+/g, "");
+  if (normalised === "opel" || normalised === "vauxhall") return "vauxhall";
+  if (normalised === "kgm" || normalised === "ssangyong") return "kgm";
+  if (normalised === "ds" || normalised === "dsautomobiles") return "ds";
+  return normalised;
+}
+
+function modelMatches(apiModel: string, catalogueModel: string) {
+  const api = normaliseWords(apiModel);
+  const catalogue = normaliseWords(catalogueModel);
+  return api === catalogue || api.startsWith(`${catalogue} `) || catalogue.startsWith(`${api} `);
+}
 
 function generationLabel(record: Pick<VehicleRecordOption, "yearFrom" | "yearTo" | "generation">) {
   const years = record.yearTo && record.yearTo !== record.yearFrom
@@ -58,185 +99,38 @@ function formatPrice(minPence: number | null, maxPence: number | null) {
   return `£${(min / 100).toFixed(min % 100 === 0 ? 0 : 2)}–£${(max / 100).toFixed(max % 100 === 0 ? 0 : 2)}`;
 }
 
-function formatMinutes(min: number | null, max: number | null) {
-  if (min === null && max === null) return "Time confirmed before booking";
-  if (min === max || max === null) return `About ${min} minutes`;
-  if (min === null) return `Up to ${max} minutes`;
-  return `${min}–${max} minutes`;
-}
-
 function formatStock(option: QuoteOption) {
+  const leadTime = option.leadTime === "Same Day Booking Available"
+    ? "Same Day"
+    : option.leadTime === "Next Business Day (before 3:30pm)"
+      || option.leadTime === "Next Business Day. Book Before 3pm. Excludes Bookings for Sunday."
+      ? "Next Business Day. Book before 3pm"
+      : option.leadTime === "Next Business Day (before 11am)"
+        ? "Next Business Day. Book before 11am"
+        : option.leadTime;
+  if (leadTime) return `Earliest booking: ${leadTime}`;
   if (option.stockStatus === "in_stock") return "Normally in stock";
-  if (option.stockStatus === "order_required") {
-    return option.leadTime ? `Order time: ${option.leadTime}` : "Stock order required";
-  }
-  return option.leadTime || "Availability checked before booking";
-}
-
-type SearchableSelectOption = {
-  value: string;
-  label: string;
-};
-
-function normaliseSearch(value: string) {
-  return value
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
-}
-
-function SearchableSelect({
-  label,
-  value,
-  options,
-  placeholder,
-  disabled = false,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  options: SearchableSelectOption[];
-  placeholder: string;
-  disabled?: boolean;
-  onChange: (value: string) => void;
-}) {
-  const inputId = useId();
-  const listboxId = `${inputId}-listbox`;
-  const rootRef = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const [highlightedIndex, setHighlightedIndex] = useState(0);
-  const selectedLabel = options.find((option) => option.value === value)?.label ?? "";
-
-  const filteredOptions = useMemo(() => {
-    const search = normaliseSearch(query);
-    if (!search) return options;
-    const terms = search.split(" ");
-    return options.filter((option) => {
-      const searchableLabel = normaliseSearch(option.label);
-      return terms.every((term) => searchableLabel.includes(term));
-    });
-  }, [options, query]);
-
-  useEffect(() => {
-    function closeOnOutsidePointer(event: PointerEvent) {
-      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
-    }
-
-    document.addEventListener("pointerdown", closeOnOutsidePointer);
-    return () => document.removeEventListener("pointerdown", closeOnOutsidePointer);
-  }, []);
-
-  function openList() {
-    if (disabled) return;
-    setQuery("");
-    setHighlightedIndex(0);
-    setOpen(true);
-  }
-
-  function chooseOption(option: SearchableSelectOption) {
-    onChange(option.value);
-    setQuery("");
-    setOpen(false);
-  }
-
-  return (
-    <div ref={rootRef} className="relative">
-      <label htmlFor={inputId} className="block text-xs font-semibold text-white/75">
-        {label}
-      </label>
-      <div className="relative mt-1.5">
-        <Search
-          size={17}
-          aria-hidden="true"
-          className={`pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 ${disabled ? "text-white/25" : "text-[#171C22]/45"}`}
-        />
-        <input
-          id={inputId}
-          type="text"
-          role="combobox"
-          autoComplete="off"
-          aria-autocomplete="list"
-          aria-expanded={open}
-          aria-controls={listboxId}
-          aria-activedescendant={open && filteredOptions[highlightedIndex] ? `${inputId}-option-${highlightedIndex}` : undefined}
-          value={open ? query : selectedLabel}
-          placeholder={placeholder}
-          disabled={disabled}
-          onFocus={openList}
-          onClick={() => {
-            if (!open) openList();
-          }}
-          onChange={(event) => {
-            setQuery(event.target.value);
-            setHighlightedIndex(0);
-            setOpen(true);
-          }}
-          onKeyDown={(event) => {
-            if (event.key === "ArrowDown") {
-              event.preventDefault();
-              if (!open) openList();
-              else setHighlightedIndex((index) => Math.min(index + 1, Math.max(filteredOptions.length - 1, 0)));
-            } else if (event.key === "ArrowUp") {
-              event.preventDefault();
-              setHighlightedIndex((index) => Math.max(index - 1, 0));
-            } else if (event.key === "Enter" && open && filteredOptions[highlightedIndex]) {
-              event.preventDefault();
-              chooseOption(filteredOptions[highlightedIndex]);
-            } else if (event.key === "Escape") {
-              setOpen(false);
-            }
-          }}
-          className="h-12 w-full rounded-lg border border-white/20 bg-white py-2 pl-10 pr-10 text-base font-semibold text-[#171C22] outline-none transition placeholder:text-[#171C22]/45 focus:border-[#1677FF] focus:ring-2 focus:ring-[#1677FF]/30 disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35 disabled:placeholder:text-white/30"
-        />
-        <ChevronDown
-          size={18}
-          aria-hidden="true"
-          className={`pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 transition ${disabled ? "text-white/25" : "text-[#171C22]/45"} ${open ? "rotate-180" : ""}`}
-        />
-      </div>
-
-      {open && (
-        <div
-          id={listboxId}
-          role="listbox"
-          className="absolute z-50 mt-1 max-h-64 w-full overflow-y-auto rounded-lg border border-[#171C22]/15 bg-white p-1 text-[#171C22] shadow-2xl"
-        >
-          {filteredOptions.length > 0 ? filteredOptions.map((option, index) => (
-            <button
-              id={`${inputId}-option-${index}`}
-              key={option.value}
-              type="button"
-              role="option"
-              aria-selected={option.value === value}
-              onPointerEnter={() => setHighlightedIndex(index)}
-              onPointerDown={(event) => event.preventDefault()}
-              onClick={() => chooseOption(option)}
-              className={`flex min-h-11 w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm font-semibold transition ${highlightedIndex === index ? "bg-[#EAF3FF] text-[#0D63DA]" : "hover:bg-[#F4F6F8]"}`}
-            >
-              <span>{option.label}</span>
-              {option.value === value && <Check size={16} aria-hidden="true" className="shrink-0 text-[#1677FF]" />}
-            </button>
-          )) : (
-            <p className="px-3 py-4 text-sm text-[#171C22]/60">No matching options found.</p>
-          )}
-        </div>
-      )}
-    </div>
-  );
+  if (option.stockStatus === "order_required") return "Stock order required";
+  return "Availability checked before booking";
 }
 
 export default function VehicleQuoteSearch() {
   const [records, setRecords] = useState<VehicleRecordOption[]>([]);
   const [optionsLoading, setOptionsLoading] = useState(true);
   const [optionsError, setOptionsError] = useState("");
+  const [searchMode, setSearchMode] = useState<"registration" | "manual">("registration");
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [recordId, setRecordId] = useState("");
+  const [registration, setRegistration] = useState("");
+  const [registrationLoading, setRegistrationLoading] = useState(false);
+  const [registrationError, setRegistrationError] = useState("");
+  const [registrationVehicle, setRegistrationVehicle] = useState<RegistrationVehicle | null>(null);
+  const [registrationConfirmed, setRegistrationConfirmed] = useState<boolean | null>(null);
+  const [registrationCandidateIds, setRegistrationCandidateIds] = useState<string[] | null>(null);
   const [workingKey, setWorkingKey] = useState<"" | "yes" | "no">("");
   const [quoteResult, setQuoteResult] = useState<QuoteResult | null>(null);
+  const [selectedKeyChoiceId, setSelectedKeyChoiceId] = useState<string | null>(null);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -272,16 +166,29 @@ export default function VehicleQuoteSearch() {
       .filter((record) => record.make === make && record.model === model)
       .sort((a, b) => b.yearFrom - a.yearFrom)
   ), [make, model, records]);
+  const visibleGenerations = useMemo(() => (
+    registrationCandidateIds
+      ? generations.filter((record) => registrationCandidateIds.includes(record.id))
+      : generations
+  ), [generations, registrationCandidateIds]);
   const makeOptions = useMemo(() => makes.map((item) => ({ value: item, label: item })), [makes]);
   const modelOptions = useMemo(() => models.map((item) => ({ value: item, label: item })), [models]);
-  const generationOptions = useMemo(() => generations.map((record) => ({
+  const generationOptions = useMemo(() => visibleGenerations.map((record) => ({
     value: record.id,
     label: generationLabel(record),
-  })), [generations]);
+  })), [visibleGenerations]);
 
   const selectedRecord = records.find((record) => record.id === recordId) ?? null;
-  const selectedOption = quoteResult?.options.find((option) => option.id === selectedOptionId) ?? null;
-  const canSubmit = Boolean(selectedRecord) && workingKey !== "";
+  const selectedKeyChoice = quoteResult?.keyChoices.find((choice) => choice.id === selectedKeyChoiceId) ?? null;
+  const customerNeedsManualKeyCheck = selectedKeyChoiceId === "none";
+  const activeOptions = customerNeedsManualKeyCheck
+    ? quoteResult?.fallbackOption ? [quoteResult.fallbackOption] : []
+    : selectedKeyChoice?.options ?? quoteResult?.options ?? [];
+  const selectedOption = activeOptions.find((option) => option.id === selectedOptionId) ?? null;
+  const hasPricedOptions = Boolean(quoteResult && (quoteResult.status === "matched" || quoteResult.status === "estimated") && activeOptions.length > 0);
+  const allPricesConfirmed = Boolean(activeOptions.length && activeOptions.every((option) => option.priceStatus === "confirmed"));
+  const showWorkingKeyQuestion = Boolean(selectedRecord)
+    && (searchMode === "manual" || registrationConfirmed === true);
 
   const vehicleMessage = [
     workingKey === "no"
@@ -293,15 +200,119 @@ export default function VehicleQuoteSearch() {
     "",
     `Working key: ${workingKey === "yes" ? "Yes" : workingKey === "no" ? "No" : "Not answered"}`,
     ...(quoteResult?.quoteReference ? [`Quote reference: ${quoteResult.quoteReference}`] : []),
-    ...(selectedOption ? [`Selected key: ${selectedOption.displayName} (${selectedOption.keyType === "oem" ? "OEM" : "Universal"})`] : []),
+    ...(selectedKeyChoice ? [`Original key selected: ${selectedKeyChoice.displayName}`] : []),
+    ...(customerNeedsManualKeyCheck ? ["Original key: Did not match the pictured options"] : []),
+    ...(selectedOption ? [`Selected key: ${selectedOption.displayName} (${selectedOption.keyType === "aftermarket" ? "Aftermarket" : selectedOption.keyType === "universal" ? "Universal" : "Estimated range"})`] : []),
     "Postcode / area:",
   ].join("\n");
   const whatsappUrl = `https://wa.me/${siteContent.business.whatsappNumber}?text=${encodeURIComponent(vehicleMessage)}`;
 
   function resetResult() {
     setQuoteResult(null);
+    setSelectedKeyChoiceId(null);
     setSelectedOptionId(null);
     setError("");
+  }
+
+  function switchToManualSearch() {
+    if (searchMode === "manual") return;
+    setSearchMode("manual");
+    setRegistrationVehicle(null);
+    setRegistrationConfirmed(null);
+    setRegistrationCandidateIds(null);
+    resetResult();
+  }
+
+  function switchToRegistrationSearch() {
+    if (searchMode === "registration") return;
+    setSearchMode("registration");
+    setMake("");
+    setModel("");
+    setRecordId("");
+    setWorkingKey("");
+    setRegistrationVehicle(null);
+    setRegistrationConfirmed(null);
+    setRegistrationCandidateIds(null);
+    resetResult();
+  }
+
+  async function checkKeyOptions(answer: "yes" | "no") {
+    if (!recordId || loading) return;
+    setWorkingKey(answer);
+    setLoading(true);
+    resetResult();
+    try {
+      const response = await fetch("/api/vehicle-quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recordId, hasWorkingKey: answer === "yes" }),
+      });
+      const result = await response.json() as QuoteResult & { error?: string };
+      if (!response.ok) throw new Error(result.error || "Quote lookup failed");
+      setQuoteResult(result);
+      setSelectedKeyChoiceId(null);
+      setSelectedOptionId(result.status === "estimated" && result.options.length === 1 ? result.options[0].id : null);
+    } catch (lookupError) {
+      setError(lookupError instanceof Error ? lookupError.message : "We couldn't check this vehicle right now.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function lookupRegistration() {
+    const cleanedRegistration = registration.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (cleanedRegistration.length < 2 || registrationLoading) {
+      setRegistrationError("Enter a valid registration number.");
+      return;
+    }
+
+    setRegistrationLoading(true);
+    setRegistrationError("");
+    setRegistrationVehicle(null);
+    setRegistrationConfirmed(null);
+    setRegistrationCandidateIds(null);
+    setMake("");
+    setModel("");
+    setRecordId("");
+    setWorkingKey("");
+    resetResult();
+    try {
+      const response = await fetch("/api/vehicle-registration", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ registration: cleanedRegistration }),
+      });
+      const body = await response.json() as { vehicle?: RegistrationVehicle; error?: string };
+      if (!response.ok || !body.vehicle) throw new Error(body.error || "Registration search failed.");
+
+      const vehicle = body.vehicle;
+      setRegistration(vehicle.registration);
+      setRegistrationVehicle(vehicle);
+      setRegistrationConfirmed(null);
+      setWorkingKey("");
+
+      const matchedMake = makes.find((item) => normaliseMake(item) === normaliseMake(vehicle.make)) ?? "";
+      const matchedModels = matchedMake
+        ? [...new Set(records.filter((record) => record.make === matchedMake).map((record) => record.model))]
+        : [];
+      const matchedModel = matchedModels.find((item) => modelMatches(vehicle.model, item)) ?? "";
+      const candidates = matchedMake && matchedModel
+        ? records.filter((record) => (
+            record.make === matchedMake
+            && record.model === matchedModel
+            && (vehicle.year === null || (record.yearFrom <= vehicle.year && (record.yearTo ?? new Date().getFullYear() + 1) >= vehicle.year))
+          ))
+        : [];
+
+      setMake(matchedMake);
+      setModel(matchedModel);
+      setRegistrationCandidateIds(candidates.length > 0 ? candidates.map((record) => record.id) : null);
+      setRecordId(candidates.length === 1 ? candidates[0].id : "");
+    } catch (lookupError) {
+      setRegistrationError(lookupError instanceof Error ? lookupError.message : "We couldn't check that registration right now.");
+    } finally {
+      setRegistrationLoading(false);
+    }
   }
 
   return (
@@ -309,7 +320,7 @@ export default function VehicleQuoteSearch() {
       <div className="mb-4">
         <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#1677FF]">Spare car key pricing</p>
         <h2 className="text-xl font-bold text-white">Get an instant quote</h2>
-        <p className="mt-1 text-xs leading-relaxed text-white/55">Type to search, or choose the make, model and vehicle generation from each list.</p>
+        <p className="mt-1 text-xs leading-relaxed text-white/55">Find your vehicle, confirm it, then answer one question to see the available keys.</p>
       </div>
 
       {optionsLoading ? (
@@ -323,36 +334,134 @@ export default function VehicleQuoteSearch() {
           Vehicle choices are temporarily unavailable. Please call or WhatsApp us for a quote.
         </div>
       ) : (
-        <form
-          onSubmit={async (event) => {
-            event.preventDefault();
-            if (!canSubmit || loading) return;
-            setLoading(true);
-            resetResult();
-            try {
-              const response = await fetch("/api/vehicle-quote", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ recordId, hasWorkingKey: workingKey === "yes" }),
-              });
-              const result = await response.json() as QuoteResult & { error?: string };
-              if (!response.ok) throw new Error(result.error || "Quote lookup failed");
-              setQuoteResult(result);
-              setSelectedOptionId(result.status === "matched" && result.options.length === 1 ? result.options[0].id : null);
-            } catch (lookupError) {
-              setError(lookupError instanceof Error ? lookupError.message : "We couldn't check this vehicle right now.");
-            } finally {
-              setLoading(false);
-            }
-          }}
-          className="space-y-3"
-        >
+        <form onSubmit={(event) => event.preventDefault()} className="space-y-3">
+          <div className="grid grid-cols-2 rounded-lg border border-white/15 bg-white/5 p-1">
+            <button
+              type="button"
+              aria-pressed={searchMode === "registration"}
+              onClick={switchToRegistrationSearch}
+              className={`min-h-10 rounded-md px-3 text-xs font-bold transition ${searchMode === "registration" ? "bg-white text-[#171C22] shadow-sm" : "text-white/65 hover:text-white"}`}
+            >
+              Registration
+            </button>
+            <button
+              type="button"
+              aria-pressed={searchMode === "manual"}
+              onClick={switchToManualSearch}
+              className={`min-h-10 rounded-md px-3 text-xs font-bold transition ${searchMode === "manual" ? "bg-white text-[#171C22] shadow-sm" : "text-white/65 hover:text-white"}`}
+            >
+              Make and model
+            </button>
+          </div>
+
+          {searchMode === "registration" ? <div className="rounded-lg border border-white/15 bg-white/5 p-3.5">
+            <label htmlFor="vehicle-registration" className="block text-xs font-semibold text-white/75">Search by registration</label>
+            <div className="mt-1.5 flex gap-2">
+              <input
+                id="vehicle-registration"
+                value={registration}
+                onChange={(event) => {
+                  setRegistration(event.target.value.toUpperCase().replace(/[^A-Z0-9 ]/g, "").slice(0, 9));
+                  setRegistrationError("");
+                  setRegistrationVehicle(null);
+                  setRegistrationConfirmed(null);
+                  setRegistrationCandidateIds(null);
+                  setMake("");
+                  setModel("");
+                  setRecordId("");
+                  setWorkingKey("");
+                  resetResult();
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    void lookupRegistration();
+                  }
+                }}
+                inputMode="text"
+                autoComplete="off"
+                spellCheck={false}
+                placeholder="e.g. AB12 CDE"
+                className="h-12 min-w-0 flex-1 rounded-lg border border-white/20 bg-white px-4 text-center text-base font-black uppercase tracking-[0.12em] text-[#171C22] outline-none transition placeholder:font-semibold placeholder:tracking-normal placeholder:text-[#171C22]/40 focus:border-[#1677FF] focus:ring-2 focus:ring-[#1677FF]/30"
+              />
+              <button
+                type="button"
+                onClick={() => void lookupRegistration()}
+                disabled={registrationLoading || registration.trim().length < 2}
+                className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#1677FF] px-4 text-sm font-bold text-[#171C22] transition hover:bg-[#0D63DA] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/30"
+              >
+                {registrationLoading ? <Loader2 size={17} className="animate-spin" /> : <ScanSearch size={17} />}
+                <span className="hidden sm:inline">Find vehicle</span>
+                <span className="sm:hidden">Find</span>
+              </button>
+            </div>
+            <p className="mt-2 text-[11px] leading-5 text-white/50">Fastest option. We use the registration only to identify your vehicle.</p>
+
+            {registrationError ? <div className="mt-3 rounded-lg border border-amber-300/40 bg-amber-50 p-3 text-xs font-medium text-[#171C22]" role="alert">{registrationError}</div> : null}
+            {registrationVehicle ? (
+              <div className="mt-3 rounded-lg border border-emerald-300/35 bg-emerald-50 p-3 text-[#171C22]" role="status">
+                <p className="text-xs font-bold text-emerald-700">Vehicle found</p>
+                <p className="mt-1 text-sm font-extrabold">{registrationVehicle.make} {registrationVehicle.model}{registrationVehicle.year ? ` · ${registrationVehicle.year}` : ""}</p>
+                {registrationConfirmed === null ? <>
+                  <p className="mt-2 text-xs font-bold text-[#171C22]/75">Is this your vehicle?</p>
+                  <div className="mt-2 grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setRegistrationConfirmed(true);
+                        setWorkingKey("");
+                        resetResult();
+                      }}
+                      className="min-h-10 rounded-lg bg-emerald-600 px-3 text-xs font-bold text-white transition hover:bg-emerald-700"
+                    >
+                      Yes, correct
+                    </button>
+                    <button
+                      type="button"
+                      onClick={switchToManualSearch}
+                      className="min-h-10 rounded-lg border border-[#171C22]/20 bg-white px-3 text-xs font-bold text-[#171C22] transition hover:bg-slate-50"
+                    >
+                      No, choose manually
+                    </button>
+                  </div>
+                </> : <p className="mt-2 flex items-center gap-1.5 text-xs font-bold text-emerald-700"><Check size={14} /> Vehicle confirmed</p>}
+
+                {registrationConfirmed && registrationCandidateIds && registrationCandidateIds.length > 1 ? (
+                  <div className="mt-3 border-t border-emerald-200 pt-3">
+                    <SearchableSelect
+                      label="Choose the exact year and generation"
+                      value={recordId}
+                      options={generationOptions}
+                      placeholder="Select year and generation"
+                      variant="light"
+                      onChange={(nextRecordId) => {
+                        setRecordId(nextRecordId);
+                        setWorkingKey("");
+                        resetResult();
+                      }}
+                    />
+                  </div>
+                ) : null}
+
+                {registrationConfirmed && !registrationCandidateIds ? (
+                  <div className="mt-3 border-t border-emerald-200 pt-3">
+                    <p className="text-xs leading-5 text-[#171C22]/70">We found the vehicle, but could not safely match its exact generation.</p>
+                    <button type="button" onClick={switchToManualSearch} className="mt-2 text-xs font-bold text-[#1677FF] hover:underline">Choose the vehicle manually</button>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+          </div> : null}
+
+          {searchMode === "manual" ? <>
           <SearchableSelect
             label="1. Make"
             value={make}
             options={makeOptions}
             placeholder="Search or select make"
-            onChange={(nextMake) => {
+              onChange={(nextMake) => {
+                setRegistrationVehicle(null);
+                setRegistrationCandidateIds(null);
                 setMake(nextMake);
                 setModel("");
                 setRecordId("");
@@ -367,7 +476,9 @@ export default function VehicleQuoteSearch() {
             options={modelOptions}
             placeholder={make ? "Search or select model" : "Select a make first"}
             disabled={!make}
-            onChange={(nextModel) => {
+              onChange={(nextModel) => {
+                setRegistrationVehicle(null);
+                setRegistrationCandidateIds(null);
                 setModel(nextModel);
                 setRecordId("");
                 setWorkingKey("");
@@ -387,30 +498,26 @@ export default function VehicleQuoteSearch() {
                 resetResult();
             }}
           />
+          </> : null}
 
-          <fieldset disabled={!recordId}>
+          {showWorkingKeyQuestion ? <fieldset disabled={loading}>
             <legend className="mb-1.5 text-xs font-semibold text-white/75">Do you have a working key?</legend>
             <div className="grid grid-cols-2 gap-2">
               {(["yes", "no"] as const).map((answer) => (
                 <button
                   key={answer}
                   type="button"
-                  onClick={() => { setWorkingKey(answer); resetResult(); }}
+                  disabled={loading}
+                  onClick={() => void checkKeyOptions(answer)}
                   className={`min-h-12 rounded-lg border px-4 py-3 text-sm font-bold transition disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/5 disabled:text-white/25 ${workingKey === answer ? "border-[#1677FF] bg-[#1677FF] text-[#171C22]" : "border-white/20 bg-white/5 text-white hover:border-white/45"}`}
                 >
                   {answer === "yes" ? "Yes" : "No"}
                 </button>
               ))}
             </div>
-          </fieldset>
+          </fieldset> : null}
 
-          <button
-            type="submit"
-            disabled={!canSubmit || loading}
-            className="flex min-h-12 w-full items-center justify-center rounded-lg bg-[#1677FF] px-5 py-3 text-sm font-bold text-[#171C22] transition hover:bg-[#0D63DA] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/30"
-          >
-            {loading ? <><Loader2 size={17} className="mr-2 animate-spin" /> Checking your vehicle…</> : "Check key options"}
-          </button>
+          {loading ? <div className="flex min-h-12 items-center justify-center rounded-lg border border-[#1677FF]/35 bg-[#1677FF]/10 text-sm font-bold text-white"><Loader2 size={17} className="mr-2 animate-spin text-[#1677FF]" /> Finding available keys…</div> : null}
         </form>
       )}
 
@@ -421,26 +528,80 @@ export default function VehicleQuoteSearch() {
       {quoteResult && (
         <div className="mt-4 rounded-lg border border-[#1677FF]/35 bg-[#EAF3FF] p-4 text-[#171C22]" role="status">
           <p className="text-xs font-bold uppercase tracking-wider text-[#1677FF]">
-            {quoteResult.status === "matched" ? "Instant quote" : "Vehicle check"}
+            {quoteResult.status === "matched" && selectedKeyChoiceId === null ? "OEM key check" : quoteResult.status === "estimated" || customerNeedsManualKeyCheck ? "Vehicle estimate" : hasPricedOptions ? "Key options found" : "Vehicle found"}
           </p>
           <p className="mt-1 font-bold">
             {quoteResult.vehicle.make} {quoteResult.vehicle.model} — {generationLabel(quoteResult.vehicle)}
           </p>
-
-          {quoteResult.quoteReference ? (
-            <div className="my-4 rounded-xl border-2 border-[#1677FF] bg-[#171C22] px-4 py-4 text-center text-white shadow-lg">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#1677FF]">Your quote reference</p>
-              <p className="mt-1 text-3xl font-black tracking-tight sm:text-4xl">{quoteResult.quoteReference}</p>
-              <p className="mt-2 text-sm font-semibold text-white">Use this reference number for your phone call.</p>
-            </div>
+          {quoteResult.status === "matched" && selectedKeyChoiceId !== null ? (
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedKeyChoiceId(null);
+                setSelectedOptionId(null);
+              }}
+              className="mt-2 text-xs font-bold text-[#1677FF] hover:underline"
+            >
+              ← Choose a different OEM key
+            </button>
           ) : null}
 
-          {quoteResult.status === "matched" ? (
+          {quoteResult.status === "matched" && selectedKeyChoiceId === null ? (
+            <div className="mt-4 space-y-3">
+              <p className="text-base font-extrabold text-[#171C22]">Choose the closest visual match to your key.</p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {quoteResult.keyChoices.map((choice) => (
+                  <button
+                    key={choice.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedKeyChoiceId(choice.id);
+                      setSelectedOptionId(choice.options.length === 1 ? choice.options[0].id : null);
+                    }}
+                    className="overflow-hidden rounded-lg border border-[#171C22]/15 bg-white text-left transition hover:border-[#1677FF] hover:ring-2 hover:ring-[#1677FF]/20"
+                  >
+                    {choice.imagePath ? (
+                      <img src={choice.imagePath} alt={choice.displayName} className="h-40 w-full bg-white object-contain p-3" loading="lazy" />
+                    ) : (
+                      <div className="flex h-32 items-center justify-center bg-[#F4F6F8] px-4 text-center text-xs font-medium text-[#171C22]/45">OEM key photograph being added</div>
+                    )}
+                    <div className="flex items-center justify-between gap-3 bg-[#F1F3F5] p-3">
+                      <span className="text-sm font-bold text-[#171C22]">{choice.displayName}</span>
+                      <span className="text-xs font-bold text-[#1677FF]">This one</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedKeyChoiceId("none");
+                  setSelectedOptionId(quoteResult.fallbackOption?.id ?? null);
+                }}
+                className="w-full rounded-lg border border-[#171C22]/20 bg-white px-4 py-3 text-sm font-bold text-[#171C22] transition hover:border-[#1677FF] hover:bg-blue-50"
+              >
+                My key doesn’t look like any of these / unsure
+              </button>
+            </div>
+          ) : hasPricedOptions && (quoteResult.status === "estimated" || customerNeedsManualKeyCheck) ? (
+            <div className="mt-4 rounded-xl border border-[#1677FF]/30 bg-white p-4 text-center shadow-sm">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#1677FF]">Estimated price</p>
+              <p className="mt-1 text-3xl font-black tracking-tight text-[#171C22]">
+                {formatPrice(activeOptions[0].priceMinPence, activeOptions[0].priceMaxPence)}
+              </p>
+              <p className="mt-4 text-base font-extrabold text-[#171C22]">Quick key check needed</p>
+              <p className="mx-auto mt-1 max-w-sm text-sm leading-6 text-[#171C22]/70">
+                {customerNeedsManualKeyCheck
+                  ? "Your key did not match the pictured options. Call and we’ll confirm the correct key type before booking."
+                  : "Call to confirm the key type required for your vehicle."}
+              </p>
+            </div>
+          ) : hasPricedOptions ? (
             <div className="mt-3 space-y-3">
               <p className="text-xs font-semibold text-[#171C22]/75">
-                {quoteResult.options.length > 1 ? "Select the key that looks like yours." : "This is the matching key option for your vehicle."}
+                {activeOptions.length > 1 ? "Choose the key you prefer." : "This is the matching key option for your vehicle."}
               </p>
-              {quoteResult.options.map((option) => {
+              {activeOptions.map((option) => {
                 const selected = selectedOptionId === option.id;
                 return (
                   <button
@@ -451,54 +612,66 @@ export default function VehicleQuoteSearch() {
                     className={`w-full overflow-hidden rounded-lg border bg-white text-left transition ${selected ? "border-[#1677FF] ring-2 ring-[#1677FF]/25" : "border-[#171C22]/15 hover:border-[#1677FF]/55"}`}
                   >
                     {option.imagePath ? (
-                      <img src={option.imagePath} alt={`${option.displayName} car key`} className="h-40 w-full bg-[#F4F6F8] object-contain p-3" loading="lazy" />
-                    ) : (
+                      <img src={option.imagePath} alt={`${option.displayName} car key`} className="h-40 w-full bg-white object-contain p-3" loading="lazy" />
+                    ) : option.priceStatus === "confirmed" ? (
                       <div className="flex h-28 items-center justify-center bg-[#F4F6F8] px-4 text-center text-xs font-medium text-[#171C22]/45">Key photograph being added</div>
-                    )}
-                    <div className="p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#1677FF]">{option.keyType === "oem" ? "OEM key" : "Universal key"}</span>
-                          <h3 className="font-bold text-[#171C22]">{option.displayName}</h3>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <p className="shrink-0 text-xl font-bold text-[#171C22]">{formatPrice(option.priceMinPence, option.priceMaxPence)}</p>
-                          <span className={`mt-1 flex h-5 w-5 items-center justify-center rounded-full border ${selected ? "border-[#1677FF] bg-[#1677FF] text-white" : "border-[#171C22]/25"}`}>
-                            {selected && <Check size={13} />}
-                          </span>
-                        </div>
+                    ) : null}
+                    <div className="bg-[#F1F3F5] p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="whitespace-nowrap font-bold text-[#171C22]">
+                          {option.keyType === "aftermarket" ? "Aftermarket key" : "Universal key"}
+                        </h3>
+                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${selected ? "border-[#1677FF] bg-[#1677FF] text-white" : "border-[#171C22]/25"}`}>
+                          {selected && <Check size={13} />}
+                        </span>
+                      </div>
+                      <div className="mt-3 flex items-center justify-between gap-3">
+                        <p className="shrink-0 text-xl font-bold text-[#171C22]">{formatPrice(option.priceMinPence, option.priceMaxPence)}</p>
+                        <p className="max-w-[12rem] text-right text-[10px] font-semibold leading-4 text-[#171C22]/70">
+                          (price includes cutting and programming at your location)
+                        </p>
                       </div>
                       <div className="mt-3 grid gap-2 text-xs text-[#171C22]/65">
-                        <span className="flex items-center gap-2"><Clock3 size={14} className="text-[#1677FF]" /> {formatMinutes(option.jobMinutesMin, option.jobMinutesMax)}</span>
-                        <span className="flex items-center gap-2"><PackageCheck size={14} className="text-[#1677FF]" /> {formatStock(option)}</span>
+                        <span className="flex items-center gap-2"><Clock3 size={14} className="text-[#1677FF]" /> {formatStock(option)}</span>
+                        <span className="flex items-center gap-2"><MapPin size={14} className="text-[#1677FF]" /> All inclusive price - mobile service</span>
                       </div>
                     </div>
                   </button>
                 );
               })}
-              {quoteResult.options.length > 0 && !selectedOption && (
+              {activeOptions.length > 0 && !selectedOption && (
                 <p className="text-center text-xs font-medium text-[#171C22]/60">Choose a key above to continue with that option.</p>
               )}
             </div>
+          ) : quoteResult.status === "not_supported" ? (
+            <div className="mt-4 rounded-xl border border-[#171C22]/15 bg-white p-4 text-center">
+              <p className="text-base font-extrabold text-[#171C22]">This service isn’t currently confirmed for your vehicle</p>
+              <p className="mx-auto mt-1 max-w-sm text-sm leading-6 text-[#171C22]/70">
+                Call with reference <strong className="text-[#171C22]">{quoteResult.quoteReference}</strong> and we’ll check whether another key option is available.
+              </p>
+            </div>
           ) : (
-            <p className={`mt-3 leading-relaxed ${quoteResult.status === "not_found" ? "text-base font-semibold text-[#171C22]" : "text-xs text-[#171C22]/65"}`}>
-              {quoteResult.status === "not_supported"
-                ? workingKey === "no"
-                  ? "We cannot currently offer an all-keys-lost replacement for this vehicle."
-                  : "We cannot currently offer a spare key for this vehicle."
-                : quoteResult.status === "not_found"
-                  ? "This vehicle is not currently included in our key database. Call us with the reference above and we’ll check it manually."
-                  : "This vehicle needs a manual compatibility or stock check before we can confirm a price."}
-            </p>
+            <div className="mt-4 rounded-xl border border-[#1677FF]/30 bg-white p-4 text-center">
+              <p className="text-base font-extrabold text-[#171C22]">Quick key check needed</p>
+              <p className="mx-auto mt-1 max-w-sm text-sm leading-6 text-[#171C22]/70">
+                Call with reference <strong className="text-[#171C22]">{quoteResult.quoteReference}</strong> and we’ll confirm the available key and price.
+              </p>
+            </div>
           )}
 
-          <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {hasPricedOptions && quoteResult.quoteReference ? (
+            <p className="mt-3 text-center text-sm font-semibold text-[#171C22]/65">
+              Quote reference <strong className="ml-1 text-lg font-extrabold text-[#171C22]">{quoteResult.quoteReference}</strong>
+            </p>
+          ) : null}
+
+          {(quoteResult.status !== "matched" || selectedKeyChoiceId !== null) ? <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
             <a
               href={`tel:${siteContent.business.phoneE164}`}
               onClick={() => trackCallClick("vehicle-search-result")}
               className="flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#1677FF] px-3 py-2.5 text-sm font-bold text-[#171C22] hover:bg-[#0D63DA]"
             >
-              <Phone size={16} /> Call now
+              <Phone size={16} /> {allPricesConfirmed ? "Call to book" : hasPricedOptions ? "Call to confirm & book" : "Call us"}
             </a>
             <a
               href={whatsappUrl}
@@ -509,7 +682,7 @@ export default function VehicleQuoteSearch() {
             >
               <MessageCircle size={16} /> WhatsApp
             </a>
-          </div>
+          </div> : null}
         </div>
       )}
     </div>

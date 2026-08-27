@@ -88,7 +88,7 @@ export default function AdminLoginForm() {
         const body = (await response.json()) as { error?: string };
         throw new Error(body.error ?? "Unable to verify the authenticator code.");
       }
-      window.location.assign("/key-database");
+      window.location.assign("/admin");
     } catch (mfaError) {
       setError(mfaError instanceof Error ? mfaError.message : "Unable to verify the authenticator code.");
     } finally {

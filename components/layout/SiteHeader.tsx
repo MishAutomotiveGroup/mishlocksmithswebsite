@@ -28,8 +28,13 @@ export default function SiteHeader() {
   useEffect(() => {
     if (!menuOpen) return;
     function onScroll() { setMenuOpen(false); }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const listenerDelay = window.setTimeout(() => {
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }, 250);
+    return () => {
+      window.clearTimeout(listenerDelay);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [menuOpen]);
 
   function handleHashLink(e: React.MouseEvent, href: string) {
@@ -101,7 +106,7 @@ export default function SiteHeader() {
           {/* Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex items-center justify-center w-11 h-11 rounded-lg text-white/60 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
+            className="flex items-center justify-center w-11 h-11 rounded-lg border border-[#1677FF] text-white/60 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             data-testid="button-menu-toggle"
@@ -137,6 +142,7 @@ export default function SiteHeader() {
                 </Link>
               )
             )}
+
           </nav>
         </div>
       )}

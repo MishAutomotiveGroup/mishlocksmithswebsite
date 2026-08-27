@@ -130,12 +130,12 @@ export default function SpareCarKeyPage() {
               </div>
             </div>
 
-            {/* Pricing card */}
+            {/* Trust card */}
             <div className="bg-[#171C22]/90 border border-white/10 rounded-xl px-4 py-3 backdrop-blur-sm mb-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#1677FF] mb-1">Typical Spare Car Key Cost</p>
-              <p className="text-4xl font-bold text-white mb-1">£160–£220</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#1677FF] mb-1">No Surprise Charges</p>
+              <p className="text-2xl font-bold text-white mb-1">Price agreed before we travel</p>
               <p className="text-[10px] text-white/35 leading-relaxed">
-                Exact price confirmed before booking. Some vehicles may cost up to £300 depending on key type and programming requirements.
+                We confirm the correct key and total price before you book. No call-out fees.
               </p>
             </div>
 

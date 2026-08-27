@@ -38,6 +38,7 @@ export function recordToView(record: KeyRecord): KeyRecordView {
     yearFrom: record.yearFrom,
     yearTo: record.yearTo,
     generation: record.generation,
+    profileName: record.profileName,
     transponderClonable: record.transponderClonable,
     powerSupplyRequirement:
       record.powerSupplyRequirement as KeyRecordView["powerSupplyRequirement"],
@@ -57,7 +58,8 @@ export function recordToView(record: KeyRecord): KeyRecordView {
     universalKeySupplier: record.universalKeySupplier ?? "",
     oemKeyInStock: record.oemKeyInStock,
     oemKeySupplier: record.oemKeySupplier ?? "",
-    leadTime: record.leadTime ?? "",
+    universalLeadTime: record.universalLeadTime ?? record.leadTime ?? "",
+    aftermarketLeadTime: record.aftermarketLeadTime ?? record.leadTime ?? "",
     oemPricePence: record.oemPricePence,
     universalPricePence: record.universalPricePence,
     notes: record.notes ?? "",
