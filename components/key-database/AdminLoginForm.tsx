@@ -166,7 +166,9 @@ export default function AdminLoginForm() {
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#171C22] p-5">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(22,119,255,0.22),transparent_38%),radial-gradient(circle_at_bottom_left,rgba(22,119,255,0.1),transparent_34%)]" />
       <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-white p-7 shadow-2xl sm:p-9">
-        <img src="/logo-on-light.svg" alt="Mish Auto Locksmiths" className="h-9 w-auto" />
+        <div className="w-fit rounded-xl bg-[#171C22] px-3 py-2">
+          <img src="/logo-on-dark.svg" alt="Mish Auto Locksmiths" className="h-9 w-auto" />
+        </div>
         <div className="mt-9 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-[#1677FF]">
           {isMfa ? <ShieldCheck className="h-6 w-6" /> : <LockKeyhole className="h-6 w-6" />}
         </div>
